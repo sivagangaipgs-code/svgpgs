@@ -24,9 +24,28 @@ function getSpreadsheet_() {
     );
   }
 }
-
 function doGet(e) {
 
+  const action =
+    (e && e.parameter && e.parameter.action)
+      ? e.parameter.action
+      : "";
+
+  // API for Netlify website
+  if (action === "data") {
+
+    const data = getPortalData();
+
+    return ContentService
+      .createTextOutput(
+        JSON.stringify(data)
+      )
+      .setMimeType(
+        ContentService.MimeType.JSON
+      );
+  }
+
+  // Normal Apps Script website
   const page =
     (e && e.parameter && e.parameter.page)
       ? e.parameter.page
@@ -34,7 +53,9 @@ function doGet(e) {
 
   return HtmlService
     .createHtmlOutputFromFile(page)
-    .setTitle("SVG PG Teachers' Resource Portal")
+    .setTitle(
+      "SVG PG Teachers' Resource Portal"
+    )
     .setXFrameOptionsMode(
       HtmlService.XFrameOptionsMode.ALLOWALL
     );
