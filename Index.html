@@ -1,0 +1,2599 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <base target="_top">
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <title>Sivagangai PG Teachers' Resource Portal</title>
+
+  <style>
+
+    /* =====================================================
+       ROOT
+       ===================================================== */
+
+    :root {
+      --primary: #173f7a;
+      --primary-dark: #102e5c;
+      --secondary: #245ba8;
+      --accent: #0b7a68;
+
+      --background: #f3f6fb;
+      --card: #ffffff;
+
+      --text: #172033;
+      --muted: #687386;
+
+      --border: #dce3ee;
+
+      --shadow:
+        0 8px 25px rgba(23, 63, 122, 0.08);
+    }
+
+
+    /* =====================================================
+       GLOBAL
+       ===================================================== */
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+
+      font-family:
+        "Noto Sans",
+        "Noto Sans Tamil",
+        Arial,
+        sans-serif;
+
+      background: var(--background);
+
+      color: var(--text);
+
+      min-height: 100vh;
+    }
+
+
+    /* =====================================================
+       HEADER
+       ===================================================== */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--primary-dark),
+          var(--primary)
+        );
+
+      color: white;
+
+      box-shadow:
+        0 4px 15px rgba(0,0,0,0.12);
+    }
+
+
+    .header-inner {
+      max-width: 1400px;
+
+      margin: auto;
+
+      padding: 18px 25px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      gap: 20px;
+    }
+
+
+    .brand {
+      display: flex;
+
+      align-items: center;
+
+      gap: 14px;
+
+      min-width: 0;
+    }
+
+
+    /* LOGO */
+
+    .logo {
+      width: 52px;
+      height: 52px;
+
+      flex-shrink: 0;
+
+      border-radius: 14px;
+
+      background: white;
+
+      color: var(--primary);
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      font-size: 14px;
+
+      font-weight: 900;
+
+      box-shadow:
+        0 4px 12px rgba(0,0,0,0.15);
+
+      overflow: hidden;
+    }
+
+
+    .logo img {
+      width: 100%;
+      height: 100%;
+
+      object-fit: contain;
+    }
+
+
+    .brand-title {
+      font-size: 24px;
+
+      font-weight: 800;
+
+      line-height: 1.2;
+    }
+
+
+    .brand-subtitle {
+      font-size: 13px;
+
+      margin-top: 4px;
+
+      opacity: 0.88;
+    }
+
+
+    .header-right {
+      display: flex;
+
+      align-items: center;
+
+      gap: 15px;
+    }
+
+
+    .user-email {
+      font-size: 13px;
+
+      font-weight: 600;
+
+      white-space: nowrap;
+    }
+
+
+    /* =====================================================
+       LANGUAGE SWITCH
+       ===================================================== */
+
+    .language-switch {
+      display: flex;
+
+      align-items: center;
+
+      gap: 8px;
+
+      background:
+        rgba(255,255,255,0.13);
+
+      border:
+        1px solid rgba(255,255,255,0.22);
+
+      padding: 6px 10px;
+
+      border-radius: 30px;
+
+      backdrop-filter: blur(5px);
+    }
+
+
+    .language-label {
+      font-size: 12px;
+
+      font-weight: 700;
+    }
+
+
+    .switch {
+      position: relative;
+
+      width: 48px;
+
+      height: 25px;
+    }
+
+
+    .switch input {
+      opacity: 0;
+
+      width: 0;
+
+      height: 0;
+    }
+
+
+    .slider {
+      position: absolute;
+
+      cursor: pointer;
+
+      inset: 0;
+
+      background:
+        rgba(255,255,255,0.35);
+
+      border-radius: 30px;
+
+      transition: 0.25s;
+    }
+
+
+    .slider:before {
+      content: "";
+
+      position: absolute;
+
+      height: 19px;
+
+      width: 19px;
+
+      left: 3px;
+
+      top: 3px;
+
+      background: white;
+
+      border-radius: 50%;
+
+      transition: 0.25s;
+
+      box-shadow:
+        0 2px 5px rgba(0,0,0,0.2);
+    }
+
+
+    .switch input:checked + .slider {
+      background: #19a887;
+    }
+
+
+    .switch input:checked + .slider:before {
+      transform: translateX(23px);
+    }
+
+
+    /* =====================================================
+       MAIN
+       ===================================================== */
+
+    main {
+      max-width: 1400px;
+
+      margin: auto;
+
+      padding: 25px;
+    }
+
+
+    /* =====================================================
+       STICKY CONTROLS (search + subject tabs)
+       ===================================================== */
+
+    .sticky-controls {
+      position: sticky;
+      z-index: 90;
+
+      background: var(--background);
+
+      padding-top: 15px;
+      padding-bottom: 5px;
+
+      margin-bottom: 3px;
+    }
+
+
+    /* =====================================================
+       SEARCH
+       ===================================================== */
+
+    .search-panel {
+      background: white;
+
+      border-radius: 18px;
+
+      padding: 18px;
+
+      box-shadow: var(--shadow);
+
+      display: flex;
+
+      gap: 10px;
+
+      margin-bottom: 18px;
+    }
+
+
+    .search-box {
+      flex: 1;
+
+      position: relative;
+    }
+
+
+    .search-icon {
+      position: absolute;
+
+      left: 15px;
+
+      top: 50%;
+
+      transform: translateY(-50%);
+
+      font-size: 18px;
+    }
+
+
+    #searchInput {
+      width: 100%;
+
+      height: 48px;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 12px;
+
+      padding:
+        0 16px 0 45px;
+
+      outline: none;
+
+      font-size: 14px;
+
+      color: var(--text);
+    }
+
+
+    #searchInput:focus {
+      border-color:
+        var(--secondary);
+
+      box-shadow:
+        0 0 0 3px
+        rgba(36,91,168,0.10);
+    }
+
+
+    .clear-btn {
+      border: none;
+
+      background: #edf0f5;
+
+      color: #273143;
+
+      padding: 0 22px;
+
+      border-radius: 12px;
+
+      font-weight: 700;
+
+      cursor: pointer;
+    }
+
+
+    .clear-btn:hover {
+      background: #e1e6ee;
+    }
+
+
+    /* =====================================================
+       SUBJECT TABS
+       ===================================================== */
+
+    .subjects {
+      display: flex;
+
+      flex-wrap: wrap;
+
+      gap: 10px;
+
+      margin-bottom: 20px;
+    }
+
+
+    .subject-btn {
+      border:
+        1px solid var(--border);
+
+      background: white;
+
+      color: var(--text);
+
+      padding: 10px 20px;
+
+      border-radius: 25px;
+
+      cursor: pointer;
+
+      font-size: 14px;
+
+      font-weight: 700;
+
+      transition: 0.2s;
+    }
+
+
+    .subject-btn:hover {
+      border-color:
+        var(--secondary);
+
+      color:
+        var(--secondary);
+    }
+
+
+    .subject-btn.active {
+      background:
+        var(--primary);
+
+      color: white;
+
+      border-color:
+        var(--primary);
+
+      box-shadow:
+        0 4px 10px
+        rgba(23,63,122,0.20);
+    }
+
+
+    /* =====================================================
+       SECTION HEADER
+       ===================================================== */
+
+    .section-header {
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      margin: 12px 0 18px;
+    }
+
+
+    .section-title {
+      font-size: 26px;
+
+      font-weight: 800;
+
+      color:
+        var(--primary);
+
+      margin: 0;
+    }
+
+
+    .resource-count {
+      color:
+        var(--muted);
+
+      font-size: 13px;
+
+      font-weight: 600;
+    }
+
+
+    /* =====================================================
+       RESOURCE GRID
+       ===================================================== */
+
+    .resource-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(
+          auto-fill,
+          minmax(320px, 1fr)
+        );
+
+      gap: 18px;
+    }
+
+
+    /* =====================================================
+       RESOURCE CARD
+       ===================================================== */
+
+    .resource-card {
+      background: white;
+
+      border-radius: 16px;
+
+      padding: 20px;
+
+      box-shadow: var(--shadow);
+
+      border:
+        1px solid #edf0f5;
+
+      transition:
+        transform 0.2s,
+        box-shadow 0.2s;
+    }
+
+
+    .resource-card:hover {
+      transform:
+        translateY(-3px);
+
+      box-shadow:
+        0 12px 30px
+        rgba(23,63,122,0.12);
+    }
+
+
+    .card-top {
+      display: flex;
+
+      justify-content: space-between;
+
+      align-items: flex-start;
+
+      gap: 10px;
+
+      margin-bottom: 15px;
+    }
+
+
+    .subject-badge {
+      display: inline-block;
+
+      padding: 5px 10px;
+
+      border-radius: 20px;
+
+      background: #eaf1fc;
+
+      color:
+        var(--primary);
+
+      font-size: 11px;
+
+      font-weight: 800;
+    }
+
+
+    .medium-badge {
+      font-size: 11px;
+
+      color:
+        var(--muted);
+
+      background:
+        #f4f6f9;
+
+      padding: 5px 9px;
+
+      border-radius: 20px;
+    }
+
+
+    .topic {
+      font-size: 20px;
+
+      font-weight: 800;
+
+      margin-bottom: 15px;
+
+      color: #172033;
+
+      line-height: 1.35;
+    }
+
+
+    /* =====================================================
+       DETAILS
+       ===================================================== */
+
+    .details {
+      display: grid;
+
+      grid-template-columns:
+        repeat(2, 1fr);
+
+      gap: 10px;
+
+      margin-bottom: 17px;
+    }
+
+
+    .detail {
+      background:
+        #f7f9fc;
+
+      border-radius: 10px;
+
+      padding: 9px 10px;
+    }
+
+
+    .detail-label {
+      font-size: 10px;
+
+      color:
+        var(--muted);
+
+      text-transform: uppercase;
+
+      font-weight: 800;
+
+      margin-bottom: 3px;
+    }
+
+
+    .detail-value {
+      font-size: 13px;
+
+      font-weight: 600;
+
+      word-break: break-word;
+    }
+
+
+    /* =====================================================
+       TEACHER
+       ===================================================== */
+
+    .teacher-info {
+      border-top:
+        1px solid #edf0f5;
+
+      padding-top: 14px;
+
+      margin-top: 4px;
+
+      font-size: 12px;
+
+      color:
+        var(--muted);
+
+      line-height: 1.6;
+    }
+
+
+    /* =====================================================
+       RESOURCE BUTTON
+       ===================================================== */
+
+    .resource-btn {
+      display: block;
+
+      text-align: center;
+
+      text-decoration: none;
+
+      margin-top: 15px;
+
+      padding: 11px;
+
+      border-radius: 10px;
+
+      background:
+        var(--primary);
+
+      color: white;
+
+      font-size: 13px;
+
+      font-weight: 800;
+
+      transition: 0.2s;
+    }
+
+
+    .resource-btn:hover {
+      background:
+        var(--primary-dark);
+    }
+
+
+    /* =====================================================
+       EMPTY
+       ===================================================== */
+
+    .empty {
+      background: white;
+
+      border-radius: 18px;
+
+      min-height: 220px;
+
+      display: flex;
+
+      flex-direction: column;
+
+      align-items: center;
+
+      justify-content: center;
+
+      text-align: center;
+
+      box-shadow: var(--shadow);
+
+      color:
+        var(--muted);
+
+      padding: 30px;
+    }
+
+
+    .empty-icon {
+      font-size: 42px;
+
+      margin-bottom: 10px;
+    }
+
+
+    .empty-title {
+      font-size: 18px;
+
+      font-weight: 800;
+
+      color: #344054;
+
+      margin-bottom: 6px;
+    }
+
+
+    .empty-text {
+      font-size: 13px;
+    }
+
+
+    /* =====================================================
+       LOADING
+       ===================================================== */
+
+    .loading {
+      background: white;
+
+      border-radius: 18px;
+
+      min-height: 220px;
+
+      display: flex;
+
+      flex-direction: column;
+
+      align-items: center;
+
+      justify-content: center;
+
+      color:
+        var(--muted);
+    }
+
+
+    .spinner {
+      width: 35px;
+
+      height: 35px;
+
+      border:
+        4px solid #e1e8f2;
+
+      border-top-color:
+        var(--primary);
+
+      border-radius: 50%;
+
+      animation:
+        spin 0.8s linear infinite;
+
+      margin-bottom: 12px;
+    }
+
+
+    @keyframes spin {
+
+      to {
+        transform:
+          rotate(360deg);
+      }
+
+    }
+
+
+    /* =====================================================
+       ERROR
+       ===================================================== */
+
+    .error-box {
+      background:
+        #fff1f1;
+
+      color:
+        #b42318;
+
+      border:
+        1px solid #f5c2c2;
+
+      padding: 18px;
+
+      border-radius: 14px;
+
+      font-size: 14px;
+
+      line-height: 1.6;
+    }
+
+
+    /* =====================================================
+       FOOTER
+       ===================================================== */
+
+    footer {
+      max-width: 1400px;
+
+      margin: 30px auto 0;
+
+      padding:
+        20px 25px 30px;
+
+      text-align: center;
+
+      color:
+        var(--muted);
+
+      font-size: 12px;
+    }
+
+
+    /* =====================================================
+       MOBILE
+       ===================================================== */
+
+    @media (max-width: 700px) {
+
+      .header-inner {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        padding: 15px;
+      }
+
+
+      .header-right {
+        width: 100%;
+
+        justify-content:
+          space-between;
+      }
+
+
+      .brand-title {
+        font-size: 19px;
+      }
+
+
+      .brand-subtitle {
+        font-size: 11px;
+      }
+
+
+      main {
+        padding: 15px;
+      }
+
+
+      .search-panel {
+        flex-direction: column;
+      }
+
+
+      .clear-btn {
+        height: 45px;
+      }
+
+
+      .section-title {
+        font-size: 22px;
+      }
+
+
+      .resource-grid {
+        grid-template-columns: 1fr;
+      }
+
+
+      .user-email {
+        max-width: 200px;
+
+        overflow: hidden;
+
+        text-overflow: ellipsis;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+  <!-- =====================================================
+       HEADER
+       ===================================================== -->
+
+  <header>
+
+    <div class="header-inner">
+
+
+      <div class="brand">
+
+
+        <!-- LOGO -->
+
+
+
+        <div>
+
+          <div
+            class="brand-title"
+            id="portalTitle">
+          </div>
+
+
+          <div
+            class="brand-subtitle"
+            id="portalSubtitle">
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- RIGHT SIDE -->
+
+      <div class="header-right">
+
+
+        <!-- LANGUAGE TOGGLE -->
+
+        <div class="language-switch">
+
+          <span
+            class="language-label"
+            id="englishLabel">
+            English
+          </span>
+
+
+          <label class="switch">
+
+            <input
+              type="checkbox"
+              id="languageToggle">
+
+            <span class="slider"></span>
+
+          </label>
+
+
+          <span
+            class="language-label"
+            id="tamilLabel">
+            தமிழ்
+          </span>
+
+        </div>
+
+
+        <div>
+         
+        </div>
+
+      </div>
+
+    </div>
+
+  </header>
+
+
+
+  <!-- =====================================================
+       MAIN
+       ===================================================== -->
+
+  <main>
+
+
+    <!-- STICKY: SEARCH + SUBJECT TABS -->
+
+    <div class="sticky-controls" id="stickyControls">
+
+
+      <!-- SEARCH -->
+
+      <div class="search-panel">
+
+
+        <div class="search-box">
+
+          <span class="search-icon">
+            🔍
+          </span>
+
+
+          <input
+            type="text"
+            id="searchInput"
+            oninput="renderResources()">
+
+        </div>
+
+
+        <button
+          class="clear-btn"
+          id="clearButton"
+          onclick="clearSearch()">
+        </button>
+
+      </div>
+
+
+
+      <!-- SUBJECT TABS -->
+
+      <div
+        class="subjects"
+        id="subjectTabs">
+      </div>
+
+
+    </div>
+
+
+
+    <!-- SECTION HEADER -->
+
+    <div class="section-header">
+
+      <h1
+        class="section-title"
+        id="sectionTitle">
+      </h1>
+
+
+      <div
+        class="resource-count"
+        id="resourceCount">
+      </div>
+
+    </div>
+
+
+
+    <!-- CONTENT -->
+
+    <div id="content">
+
+      <div class="loading">
+
+        <div class="spinner"></div>
+
+        <div id="loadingText">
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+
+
+  <!-- =====================================================
+       FOOTER
+       ===================================================== -->
+
+  <footer>
+
+    <div id="footerText">
+    </div>
+
+  </footer>
+
+
+
+<script>
+
+/* =====================================================
+   GLOBAL VARIABLES
+   ===================================================== */
+
+let portalData = null;
+
+let resources = [];
+
+let subjects = [];
+
+let selectedSubject = "Physics";
+
+/*
+   Static title prefix shown before every
+   teacher name. Change this one line if
+   you want a different prefix.
+*/
+const TEACHER_TITLE = "Mr./Mrs./Ms.";
+/*
+   en = English
+   ta = Tamil
+*/
+
+let currentLanguage =
+  localStorage.getItem("srgdbLanguage") === "ta"
+    ? "ta"
+    : "en";
+
+
+/* =====================================================
+   TRANSLATIONS
+   ===================================================== */
+
+const translations = {
+
+  en: {
+
+    title:
+      "Sivagangai PG Teachers' Resource Portal",
+
+    subtitle:
+      "Interactive learning resources",
+
+    search:
+      "Search subject, class, volume, unit, topic, teacher, school...",
+
+    clear:
+      "Clear",
+
+    resources:
+      "resources",
+
+    noResources:
+      "No resources found.",
+
+    tryAnother:
+      "Try another search term.",
+
+    loading:
+      "Loading resources...",
+
+    accessDenied:
+      "Access denied",
+
+    openResource:
+      "Open Resource",
+
+    subject:
+      "Subject",
+
+    class:
+      "Class",
+
+    volume:
+      "Volume",
+
+    unit:
+      "Chapter",
+
+    unitName:
+      "Chapter Name",
+
+    topic:
+      "Topic",
+
+    medium:
+      "Medium",
+
+    teacher:
+      "Teacher",
+
+    school:
+      "School",
+
+    footer:
+      "Developed by B. Nirmal Singh | Computer Instructor Grade 1 | GHSS Keeladi | Sivagangai Dt"
+
+  },
+
+
+  ta: {
+
+    title:
+      "சிவகங்கை முதுகலை ஆசிரியர்களின் வள மையம்",
+
+    subtitle:
+      "ஊடாடும் கற்றல் வளங்கள்",
+
+    search:
+      "பாடம், வகுப்பு, தொகுதி, அலகு, தலைப்பு, ஆசிரியர், பள்ளி ஆகியவற்றைத் தேடுக...",
+
+    clear:
+      "அழி",
+
+    resources:
+      "வளங்கள்",
+
+    noResources:
+      "வளங்கள் எதுவும் கிடைக்கவில்லை.",
+
+    tryAnother:
+      "வேறு தேடல் சொல்லைப் பயன்படுத்தவும்.",
+
+    loading:
+      "வளங்கள் ஏற்றப்படுகின்றன...",
+
+    accessDenied:
+      "அணுகல் மறுக்கப்பட்டது",
+
+    openResource:
+      "வளத்தைத் திறக்கவும்",
+
+    subject:
+      "பாடம்",
+
+    class:
+      "வகுப்பு",
+
+    volume:
+      "தொகுதி",
+
+    unit:
+      "பாடம்",
+
+    unitName:
+      "பாடத்தலைப்பு",
+
+    topic:
+      "தலைப்பு",
+
+    medium:
+      "பயிற்றுமொழி",
+
+    teacher:
+      "ஆசிரியர்",
+
+    school:
+      "பள்ளி",
+
+    footer:
+      "உருவாக்கியவர் : B. நிர்மல் சிங் | கணினி பயிற்றுநர் நிலை - 1 | அரசு மேல்நிலைப்பள்ளி, கீழடி"
+
+  }
+
+};
+
+
+/* =====================================================
+   SUBJECT TAMIL TRANSLATIONS
+   ===================================================== */
+
+const subjectTamil = {
+
+  "Physics":
+    "இயற்பியல்",
+
+  "Chemistry":
+    "வேதியியல்",
+
+  "Mathematics":
+    "கணிதம்",
+
+  "Computer Science":
+    "கணினி அறிவியல்",
+
+  "Computer Applications":
+    "கணினி பயன்பாடுகள்"
+
+};
+
+
+/* =====================================================
+   COMMON VALUE TRANSLATIONS
+   ===================================================== */
+
+const valueTamil = {
+
+  "Physics":
+    "இயற்பியல்",
+
+  "Chemistry":
+    "வேதியியல்",
+
+  "TAMIL AND ENGLISH": 
+  "தமிழ் மற்றும் ஆங்கிலம்",
+
+  "Mathematics":
+    "கணிதம்",
+
+  "Computer Science":
+    "கணினி அறிவியல்",
+
+  "Computer Applications":
+    "கணினி பயன்பாடுகள்",
+
+  "English":
+    "ஆங்கிலம்",
+
+   "ENGLISH":
+    "ஆங்கிலம்",
+
+  "Tamil":
+    "தமிழ்",
+
+  "TAMIL":
+    "தமிழ்",
+
+  "Measurement":
+    "அளவீடு",
+
+  "Mechanics":
+    "இயக்கவியல்",
+
+  "Electricity":
+    "மின்சாரம்",
+
+  "Optics":
+    "ஒளியியல்",
+
+  "Thermodynamics":
+    "வெப்ப இயக்கவியல்",
+
+  "Class":
+    "வகுப்பு",
+
+  "Volume":
+    "தொகுதி",
+
+  "Unit":
+    "அலகு",
+
+  "Topic":
+    "தலைப்பு"
+
+};
+
+
+/* =====================================================
+   TRANSLATE VALUE
+   ===================================================== */
+
+function translateValue(value) {
+
+  if (
+    value === null ||
+    value === undefined ||
+    value === ""
+  ) {
+
+    return "-";
+
+  }
+
+
+  const text =
+    String(value).trim();
+
+
+  if (
+    currentLanguage !== "ta"
+  ) {
+
+    return text;
+
+  }
+
+
+  return (
+    valueTamil[text] ||
+    text
+  );
+
+}
+
+
+/* =====================================================
+   PAGE READY
+   ===================================================== */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function() {
+
+    initializeLanguage();
+
+    positionStickyControls();
+
+    loadPortal();
+
+  }
+);
+
+
+/* =====================================================
+   STICKY CONTROLS POSITIONING
+   ===================================================== */
+
+function positionStickyControls() {
+
+  const header =
+    document.querySelector("header");
+
+  const sticky =
+    document.getElementById(
+      "stickyControls"
+    );
+
+
+  if (header && sticky) {
+
+    sticky.style.top =
+      header.offsetHeight + "px";
+
+  }
+
+}
+
+
+window.addEventListener(
+  "load",
+  positionStickyControls
+);
+
+
+window.addEventListener(
+  "resize",
+  positionStickyControls
+);
+
+
+/* =====================================================
+   INITIALIZE LANGUAGE
+   ===================================================== */
+
+function initializeLanguage() {
+
+  const toggle =
+    document.getElementById(
+      "languageToggle"
+    );
+
+
+  toggle.checked =
+    currentLanguage === "ta";
+
+
+  toggle.addEventListener(
+    "change",
+    changeLanguage
+  );
+
+
+  applyLanguage();
+
+}
+
+
+/* =====================================================
+   CHANGE LANGUAGE
+   ===================================================== */
+
+function changeLanguage() {
+
+  const toggle =
+    document.getElementById(
+      "languageToggle"
+    );
+
+
+  currentLanguage =
+    toggle.checked
+      ? "ta"
+      : "en";
+
+
+  localStorage.setItem(
+    "srgdbLanguage",
+    currentLanguage
+  );
+
+
+  /*
+     IMPORTANT:
+     Immediately redraw the whole page.
+  */
+
+  applyLanguage();
+
+  renderSubjectTabs();
+
+  renderResources();
+
+  positionStickyControls();
+
+}
+
+
+/* =====================================================
+   APPLY LANGUAGE
+   ===================================================== */
+
+function applyLanguage() {
+
+  const t =
+    translations[
+      currentLanguage
+    ];
+
+
+  document.documentElement.lang =
+    currentLanguage === "ta"
+      ? "ta"
+      : "en";
+
+
+  document.getElementById(
+    "portalTitle"
+  ).textContent =
+    t.title;
+
+
+  document.getElementById(
+    "portalSubtitle"
+  ).textContent =
+    t.subtitle;
+
+
+  document.getElementById(
+    "searchInput"
+  ).placeholder =
+    t.search;
+
+
+  document.getElementById(
+    "clearButton"
+  ).textContent =
+    t.clear;
+
+
+  document.getElementById(
+    "footerText"
+  ).textContent =
+    t.footer;
+
+
+  const loading =
+    document.getElementById(
+      "loadingText"
+    );
+
+
+  if (loading) {
+
+    loading.textContent =
+      t.loading;
+
+  }
+
+}
+
+
+/* =====================================================
+   LOAD PORTAL
+   ===================================================== */
+
+function loadPortal() {
+
+  google.script.run
+
+    .withSuccessHandler(
+      function(data) {
+
+        portalData = data;
+
+
+        if (!data) {
+
+          showError(
+            "Unable to load portal data."
+          );
+
+          return;
+
+        }
+
+
+        if (!data.authorized) {
+
+          showError(
+            data.message ||
+            translations[
+              currentLanguage
+            ].accessDenied
+          );
+
+          return;
+
+        }
+
+
+        resources =
+          data.resources || [];
+
+
+        subjects =
+          data.subjects ||
+          [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Computer Science",
+            "Computer Applications"
+          ];
+
+
+        
+
+
+        /*
+           Make sure selected subject exists.
+        */
+
+        if (
+          subjects.length > 0 &&
+          !subjects.includes(
+            selectedSubject
+          )
+        ) {
+
+          selectedSubject =
+            subjects[0];
+
+        }
+
+
+        applyLanguage();
+
+        renderSubjectTabs();
+
+        renderResources();
+
+        positionStickyControls();
+
+      }
+    )
+
+    .withFailureHandler(
+      function(error) {
+
+        showError(
+          error.message ||
+          "Unable to connect to the portal."
+        );
+
+      }
+    )
+
+    .getPortalData();
+
+}
+
+
+/* =====================================================
+   SUBJECT TABS
+   ===================================================== */
+
+function renderSubjectTabs() {
+
+  const container =
+    document.getElementById(
+      "subjectTabs"
+    );
+
+
+  container.innerHTML = "";
+
+
+  subjects.forEach(
+    function(subject) {
+
+      const button =
+        document.createElement(
+          "button"
+        );
+
+
+      button.className =
+        "subject-btn";
+
+
+      if (
+        subject ===
+        selectedSubject
+      ) {
+
+        button.classList.add(
+          "active"
+        );
+
+      }
+
+
+      /*
+         Tamil subject names
+      */
+
+      button.textContent =
+        currentLanguage === "ta"
+          ? (
+              subjectTamil[subject] ||
+              subject
+            )
+          : subject;
+
+
+      button.onclick =
+        function() {
+
+          selectedSubject =
+            subject;
+
+
+          renderSubjectTabs();
+
+          renderResources();
+
+        };
+
+
+      container.appendChild(
+        button
+      );
+
+    }
+  );
+
+}
+
+
+/* =====================================================
+   RENDER RESOURCES
+   ===================================================== */
+
+function renderResources() {
+
+  const container =
+    document.getElementById(
+      "content"
+    );
+
+
+  const searchInput =
+    document.getElementById(
+      "searchInput"
+    );
+
+
+  const search =
+    (
+      searchInput.value || ""
+    )
+      .trim()
+      .toLowerCase();
+
+
+  let filtered =
+    resources.filter(
+      function(resource) {
+
+        /*
+           SUBJECT FILTER
+        */
+
+        if (
+          resource.subject !==
+          selectedSubject
+        ) {
+
+          return false;
+
+        }
+
+
+        /*
+           SEARCH
+        */
+
+        if (!search) {
+
+          return true;
+
+        }
+
+
+        const searchable = [
+
+          resource.subject,
+
+          resource.className,
+
+          resource.volume,
+
+          resource.unit,
+
+          resource.unitName,
+
+          resource.topic,
+
+          resource.medium,
+
+          resource.teacher,
+
+          resource.school
+
+        ]
+          .join(" ")
+          .toLowerCase();
+
+
+        return searchable.includes(
+          search
+        );
+
+      }
+    );
+
+
+  /*
+     SECTION TITLE
+  */
+
+  document.getElementById(
+    "sectionTitle"
+  ).textContent =
+
+    currentLanguage === "ta"
+
+      ? (
+          subjectTamil[
+            selectedSubject
+          ] ||
+          selectedSubject
+        )
+
+      : selectedSubject;
+
+
+  /*
+     RESOURCE COUNT
+  */
+
+  document.getElementById(
+    "resourceCount"
+  ).textContent =
+
+    filtered.length +
+    " " +
+    translations[
+      currentLanguage
+    ].resources;
+
+
+  /*
+     NO RESULTS
+  */
+
+  if (
+    filtered.length === 0
+  ) {
+
+    container.innerHTML = `
+
+      <div class="empty">
+
+        <div class="empty-icon">
+          📚
+        </div>
+
+        <div class="empty-title">
+          ${
+            translations[
+              currentLanguage
+            ].noResources
+          }
+        </div>
+
+        <div class="empty-text">
+          ${
+            translations[
+              currentLanguage
+            ].tryAnother
+          }
+        </div>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  /*
+     RESOURCE CARDS
+  */
+
+  container.innerHTML = `
+
+    <div class="resource-grid">
+
+      ${
+        filtered
+          .map(
+            createResourceCard
+          )
+          .join("")
+      }
+
+    </div>
+
+  `;
+
+}
+
+
+/* =====================================================
+   RESOURCE CARD
+   ===================================================== */
+
+function createResourceCard(
+  resource
+) {
+
+  const t =
+    translations[
+      currentLanguage
+    ];
+
+
+  /*
+     =====================================================
+     RESOURCE TITLE FIX
+
+     Priority:
+
+     1. topic
+     2. unitName
+     3. subject
+     4. Learning Resource
+     =====================================================
+  */
+
+  let topicValue = "";
+
+
+  /*
+     If Tamil topic field exists,
+     use it.
+  */
+
+  if (
+    currentLanguage === "ta" &&
+    resource.topic_ta
+  ) {
+
+    topicValue =
+      resource.topic_ta;
+
+  }
+
+
+  /*
+     English topic or fallback
+  */
+
+  if (!topicValue) {
+
+    topicValue =
+      resource.topic ||
+      resource.unitName ||
+      resource.subject ||
+      "Learning Resource";
+
+  }
+
+
+  const topic =
+    escapeHtml(
+      topicValue
+    );
+
+
+  /*
+     SUBJECT
+  */
+
+  const subjectValue =
+
+    currentLanguage === "ta"
+
+      ? (
+          subjectTamil[
+            resource.subject
+          ] ||
+          resource.subject ||
+          ""
+        )
+
+      : (
+          resource.subject ||
+          ""
+        );
+
+
+  const subject =
+    escapeHtml(
+      subjectValue
+    );
+
+
+  /*
+     MEDIUM
+  */
+
+  const medium =
+    escapeHtml(
+      translateValue(
+        resource.medium
+      )
+    );
+
+
+  /*
+     LINK
+  */
+
+  const link =
+    safeUrl(
+      resource.link
+    );
+
+
+  return `
+
+    <div class="resource-card">
+
+
+      <div class="card-top">
+
+
+        <span class="subject-badge">
+          ${subject}
+        </span>
+
+
+        <span class="medium-badge">
+          ${medium}
+        </span>
+
+
+      </div>
+
+
+      <!-- RESOURCE TITLE -->
+
+      <div class="topic">
+        ${topic}
+      </div>
+
+
+      <!-- DETAILS -->
+
+      <div class="details">
+
+
+        ${detailBox(
+          t.class,
+          translateField(
+            resource,
+            "className"
+          )
+        )}
+
+
+        ${detailBox(
+          t.volume,
+          translateField(
+            resource,
+            "volume"
+          )
+        )}
+
+
+        ${detailBox(
+          t.unit,
+          translateField(
+            resource,
+            "unit"
+          )
+        )}
+
+
+        ${detailBox(
+          t.unitName,
+          translateField(
+            resource,
+            "unitName"
+          )
+        )}
+
+
+      </div>
+
+
+      <!-- TEACHER -->
+
+      <div class="teacher-info">
+
+
+        <strong>
+  ${t.teacher}:
+</strong>
+
+  ${escapeHtml(
+    TEACHER_TITLE + " " +
+    translateField(
+    resource,
+    "teacher"
+  )
+)}
+
+
+        <br>
+
+
+        <strong>
+          ${t.school}:
+        </strong>
+
+
+        ${escapeHtml(
+          translateField(
+            resource,
+            "school"
+          )
+        )}
+
+
+      </div>
+
+
+      ${
+        link
+
+          ? `
+
+            <a 
+              class="resource-btn"
+              href="${link}"
+              target="_blank"
+              rel="noopener noreferrer">
+
+              🔗
+              ${t.openResource}
+
+            </a>
+
+          `
+
+          : ""
+      }
+
+
+    </div>
+
+  `;
+
+}
+
+
+/* =====================================================
+   TRANSLATE SHEET FIELD
+   ===================================================== */
+
+function translateField(
+  resource,
+  field
+) {
+
+  if (!resource) {
+
+    return "-";
+
+  }
+
+
+  /*
+     If Tamil-specific column exists:
+
+     topic_ta
+     teacher_ta
+     school_ta
+     unit_ta
+     unitName_ta
+     className_ta
+     volume_ta
+  */
+
+  if (
+    currentLanguage === "ta"
+  ) {
+
+    const tamilField =
+      field + "_ta";
+
+
+    if (
+      resource[tamilField]
+    ) {
+
+      return resource[
+        tamilField
+      ];
+
+    }
+
+  }
+
+
+  const value =
+    resource[field];
+
+
+  if (
+    value === null ||
+    value === undefined ||
+    value === ""
+  ) {
+
+    return "-";
+
+  }
+
+
+  return translateValue(
+    value
+  );
+
+}
+
+
+/* =====================================================
+   DETAIL BOX
+   ===================================================== */
+
+function detailBox(
+  label,
+  value
+) {
+
+  return `
+
+    <div class="detail">
+
+      <div class="detail-label">
+        ${escapeHtml(label)}
+      </div>
+
+      <div class="detail-value">
+        ${
+          escapeHtml(
+            value || "-"
+          )
+        }
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =====================================================
+   CLEAR SEARCH
+   ===================================================== */
+
+function clearSearch() {
+
+  document.getElementById(
+    "searchInput"
+  ).value = "";
+
+
+  renderResources();
+
+}
+
+
+/* =====================================================
+   ERROR
+   ===================================================== */
+
+function showError(
+  message
+) {
+
+  document.getElementById(
+    "content"
+  ).innerHTML = `
+
+    <div class="error-box">
+
+      <strong>
+        ${
+          translations[
+            currentLanguage
+          ].accessDenied
+        }
+      </strong>
+
+      <br><br>
+
+      ${
+        escapeHtml(
+          message
+        )
+      }
+
+    </div>
+
+  `;
+
+}
+
+
+/* =====================================================
+   SAFE URL
+   ===================================================== */
+
+function safeUrl(
+  value
+) {
+
+  if (!value) {
+
+    return "";
+
+  }
+
+
+  const url =
+    String(value).trim();
+
+
+  if (
+    /^https?:\/\//i.test(url)
+  ) {
+
+    return escapeHtml(
+      url
+    );
+
+  }
+
+
+  return "";
+
+}
+
+/**
+ * Runs automatically whenever the Google Form
+ * adds a new response to the response sheet.
+ */
+function onFormSubmit(e) {
+
+  try {
+
+    if (!e || !e.namedValues) {
+      Logger.log("Form submission event data not found.");
+      return;
+    }
+
+    // ---------------------------------------------------------
+    // GET RESPONDENT EMAIL
+    // ---------------------------------------------------------
+
+    var email = "";
+
+    // Possible email column names
+    var emailHeaders = [
+      "Email Address",
+      "Email address",
+      "Email",
+      "E-mail",
+      "E-mail Address",
+      "Email ID",
+      "Email Id",
+      "EMAIL"
+    ];
+
+    for (var i = 0; i < emailHeaders.length; i++) {
+
+      var header = emailHeaders[i];
+
+      if (e.namedValues[header]) {
+
+        email = e.namedValues[header][0];
+
+        if (email) {
+          break;
+        }
+      }
+    }
+
+    // ---------------------------------------------------------
+    // IF EMAIL WAS NOT FOUND
+    // ---------------------------------------------------------
+
+    if (!email) {
+      Logger.log("Email ID was not found in the form response.");
+      return;
+    }
+
+    email = email.toString().trim().toLowerCase();
+
+    // ---------------------------------------------------------
+    // OPEN SPREADSHEET
+    // ---------------------------------------------------------
+
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+
+    // Your Login mails sheet
+    var loginSheet = ss.getSheetByName("Login mails");
+
+    if (!loginSheet) {
+      throw new Error('Sheet "Login mails" was not found.');
+    }
+
+    // ---------------------------------------------------------
+    // STORE EMAIL
+    // ---------------------------------------------------------
+
+    var lastRow = loginSheet.getLastRow();
+
+    // Check whether this email already exists
+    var existingEmails = [];
+
+    if (lastRow > 1) {
+
+      existingEmails = loginSheet
+        .getRange(2, 1, lastRow - 1, 1)
+        .getValues()
+        .flat()
+        .map(function(value) {
+          return value.toString().trim().toLowerCase();
+        });
+    }
+
+    // ---------------------------------------------------------
+    // ADD ONLY IF EMAIL DOES NOT ALREADY EXIST
+    // ---------------------------------------------------------
+
+    if (existingEmails.indexOf(email) === -1) {
+
+      loginSheet.appendRow([
+        email,
+        new Date()
+      ]);
+
+      Logger.log("New email added: " + email);
+
+    } else {
+
+      Logger.log("Email already exists: " + email);
+    }
+
+  } catch (error) {
+
+    Logger.log("ERROR: " + error.message);
+
+  }
+}
+/* =====================================================
+   HTML ESCAPE
+   ===================================================== */
+
+function escapeHtml(
+  value
+) {
+
+  if (
+    value === null ||
+    value === undefined
+  ) {
+
+    return "";
+
+  }
+
+
+  return String(value)
+
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+
+    .replace(
+      /</g,
+      "&lt;"
+    )
+
+    .replace(
+      />/g,
+      "&gt;"
+    )
+
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+
+    .replace(
+      /'/g,
+      "&#039;"
+    );
+
+}
+
+</script>
+
+
+</body>
+
+</html>

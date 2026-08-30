@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>String Slicing — Sivagangai PG Teachers' Resource Portal</title>
+<style>
+  @font-face { font-family:'sysmono'; src:local(monospace); }
+  :root{
+    --bg:#0f1420;
+    --bg2:#151b2b;
+    --panel:#1a2236;
+    --panel2:#202a42;
+    --border:#2b3552;
+    --text:#e7ecf7;
+    --muted:#93a0bd;
+    --mint:#5eead4;
+    --mint-dim:#2c7a6d;
+    --amber:#fbbf24;
+    --rose:#fb7185;
+    --violet:#a78bfa;
+    --code-bg:#0b0f1a;
+    --radius:14px;
+    --maxw:1180px;
+    --font-display:'Space Grotesk','Segoe UI',sans-serif;
+    --font-body:'Inter','Segoe UI',sans-serif;
+    --font-mono:'JetBrains Mono','Fira Code',ui-monospace,Consolas,monospace;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(1100px 500px at 85% -10%, rgba(94,234,212,0.08), transparent 60%),
+      radial-gradient(900px 500px at 5% 0%, rgba(167,139,250,0.07), transparent 55%),
+      var(--bg);
+    color:var(--text);
+    font-family:var(--font-body);
+    line-height:1.55;
+  }
+  ::selection{ background:var(--mint); color:#04211c; }
+  a{color:var(--mint);}
+  h1,h2,h3{ font-family:var(--font-display); letter-spacing:-0.01em; margin:0 0 10px; }
+  .wrap{ max-width:var(--maxw); margin:0 auto; padding:0 22px; }
+  code, .mono{ font-family:var(--font-mono); }
+  :focus-visible{ outline:2px solid var(--mint); outline-offset:3px; border-radius:6px; }
+
+  /* ================= HEADER ================= */
+  header.top{
+    position:sticky; top:0; z-index:200;
+    background:rgba(15,20,32,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+  }
+  .head-inner{ max-width:var(--maxw); margin:0 auto; padding:16px 22px 12px; display:flex; align-items:flex-start; justify-content:space-between; gap:16px; flex-wrap:wrap;}
+  .brandblock .eyebrow{ font-family:var(--font-mono); font-size:11px; color:var(--mint); letter-spacing:0.14em; text-transform:uppercase; margin-bottom:6px; }
+  .brandblock h1{ font-size:26px; margin:0; }
+  .brandblock .subject{ color:var(--muted); font-size:13.5px; margin-top:4px; }
+  .tagline{ font-size:12.5px; color:var(--muted); margin-top:6px; font-style:italic;}
+  .head-right{ display:flex; align-items:center; gap:14px; }
+  .langtoggle{ display:flex; align-items:center; gap:9px; background:var(--panel); border:1px solid var(--border); padding:7px 12px; border-radius:30px; }
+  .langtoggle span{ font-size:12.5px; font-weight:700; color:var(--muted); }
+  .langtoggle span.active{ color:var(--mint); }
+  .switch{ position:relative; width:46px; height:24px; }
+  .switch input{ opacity:0; width:0; height:0; }
+  .slider{ position:absolute; inset:0; background:#2b3552; border-radius:30px; cursor:pointer; transition:.2s; }
+  .slider:before{ content:""; position:absolute; height:18px; width:18px; left:3px; top:3px; background:var(--mint); border-radius:50%; transition:.2s; }
+  .switch input:checked + .slider:before{ transform:translateX(22px); background:var(--violet); }
+
+  nav.subnav{ border-top:1px solid var(--border); overflow-x:auto; scrollbar-width:none; }
+  nav.subnav::-webkit-scrollbar{ display:none; }
+  nav.subnav .wrap{ display:flex; gap:4px; padding:8px 22px; }
+  nav.subnav button{
+    background:none; border:none; color:var(--muted); font-family:var(--font-mono);
+    font-size:12px; padding:8px 12px; border-radius:8px; cursor:pointer; white-space:nowrap;
+  }
+  nav.subnav button:hover{ color:var(--text); background:var(--panel); }
+
+  /* ================= LAYOUT ================= */
+  main{ padding:36px 0 10px; }
+  section{ padding:54px 0; border-bottom:1px solid rgba(43,53,82,0.5); }
+  .kicker{ font-family:var(--font-mono); font-size:11.5px; color:var(--amber); letter-spacing:.14em; text-transform:uppercase; margin-bottom:8px;}
+  .sec-title{ font-size:30px; margin-bottom:6px; }
+  .sec-sub{ color:var(--muted); max-width:720px; margin-bottom:28px; font-size:15px;}
+
+  .grid{ display:grid; gap:16px; }
+  .grid.cols-2{ grid-template-columns:repeat(2,1fr); }
+  .grid.cols-3{ grid-template-columns:repeat(3,1fr); }
+  .grid.cols-4{ grid-template-columns:repeat(4,1fr); }
+  @media (max-width:900px){ .grid.cols-2,.grid.cols-3,.grid.cols-4{ grid-template-columns:1fr; } }
+
+  .card{ background:var(--panel); border:1px solid var(--border); border-radius:var(--radius); padding:18px; }
+  .card h3{ font-size:16px; }
+  .card p{ color:var(--muted); font-size:13.8px; margin:6px 0 0; }
+
+  /* ================= HERO ================= */
+  .hero{ display:grid; grid-template-columns:1.1fr .9fr; gap:34px; align-items:center; padding-top:8px;}
+  @media (max-width:900px){ .hero{ grid-template-columns:1fr; } }
+  .hero h2{ font-size:38px; line-height:1.15; }
+  .hero .lead{ color:var(--muted); font-size:16px; max-width:520px; }
+  .hero-code{
+    background:var(--code-bg); border:1px solid var(--border); border-radius:var(--radius);
+    padding:20px; font-family:var(--font-mono); font-size:14px; color:#c9d4ee;
+  }
+  .hero-code .k{ color:var(--violet); } .hero-code .s{ color:var(--amber); } .hero-code .c{ color:#5b6787; }
+  .hero-code .o{ color:var(--mint); }
+  .cta-row{ display:flex; gap:12px; margin-top:22px; flex-wrap:wrap;}
+  .btn{ font-family:var(--font-body); font-weight:700; font-size:14px; padding:12px 20px; border-radius:10px; border:1px solid var(--border); cursor:pointer; }
+  .btn.primary{ background:var(--mint); color:#04211c; border-color:var(--mint); }
+  .btn.ghost{ background:transparent; color:var(--text); }
+  .btn:hover{ filter:brightness(1.08); }
+  .btn:disabled{ opacity:.45; cursor:not-allowed; }
+
+  /* ================= CONCEPT CARDS ================= */
+  .concept-card{ cursor:pointer; transition:.15s; }
+  .concept-card:hover{ border-color:var(--mint); transform:translateY(-2px); }
+  .concept-card .icon{ font-size:22px; }
+  .concept-detail{ display:none; margin-top:12px; padding-top:12px; border-top:1px dashed var(--border); font-size:13.6px; color:var(--text); }
+  .concept-card.open .concept-detail{ display:block; }
+  .concept-card .ex{ font-family:var(--font-mono); background:var(--code-bg); padding:8px 10px; border-radius:8px; margin-top:8px; color:var(--mint); font-size:12.8px;}
+
+  /* ================= SIMULATOR ================= */
+  .sim-panel{ background:var(--panel); border:1px solid var(--border); border-radius:var(--radius); padding:24px; }
+  .sim-input-row{ display:flex; gap:12px; flex-wrap:wrap; align-items:flex-end; margin-bottom:22px;}
+  .field{ display:flex; flex-direction:column; gap:6px; }
+  .field label{ font-size:11.5px; color:var(--muted); font-family:var(--font-mono); text-transform:uppercase; letter-spacing:.06em;}
+  .field input[type=text], .field input[type=number]{
+    background:var(--code-bg); border:1px solid var(--border); color:var(--text); border-radius:8px;
+    padding:10px 12px; font-family:var(--font-mono); font-size:14px; width:120px;
+  }
+  .field input[type=text]{ width:220px; }
+  .field input:focus{ border-color:var(--mint); }
+
+  .ruler{ overflow-x:auto; padding:10px 0 18px; }
+  .ruler-row{ display:flex; gap:6px; min-width:max-content; }
+  .tile-col{ display:flex; flex-direction:column; align-items:center; gap:4px; width:46px; }
+  .idx-pos, .idx-neg{ font-family:var(--font-mono); font-size:11px; color:var(--muted); height:16px; }
+  .idx-pos.hi, .idx-neg.hi{ color:var(--amber); font-weight:700; }
+  .tile{
+    width:44px; height:52px; border-radius:8px; background:var(--code-bg); border:1px solid var(--border);
+    display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:18px;
+    transition:.15s;
+  }
+  .tile.sel{ background:rgba(94,234,212,0.16); border-color:var(--mint); color:var(--mint); box-shadow:0 0 0 2px rgba(94,234,212,0.25) inset; }
+  .tile.sel.step-order{ position:relative; }
+  .order-badge{ position:absolute; top:-9px; right:-6px; background:var(--amber); color:#231a02; font-size:9px; font-weight:800; border-radius:50%; width:16px; height:16px; display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); }
+
+  .sim-out{ display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:6px; }
+  @media (max-width:760px){ .sim-out{ grid-template-columns:1fr; } }
+  .code-box{ background:var(--code-bg); border:1px solid var(--border); border-radius:10px; padding:14px 16px; font-family:var(--font-mono); font-size:14.5px; }
+  .code-box .lbl{ font-size:10.5px; color:var(--muted); text-transform:uppercase; letter-spacing:.08em; margin-bottom:6px; font-family:var(--font-mono);}
+  .code-box .val{ color:var(--mint); word-break:break-all;}
+  .code-box.err .val{ color:var(--rose); }
+  .explain-line{ font-size:13.4px; color:var(--muted); margin-top:14px; padding:12px 14px; background:var(--panel2); border-left:3px solid var(--violet); border-radius:8px; }
+
+  /* ================= STEPS ================= */
+  .steps-wrap{ display:flex; gap:22px; align-items:flex-start; flex-wrap:wrap; }
+  .step-list{ flex:1; min-width:260px; }
+  .step-item{ display:flex; gap:12px; padding:12px 0; border-bottom:1px solid var(--border); opacity:.45; }
+  .step-item.active{ opacity:1; }
+  .step-num{ font-family:var(--font-mono); color:var(--amber); font-weight:800; width:22px; }
+  .step-item.active .step-num{ color:var(--mint); }
+  .step-controls{ display:flex; gap:10px; margin-top:16px; flex-wrap:wrap; }
+
+  /* ================= DRAG & DROP / CLICK MATCH ================= */
+  .dd-wrap{ display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+  @media (max-width:760px){ .dd-wrap{ grid-template-columns:1fr; } }
+  .dd-col h3{ font-size:14px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; font-family:var(--font-mono); }
+  .dd-item{
+    background:var(--panel2); border:1px solid var(--border); border-radius:10px; padding:12px 14px; margin-bottom:10px;
+    cursor:pointer; font-family:var(--font-mono); font-size:13.6px; user-select:none; transition:.15s;
+  }
+  .dd-item.sel{ border-color:var(--amber); background:rgba(251,191,36,0.1); }
+  .dd-item.matched{ border-color:var(--mint); background:rgba(94,234,212,0.08); opacity:.55; cursor:default; }
+  .dd-item.wrong{ animation:shake .3s; border-color:var(--rose); }
+  @keyframes shake{ 0%,100%{transform:translateX(0);} 25%{transform:translateX(-5px);} 75%{transform:translateX(5px);} }
+  .feedback-line{ font-size:13px; margin-top:10px; min-height:18px; }
+  .feedback-line.ok{ color:var(--mint); } .feedback-line.bad{ color:var(--rose); }
+
+  /* ================= EXAMPLES ================= */
+  .example-card{ background:var(--panel); border:1px solid var(--border); border-radius:var(--radius); padding:20px; margin-bottom:16px;}
+  .example-card .q{ font-weight:700; margin-bottom:10px;}
+  .example-card .work{ font-family:var(--font-mono); background:var(--code-bg); border-radius:8px; padding:12px; font-size:13.6px; color:var(--muted); }
+  .example-card .work .out{ color:var(--mint); }
+
+  /* ================= MISTAKES ================= */
+  .mistake-card{ display:grid; grid-template-columns:auto 1fr; gap:12px; padding:16px; background:var(--panel); border:1px solid var(--border); border-radius:var(--radius); margin-bottom:12px;}
+  .mistake-card .x{ color:var(--rose); font-size:20px; } .mistake-card .ok{ color:var(--mint); font-size:20px; }
+  .mistake-card .row{ display:flex; gap:10px; align-items:flex-start; margin-bottom:6px; font-size:13.8px; }
+
+  /* ================= QUIZ ================= */
+  .quiz-panel{ background:var(--panel); border:1px solid var(--border); border-radius:var(--radius); padding:26px; max-width:720px; }
+  .quiz-progress{ font-family:var(--font-mono); color:var(--muted); font-size:12px; margin-bottom:10px; }
+  .quiz-q{ font-size:17px; margin-bottom:16px; }
+  .quiz-opt{ display:block; width:100%; text-align:left; background:var(--panel2); border:1px solid var(--border); color:var(--text); padding:12px 14px; border-radius:9px; margin-bottom:9px; cursor:pointer; font-size:14px; }
+  .quiz-opt:hover{ border-color:var(--mint); }
+  .quiz-opt.correct{ border-color:var(--mint); background:rgba(94,234,212,0.12); }
+  .quiz-opt.incorrect{ border-color:var(--rose); background:rgba(251,113,133,0.12); }
+  .quiz-explain{ font-size:13.4px; color:var(--muted); background:var(--panel2); padding:12px 14px; border-radius:9px; margin-top:12px; display:none; }
+  .quiz-score{ text-align:center; }
+  .quiz-score .big{ font-family:var(--font-mono); font-size:48px; color:var(--mint); }
+
+  /* ================= PROGRESS / BADGES ================= */
+  .progress-float{
+    position:fixed; right:18px; bottom:18px; z-index:150; background:var(--panel); border:1px solid var(--border);
+    border-radius:14px; padding:12px 16px; font-family:var(--font-mono); font-size:12px; color:var(--muted); box-shadow:0 10px 30px rgba(0,0,0,0.35);
+    max-width:170px;
+  }
+  .progress-float .pct{ color:var(--mint); font-weight:800; font-size:15px; }
+  .bar{ height:5px; background:var(--panel2); border-radius:3px; overflow:hidden; margin-top:6px; }
+  .bar > div{ height:100%; background:linear-gradient(90deg,var(--mint),var(--violet)); width:0%; transition:.3s; }
+  .badges{ display:flex; gap:6px; flex-wrap:wrap; margin-top:8px; }
+  .badge{ width:22px; height:22px; border-radius:50%; background:var(--panel2); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:11px; }
+  .badge.on{ background:var(--amber); border-color:var(--amber); }
+
+  footer{ padding:34px 0 60px; text-align:center; color:var(--muted); font-size:12.5px; }
+  footer .name{ color:var(--text); font-weight:700; }
+
+
+  /* =====================================================
+     PROFESSIONAL BLUE & WHITE THEME OVERRIDE
+  ===================================================== */
+  :root{
+    --bg:#f4f7fb;
+    --bg2:#eef4fb;
+    --panel:#ffffff;
+    --panel2:#f7faff;
+    --border:#dbe5f0;
+    --text:#172b4d;
+    --muted:#64748b;
+    --mint:#2563eb;
+    --mint-dim:#1d4ed8;
+    --amber:#f59e0b;
+    --rose:#dc2626;
+    --violet:#4f46e5;
+    --code-bg:#f1f5f9;
+  }
+
+  body{
+    background:linear-gradient(180deg,#f8fbff 0%,#f4f7fb 45%,#eef3f8 100%);
+    color:var(--text);
+  }
+  ::selection{background:#2563eb;color:#fff;}
+  a{color:#2563eb;}
+  :focus-visible{outline:2px solid #2563eb;outline-offset:3px;}
+
+  header.top{
+    background:linear-gradient(135deg,#123a70,#1f5ea8);
+    border-bottom:1px solid rgba(255,255,255,.15);
+    box-shadow:0 4px 18px rgba(23,63,122,.18);
+  }
+  .brandblock .eyebrow{color:#bfdbfe;}
+  .brandblock h1{color:#fff;}
+  .brandblock .subject,.tagline{color:#dbeafe;}
+  .langtoggle{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.25);}
+  .langtoggle span{color:#dbeafe;}
+  .langtoggle span.active{color:#fff;}
+  .slider{background:#174a85;}
+  .slider:before{background:#fff;}
+  .switch input:checked + .slider{background:#3b82f6;}
+  .switch input:checked + .slider:before{background:#fff;}
+
+  nav.subnav{background:#fff;border-top:1px solid #dbe5f0;}
+  nav.subnav button{color:#475569;}
+  nav.subnav button:hover{color:#1d4ed8;background:#eff6ff;}
+
+  section{border-bottom:1px solid #e2e8f0;}
+  .card,.sim-panel,.example-card,.quiz-panel,.mistake-card{
+    background:#fff;
+    border:1px solid #dbe5f0;
+    box-shadow:0 8px 24px rgba(23,63,122,.06);
+  }
+  .card:hover,.concept-card:hover{border-color:#93c5fd;box-shadow:0 12px 30px rgba(37,99,235,.10);}
+
+  .btn{border-color:#cbd5e1;}
+  .btn.primary{
+    background:linear-gradient(135deg,#1d4ed8,#2563eb);
+    color:#fff;
+    border-color:#1d4ed8;
+    box-shadow:0 5px 14px rgba(37,99,235,.20);
+  }
+  .btn.primary:hover{background:linear-gradient(135deg,#1e40af,#1d4ed8);}
+  .btn.ghost{background:#fff;color:#1d4ed8;border-color:#bfdbfe;}
+  .btn.ghost:hover{background:#eff6ff;}
+
+  .hero-code,.code-box,.concept-card .ex,.example-card .work{
+    background:#f8fafc;
+    border:1px solid #dbe5f0;
+    color:#1e293b;
+  }
+  .hero-code .k{color:#7c3aed;}
+  .hero-code .s{color:#b45309;}
+  .hero-code .c{color:#64748b;}
+  .hero-code .o,.code-box .val,.concept-card .ex{color:#1d4ed8;}
+
+  .field input[type=text],.field input[type=number]{
+    background:#fff;border-color:#cbd5e1;color:#172b4d;
+  }
+  .field input:focus{border-color:#2563eb;outline:none;box-shadow:0 0 0 3px rgba(37,99,235,.12);}
+
+  .tile{background:#fff;border-color:#cbd5e1;}
+  .tile.sel{
+    background:#eff6ff;border-color:#2563eb;color:#1d4ed8;
+    box-shadow:0 0 0 2px rgba(37,99,235,.12) inset;
+  }
+  .idx-pos.hi,.idx-neg.hi{color:#2563eb;}
+  .order-badge{background:#f59e0b;color:#3f2a00;}
+
+  .explain-line{background:#eff6ff;border-left:4px solid #2563eb;color:#334155;}
+  .dd-item{background:#fff;border-color:#dbe5f0;}
+  .dd-item:hover{background:#f8fbff;border-color:#93c5fd;}
+  .dd-item.sel{border-color:#f59e0b;background:#fffbeb;}
+  .dd-item.matched{border-color:#2563eb;background:#eff6ff;}
+  .feedback-line.ok{color:#15803d;}
+  .feedback-line.bad{color:#dc2626;}
+
+  .quiz-opt{background:#fff;border-color:#dbe5f0;color:#172b4d;}
+  .quiz-opt:hover{border-color:#2563eb;background:#f8fbff;}
+  .quiz-opt.correct{border-color:#16a34a;background:#f0fdf4;}
+  .quiz-opt.incorrect{border-color:#dc2626;background:#fef2f2;}
+  .quiz-explain{background:#f8fafc;color:#475569;}
+  .quiz-score .big{color:#2563eb;}
+
+  .progress-float{
+    background:#fff;border-color:#dbe5f0;
+    box-shadow:0 12px 30px rgba(23,63,122,.12);
+  }
+  .progress-float .pct{color:#2563eb;}
+  .bar{background:#e2e8f0;}
+  .bar > div{background:linear-gradient(90deg,#2563eb,#60a5fa);}
+  .badge{background:#f8fafc;border-color:#dbe5f0;}
+  .badge.on{background:#2563eb;border-color:#2563eb;color:#fff;}
+
+  footer{color:#64748b;}
+  footer .name{color:#1e3a5f;}
+
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="head-inner">
+    <div class="brandblock">
+      <div class="eyebrow" data-i18n="portalName">Sivagangai PG Teachers' Resource Portal</div>
+      <h1 data-i18n="topicTitle">String Slicing</h1>
+      <div class="subject" data-i18n="subjectLabel">Computer Science — Python</div>
+      <div class="tagline" data-i18n="tagline">Learn • Visualize • Interact • Practise • Master</div>
+    </div>
+    <div class="head-right">
+      <div class="langtoggle">
+        <span id="lblEn" class="active">English</span>
+        <label class="switch">
+          <input type="checkbox" id="langToggle">
+          <span class="slider"></span>
+        </label>
+        <span id="lblTa">தமிழ்</span>
+      </div>
+    </div>
+  </div>
+  <nav class="subnav">
+    <div class="wrap" id="subnav"></div>
+  </nav>
+</header>
+
+<main>
+  <div class="wrap">
+
+    <!-- ============ HOME / HERO ============ -->
+    <section id="home">
+      <div class="hero">
+        <div>
+          <div class="kicker" data-i18n="k_home">python · sequences</div>
+          <h2 data-i18n="heroTitle">Cut any string exactly where you want.</h2>
+          <p class="lead" data-i18n="heroLead">String slicing lets you pull out any part of a string using three numbers — start, stop and step — without writing a single loop.</p>
+          <div class="cta-row">
+            <button class="btn primary" data-scroll="simulator" data-i18n="ctaTry">Try the Simulator</button>
+            <button class="btn ghost" data-scroll="quiz" data-i18n="ctaQuiz">Jump to Quiz</button>
+          </div>
+        </div>
+        <div class="hero-code">
+<span class="c"># </span><span class="k">s</span> = <span class="s">"PYTHON"</span><br>
+<span class="k">s</span>[<span class="o">1</span>:<span class="o">4</span>] &nbsp;<span class="c">-&gt;</span> <span class="s">"YTH"</span><br>
+<span class="k">s</span>[<span class="o">::-1</span>] &nbsp;<span class="c">-&gt;</span> <span class="s">"NOHTYP"</span><br>
+<span class="k">s</span>[<span class="o">-3</span>:] &nbsp;&nbsp;<span class="c">-&gt;</span> <span class="s">"HON"</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ LEARN: intro + objectives ============ -->
+    <section id="learn">
+      <div class="kicker" data-i18n="k_learn">introduction</div>
+      <h2 class="sec-title" data-i18n="introTitle">What is string slicing?</h2>
+      <p class="sec-sub" data-i18n="introBody">A string in Python is a sequence of characters, and every character has a position (index). Slicing means asking Python for a *range* of positions at once — <code>s[start:stop:step]</code> — instead of one character with <code>s[i]</code>. It is used everywhere: cleaning text, reversing words, extracting file extensions, parsing dates, and processing data.</p>
+
+      <div class="grid cols-4" id="introCards"></div>
+
+      <h3 style="margin-top:34px;font-size:19px;" data-i18n="objTitle">Learning objectives</h3>
+      <div class="grid cols-2" id="objList" style="margin-top:12px;"></div>
+    </section>
+
+    <!-- ============ CONCEPT EXPLORER ============ -->
+    <section id="concepts">
+      <div class="kicker" data-i18n="k_concepts">concept explorer</div>
+      <h2 class="sec-title" data-i18n="conceptsTitle">The building blocks</h2>
+      <p class="sec-sub" data-i18n="conceptsSub">Tap a card to expand it.</p>
+      <div class="grid cols-3" id="conceptCards"></div>
+    </section>
+
+    <!-- ============ SIMULATOR ============ -->
+    <section id="simulator">
+      <div class="kicker" data-i18n="k_sim">interactive simulator</div>
+      <h2 class="sec-title" data-i18n="simTitle">Slice it yourself</h2>
+      <p class="sec-sub" data-i18n="simSub">Change the string or the numbers. Everything below updates instantly — this is Free Experiment Mode, there is nothing to break.</p>
+
+      <div class="sim-panel">
+        <div class="sim-input-row">
+          <div class="field">
+            <label data-i18n="lblString">String</label>
+            <input type="text" id="simStr" maxlength="18" value="PYTHON">
+          </div>
+          <div class="field">
+            <label data-i18n="lblStart">start</label>
+            <input type="number" id="simStart" placeholder="None">
+          </div>
+          <div class="field">
+            <label data-i18n="lblStop">stop</label>
+            <input type="number" id="simStop" placeholder="None">
+          </div>
+          <div class="field">
+            <label data-i18n="lblStep">step</label>
+            <input type="number" id="simStep" placeholder="1">
+          </div>
+          <button class="btn ghost" id="simReset" data-i18n="btnReset">Reset</button>
+        </div>
+
+        <div class="ruler"><div class="ruler-row" id="rulerRow"></div></div>
+
+        <div class="sim-out">
+          <div class="code-box" id="codeExpr"><div class="lbl" data-i18n="lblExpr">Python expression</div><div class="val" id="codeExprVal">s[0:6]</div></div>
+          <div class="code-box" id="codeOut"><div class="lbl" data-i18n="lblOutput">Output</div><div class="val" id="codeOutVal">'PYTHON'</div></div>
+        </div>
+        <div class="explain-line" id="simExplain"></div>
+      </div>
+    </section>
+
+    <!-- ============ HOW IT WORKS ============ -->
+    <section id="howworks">
+      <div class="kicker" data-i18n="k_how">how it works</div>
+      <h2 class="sec-title" data-i18n="howTitle">Resolving s[start:stop:step] — step by step</h2>
+      <p class="sec-sub" data-i18n="howSub">Uses the string <code>"PYTHON"</code> and the slice <code>[1:5:2]</code> as a running example.</p>
+      <div class="steps-wrap">
+        <div class="step-list" id="stepList"></div>
+        <div class="sim-panel" style="flex:1; min-width:280px;">
+          <div class="ruler"><div class="ruler-row" id="stepRuler"></div></div>
+          <div class="code-box"><div class="lbl" data-i18n="lblOutput">Output</div><div class="val" id="stepOutVal">—</div></div>
+          <div class="step-controls">
+            <button class="btn ghost" id="stepPrev" data-i18n="btnPrev">◀ Previous</button>
+            <button class="btn primary" id="stepPlay" data-i18n="btnPlay">▶ Play</button>
+            <button class="btn ghost" id="stepNext" data-i18n="btnNext">Next ▶</button>
+            <button class="btn ghost" id="stepReset" data-i18n="btnReset">Reset</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ DRAG & DROP (click-based) ============ -->
+    <section id="dragdrop">
+      <div class="kicker" data-i18n="k_dd">practice activity</div>
+      <h2 class="sec-title" data-i18n="ddTitle">Match the slice to its result</h2>
+      <p class="sec-sub" data-i18n="ddSub">String used: <code>s = "COMPUTER"</code>. Click one item on the left, then its matching result on the right.</p>
+      <div class="dd-wrap">
+        <div class="dd-col"><h3 data-i18n="ddColLeft">Slice expression</h3><div id="ddLeft"></div></div>
+        <div class="dd-col"><h3 data-i18n="ddColRight">Result</h3><div id="ddRight"></div></div>
+      </div>
+      <div class="feedback-line" id="ddFeedback"></div>
+    </section>
+
+    <!-- ============ MATCHING GAME (terms) ============ -->
+    <section id="matching">
+      <div class="kicker" data-i18n="k_match">matching game</div>
+      <h2 class="sec-title" data-i18n="matchTitle">Terms and meanings</h2>
+      <p class="sec-sub" id="matchScoreLine"></p>
+      <div class="dd-wrap">
+        <div class="dd-col"><h3 data-i18n="matchColTerm">Term</h3><div id="matchLeft"></div></div>
+        <div class="dd-col"><h3 data-i18n="matchColDef">Meaning</h3><div id="matchRight"></div></div>
+      </div>
+      <div class="feedback-line" id="matchFeedback"></div>
+    </section>
+
+    <!-- ============ EXAMPLES ============ -->
+    <section id="examples">
+      <div class="kicker" data-i18n="k_ex">worked examples</div>
+      <h2 class="sec-title" data-i18n="exTitle">Three practical problems</h2>
+      <div id="exampleWrap"></div>
+    </section>
+
+    <!-- ============ COMMON MISTAKES ============ -->
+    <section id="mistakes">
+      <div class="kicker" data-i18n="k_mistakes">common mistakes</div>
+      <h2 class="sec-title" data-i18n="mistTitle">What trips students up</h2>
+      <div id="mistakeWrap"></div>
+    </section>
+
+    <!-- ============ REAL WORLD ============ -->
+    <section id="applications">
+      <div class="kicker" data-i18n="k_app">real-world use</div>
+      <h2 class="sec-title" data-i18n="appTitle">Where slicing actually gets used</h2>
+      <div class="grid cols-4" id="appCards"></div>
+    </section>
+
+    <!-- ============ QUIZ ============ -->
+    <section id="quiz">
+      <div class="kicker" data-i18n="k_quiz">final assessment</div>
+      <h2 class="sec-title" data-i18n="quizTitle">Test yourself — 10 questions</h2>
+      <div class="quiz-panel" id="quizPanel"></div>
+    </section>
+
+  </div>
+</main>
+
+<div class="progress-float" id="progressFloat">
+  <div><span data-i18n="progressLabel">Progress</span>: <span class="pct" id="progressPct">0%</span></div>
+  <div class="bar"><div id="progressBar"></div></div>
+  <div class="badges" id="badgeRow"></div>
+</div>
+
+<footer>
+  <div data-i18n="footerDeveloped">Developed by</div>
+  <div class="name">B. Nirmal Singh</div>
+  <div data-i18n="footerDesig">Computer Instructor Grade 1, GHSS Keeladi, Sivagangai Dt.</div>
+</footer>
+
+<script>
+/* =====================================================================
+   TRANSLATIONS
+   ===================================================================== */
+const TR = {
+en:{
+  portalName:"Sivagangai PG Teachers' Resource Portal",
+  topicTitle:"String Slicing",
+  subjectLabel:"Computer Science — Python",
+  tagline:"Learn • Visualize • Interact • Practise • Master",
+  k_home:"python · sequences",
+  heroTitle:"Cut any string exactly where you want.",
+  heroLead:"String slicing lets you pull out any part of a string using three numbers — start, stop and step — without writing a single loop.",
+  ctaTry:"Try the Simulator", ctaQuiz:"Jump to Quiz",
+  k_learn:"introduction",
+  introTitle:"What is string slicing?",
+  introBody:'A string in Python is a sequence of characters, and every character has a position (index). Slicing means asking Python for a range of positions at once — <code>s[start:stop:step]</code> — instead of one character with <code>s[i]</code>. It is used everywhere: cleaning text, reversing words, extracting file extensions, parsing dates, and processing data.',
+  objTitle:"Learning objectives",
+  k_concepts:"concept explorer", conceptsTitle:"The building blocks", conceptsSub:"Tap a card to expand it.",
+  k_sim:"interactive simulator", simTitle:"Slice it yourself",
+  simSub:"Change the string or the numbers. Everything below updates instantly — this is Free Experiment Mode, there is nothing to break.",
+  lblString:"String", lblStart:"start", lblStop:"stop", lblStep:"step", btnReset:"Reset",
+  lblExpr:"Python expression", lblOutput:"Output",
+  k_how:"how it works", howTitle:"Resolving s[start:stop:step] — step by step",
+  howSub:'Uses the string "PYTHON" and the slice [1:5:2] as a running example.',
+  btnPrev:"◀ Previous", btnPlay:"▶ Play", btnPause:"⏸ Pause", btnNext:"Next ▶",
+  k_dd:"practice activity", ddTitle:"Match the slice to its result",
+  ddSub:'String used: <code>s = "COMPUTER"</code>. Click one item on the left, then its matching result on the right.',
+  ddColLeft:"Slice expression", ddColRight:"Result",
+  k_match:"matching game", matchTitle:"Terms and meanings",
+  matchColTerm:"Term", matchColDef:"Meaning",
+  k_ex:"worked examples", exTitle:"Three practical problems",
+  k_mistakes:"common mistakes", mistTitle:"What trips students up",
+  k_app:"real-world use", appTitle:"Where slicing actually gets used",
+  k_quiz:"final assessment", quizTitle:"Test yourself — 10 questions",
+  progressLabel:"Progress",
+  footerDeveloped:"Developed by", footerDesig:"Computer Instructor Grade 1, GHSS Keeladi, Sivagangai Dt.",
+  errStepZero:"step cannot be 0 — Python raises ValueError here.",
+  quizCorrect:"✓ Correct!", quizIncorrect:"✗ Incorrect.",
+  quizScoreLbl:"Score", quizRetry:"Retry Quiz",
+  perf90:"Excellent! You have mastered this topic.",
+  perf70:"Very Good! Keep practising.",
+  perf50:"Good effort. Review the concepts once more.",
+  perf0:"Let's practise the simulator again and try once more.",
+  ddOk:"✓ Correct! Great match.", ddBad:"✗ Not quite — try another pair.",
+  matchOk:"✓ Match correct.", matchBad:"✗ Incorrect match — try again.",
+  matchDone:"All matched! Well done.",
+  matchScore:"Matched",
+},
+ta:{
+  portalName:"சிவகங்கை முதுகலை ஆசிரியர்களின் வள மையம்",
+  topicTitle:"சரம் வெட்டெடுத்தல் (String Slicing)",
+  subjectLabel:"கணினி அறிவியல் — Python",
+  tagline:"கற்று • காட்சிப்படுத்து • ஊடாடு • பயிற்சி செய் • தேர்ச்சி பெறு",
+  k_home:"python · சரங்கள்",
+  heroTitle:"ஒரு சரத்தை நீங்கள் விரும்பும் இடத்தில் துல்லியமாக வெட்டுங்கள்.",
+  heroLead:"String slicing என்பது start, stop, step ஆகிய மூன்று எண்களைப் பயன்படுத்தி, ஒரு loop கூட எழுதாமல் ஒரு சரத்தின் எந்த பகுதியையும் எடுக்க உதவும் வழிமுறை.",
+  ctaTry:"சிமுலேட்டரை முயற்சிக்க", ctaQuiz:"வினாடி வினாவிற்குச் செல்",
+  k_learn:"அறிமுகம்",
+  introTitle:"String Slicing என்றால் என்ன?",
+  introBody:'Python-இல் ஒரு சரம் (string) என்பது எழுத்துக்களின் தொடர்; ஒவ்வொரு எழுத்துக்கும் ஒரு இடம் (index) உண்டு. Slicing என்பது <code>s[i]</code> எனும் ஒரே எழுத்துக்குப் பதிலாக, <code>s[start:stop:step]</code> எனும் வடிவத்தில் ஒரே நேரத்தில் பல இடங்களைப் பெறுவது. இது உரையை சுத்தம் செய்தல், சொற்களை தலைகீழாக்குதல், கோப்பு நீட்டிப்பை பிரித்தெடுத்தல், தேதிகளை பகுப்பாய்வு செய்தல் மற்றும் தரவை செயலாக்குதல் என எல்லா இடங்களிலும் பயன்படுகிறது.',
+  objTitle:"கற்றல் நோக்கங்கள்",
+  k_concepts:"கருத்து ஆய்வகம்", conceptsTitle:"அடிப்படை கூறுகள்", conceptsSub:"விரிவாக்க அட்டையை தட்டவும்.",
+  k_sim:"ஊடாடும் சிமுலேட்டர்", simTitle:"நீங்களே வெட்டி பாருங்கள்",
+  simSub:"சரத்தையோ எண்களையோ மாற்றுங்கள். கீழே உள்ள அனைத்தும் உடனடியாக மாறும் — இது Free Experiment Mode, எதுவும் பழுதாகாது.",
+  lblString:"சரம்", lblStart:"start", lblStop:"stop", lblStep:"step", btnReset:"மீட்டமை",
+  lblExpr:"Python கட்டளை", lblOutput:"வெளியீடு",
+  k_how:"இது எப்படி வேலை செய்கிறது", howTitle:"s[start:stop:step] படிப்படியாக தீர்மானித்தல்",
+  howSub:'"PYTHON" எனும் சரத்தையும் [1:5:2] எனும் slice-ஐயும் உதாரணமாகப் பயன்படுத்துகிறோம்.',
+  btnPrev:"◀ முந்தையது", btnPlay:"▶ இயக்கு", btnPause:"⏸ நிறுத்து", btnNext:"அடுத்தது ▶",
+  k_dd:"பயிற்சி செயல்பாடு", ddTitle:"Slice-ஐ அதன் விடையுடன் பொருத்துக",
+  ddSub:'பயன்படுத்தும் சரம்: <code>s = "COMPUTER"</code>. இடதுபுறத்தில் ஒன்றைத் தட்டி, பின் பொருந்தும் விடையை வலதுபுறத்தில் தட்டவும்.',
+  ddColLeft:"Slice கட்டளை", ddColRight:"விடை",
+  k_match:"பொருத்தும் விளையாட்டு", matchTitle:"சொற்களும் பொருள்களும்",
+  matchColTerm:"சொல்", matchColDef:"பொருள்",
+  k_ex:"தீர்க்கப்பட்ட உதாரணங்கள்", exTitle:"மூன்று நடைமுறை பிரச்சனைகள்",
+  k_mistakes:"பொதுவான தவறுகள்", mistTitle:"மாணவர்கள் எங்கே தடுமாறுகிறார்கள்",
+  k_app:"நிஜ வாழ்க்கை பயன்பாடு", appTitle:"Slicing எங்கே பயன்படுத்தப்படுகிறது",
+  k_quiz:"இறுதி மதிப்பீடு", quizTitle:"உங்களை சோதியுங்கள் — 10 கேள்விகள்",
+  progressLabel:"முன்னேற்றம்",
+  footerDeveloped:"உருவாக்கியவர்", footerDesig:"கணினி பயிற்றுநர் நிலை - 1, அரசு மேல்நிலைப்பள்ளி, கீழடி, சிவகங்கை மாவட்டம்.",
+  errStepZero:"step 0 ஆக இருக்க முடியாது — Python இங்கு ValueError தரும்.",
+  quizCorrect:"✓ சரி!", quizIncorrect:"✗ தவறு.",
+  quizScoreLbl:"மதிப்பெண்", quizRetry:"மீண்டும் முயற்சிக்க",
+  perf90:"அருமை! இந்த தலைப்பில் தேர்ச்சி பெற்றுவிட்டீர்கள்.",
+  perf70:"மிகவும் நல்லது! தொடர்ந்து பயிற்சி செய்யுங்கள்.",
+  perf50:"நல்ல முயற்சி. கருத்துக்களை மீண்டும் ஒருமுறை பார்க்கவும்.",
+  perf0:"சிமுலேட்டரை மீண்டும் பயிற்சி செய்து மறுபடியும் முயற்சிக்கலாம்.",
+  ddOk:"✓ சரியான பொருத்தம்!", ddBad:"✗ சரியில்லை — மற்றொரு ஜோடியை முயற்சிக்கவும்.",
+  matchOk:"✓ சரியான பொருத்தம்.", matchBad:"✗ தவறான பொருத்தம் — மீண்டும் முயற்சிக்கவும்.",
+  matchDone:"அனைத்தும் பொருந்தியது! சிறப்பு.",
+  matchScore:"பொருத்தியவை",
+}
+};
+let LANG = "en";
+function t(key){ return TR[LANG][key] ?? key; }
+function applyStaticI18n(){
+  document.querySelectorAll("[data-i18n]").forEach(el=>{
+    el.innerHTML = t(el.getAttribute("data-i18n"));
+  });
+}
+
+/* =====================================================================
+   PYTHON-STYLE SLICE LOGIC
+   ===================================================================== */
+function resolveSlice(len, start, stop, step){
+  if(step===0) return null;
+  if(step>0){
+    if(start===null) start=0; else start = start<0 ? Math.max(len+start,0) : Math.min(start,len);
+    if(stop===null) stop=len; else stop = stop<0 ? Math.max(len+stop,0) : Math.min(stop,len);
+  } else {
+    if(start===null) start=len-1; else start = start<0 ? Math.max(len+start,-1) : Math.min(start,len-1);
+    if(stop===null) stop=-1; else stop = stop<0 ? Math.max(len+stop,-1) : Math.min(stop,len-1);
+  }
+  return {start,stop,step};
+}
+function sliceIndices(len,start,stop,step){
+  const r = resolveSlice(len,start,stop,step);
+  if(!r) return null;
+  const idx=[];
+  if(r.step>0){ for(let i=r.start;i<r.stop;i+=r.step) idx.push(i); }
+  else { for(let i=r.start;i>r.stop;i+=r.step) idx.push(i); }
+  return idx;
+}
+function sliceString(str,start,stop,step){
+  const idx = sliceIndices(str.length,start,stop,step);
+  if(idx===null) return null;
+  return idx.map(i=>str[i]).join("");
+}
+function parseNum(v){ return (v===""||v===undefined||v===null) ? null : parseInt(v,10); }
+
+/* =====================================================================
+   NAV
+   ===================================================================== */
+const NAV_SECTIONS = [
+  ["home","Home","முகப்பு"],["learn","Learn","கற்றல்"],["simulator","Simulator","சிமுலேட்டர்"],
+  ["howworks","How It Works","இது வேலை"],["dragdrop","Drag & Drop","இழுத்துப் போடு"],
+  ["matching","Matching","பொருத்து"],["examples","Examples","உதாரணங்கள்"],
+  ["mistakes","Mistakes","தவறுகள்"],["applications","Uses","பயன்பாடு"],["quiz","Quiz","வினா"]
+];
+function buildNav(){
+  const nav = document.getElementById("subnav");
+  nav.innerHTML = "";
+  NAV_SECTIONS.forEach(([id,en,ta])=>{
+    const b = document.createElement("button");
+    b.textContent = LANG==="ta" ? ta : en;
+    b.onclick = ()=>document.getElementById(id).scrollIntoView({behavior:"smooth"});
+    nav.appendChild(b);
+  });
+}
+document.querySelectorAll("[data-scroll]").forEach(b=>{
+  b.addEventListener("click",()=>document.getElementById(b.dataset.scroll).scrollIntoView({behavior:"smooth"}));
+});
+
+/* =====================================================================
+   INTRO CARDS + OBJECTIVES
+   ===================================================================== */
+const INTRO_CARDS = [
+  {icon:"🔎", en:["What is it?","A way to extract a sub-part of a string using position numbers."], ta:["இது என்ன?","ஒரு சரத்தின் ஒரு பகுதியை இட எண்களைக் கொண்டு எடுப்பது."]},
+  {icon:"⚙️", en:["Why important?","Avoids manual loops; concise, fast, and used constantly in real code."], ta:["ஏன் முக்கியம்?","கைமுறை loop தேவையில்லை; சுருக்கமான, வேகமான, தினசரி பயன்படும் நுட்பம்."]},
+  {icon:"🌐", en:["Where used?","Text cleaning, reversing, parsing filenames, dates, CSV fields."], ta:["எங்கு பயன்படுகிறது?","உரை சுத்தம், தலைகீழாக்கம், கோப்பு பெயர்/தேதி பகுப்பாய்வு, CSV புலங்கள்."]},
+  {icon:"🎯", en:["What you'll learn","Indexing, slice notation, negative indices, step direction."], ta:["நீங்கள் கற்பது","Indexing, slice notation, எதிர்மறை index, step திசை."]},
+];
+function renderIntroCards(){
+  const wrap = document.getElementById("introCards"); wrap.innerHTML="";
+  INTRO_CARDS.forEach(c=>{
+    const [h,p] = LANG==="ta"?c.ta:c.en;
+    const el = document.createElement("div"); el.className="card";
+    el.innerHTML = `<div class="icon">${c.icon}</div><h3>${h}</h3><p>${p}</p>`;
+    wrap.appendChild(el);
+  });
+}
+const OBJECTIVES = {
+  en:["Define string slicing in your own words.","Identify start, stop and step in a slice.","Explain how positive and negative indices work.","Predict the output of s[start:stop:step] by hand.","Use the simulator to test any slice.","Match slice expressions to their results.","Match key terms with their meanings.","Solve real slicing problems (reverse, extract, skip).","Spot common off-by-one and step mistakes.","Score well on the final 10-question quiz."],
+  ta:["String slicing-ஐ உங்கள் சொந்த வார்த்தைகளில் விளக்குக.","ஒரு slice-இல் start, stop, step-ஐ கண்டறியவும்.","நேர்/எதிர் index எப்படி வேலை செய்கிறது என விளக்குக.","s[start:stop:step]-ன் வெளியீட்டை கையால் கணிக்கவும்.","எந்த slice-ஐயும் சோதிக்க சிமுலேட்டரைப் பயன்படுத்துக.","Slice கட்டளைகளை அவற்றின் விடையுடன் பொருத்துக.","முக்கிய சொற்களை பொருளுடன் பொருத்துக.","நிஜமான slicing பிரச்சனைகளை (தலைகீழ், பிரித்தெடுத்தல்) தீர்க்கவும்.","பொதுவான off-by-one, step தவறுகளை கண்டறியவும்.","இறுதி 10 கேள்வி வினாடி வினாவில் நல்ல மதிப்பெண் பெறவும்."]
+};
+function renderObjectives(){
+  const wrap = document.getElementById("objList"); wrap.innerHTML="";
+  OBJECTIVES[LANG].forEach((o,i)=>{
+    const el = document.createElement("div"); el.className="card";
+    el.style.display="flex"; el.style.gap="10px"; el.style.alignItems="flex-start";
+    el.innerHTML = `<span class="mono" style="color:var(--mint);font-weight:800;">${(i+1).toString().padStart(2,"0")}</span><span style="font-size:13.8px;">${o}</span>`;
+    wrap.appendChild(el);
+  });
+}
+
+/* =====================================================================
+   CONCEPT EXPLORER
+   ===================================================================== */
+const CONCEPTS = [
+  {icon:"📍",en:["Index","Every character has a position, counted from 0.","'PYTHON'[0] → 'P'"],ta:["Index (இடம்)","ஒவ்வொரு எழுத்துக்கும் 0-லிருந்து தொடங்கும் ஒரு இடம் உண்டு.","'PYTHON'[0] → 'P'"]},
+  {icon:"➖",en:["Negative index","Counts backward from the end, -1 is the last character.","'PYTHON'[-1] → 'N'"],ta:["எதிர்மறை index","இறுதியிலிருந்து பின்னோக்கி எண்ணும்; -1 என்பது கடைசி எழுத்து.","'PYTHON'[-1] → 'N'"]},
+  {icon:"✂️",en:["Slice notation","s[start:stop:step] extracts characters from start up to (not including) stop.","'PYTHON'[1:4] → 'YTH'"],ta:["Slice notation","s[start:stop:step] என்பது start முதல் stop வரை (stop தவிர்த்து) எடுக்கும்.","'PYTHON'[1:4] → 'YTH'"]},
+  {icon:"⏭️",en:["Step","Controls the jump size and direction between characters.","'PYTHON'[::2] → 'PTO'"],ta:["Step","எழுத்துக்களுக்கு இடையேயான தாவல் அளவையும் திசையையும் கட்டுப்படுத்தும்.","'PYTHON'[::2] → 'PTO'"]},
+  {icon:"🔁",en:["Reversing","A step of -1 walks the string backward.","'PYTHON'[::-1] → 'NOHTYP'"],ta:["தலைகீழாக்கம்","-1 step சரத்தை பின்நோக்கி நகர்த்தும்.","'PYTHON'[::-1] → 'NOHTYP'"]},
+  {icon:"🧊",en:["Immutability","Slicing never changes the original string — it returns a new one.","s[1:3] does not modify s"],ta:["Immutability","Slicing செய்தால் மூல சரம் மாறாது — புதிய சரம் திரும்பும்.","s[1:3] செய்தால் s மாறாது"]},
+];
+function renderConcepts(){
+  const wrap = document.getElementById("conceptCards"); wrap.innerHTML="";
+  CONCEPTS.forEach((c,i)=>{
+    const [h,p,ex] = LANG==="ta"?c.ta:c.en;
+    const el = document.createElement("div"); el.className="card concept-card";
+    el.innerHTML = `<div class="icon">${c.icon}</div><h3>${h}</h3><p>${p}</p>
+      <div class="concept-detail"><div class="ex">${ex}</div></div>`;
+    el.addEventListener("click",()=>el.classList.toggle("open"));
+    wrap.appendChild(el);
+  });
+}
+
+/* =====================================================================
+   SIMULATOR
+   ===================================================================== */
+function renderRuler(container, str, idx, highlightSet){
+  container.innerHTML = "";
+  const len = str.length;
+  for(let i=0;i<len;i++){
+    const col = document.createElement("div"); col.className="tile-col";
+    const pos = document.createElement("div"); pos.className="idx-pos"+(highlightSet.has(i)?" hi":""); pos.textContent=i;
+    const tile = document.createElement("div"); tile.className="tile"+(highlightSet.has(i)?" sel":""); tile.textContent = str[i];
+    const neg = document.createElement("div"); neg.className="idx-neg"+(highlightSet.has(i)?" hi":""); neg.textContent = i-len;
+    if(highlightSet.has(i) && idx){
+      const order = idx.indexOf(i);
+      if(order>-1){ const b=document.createElement("div"); b.className="order-badge"; b.textContent=order+1; tile.style.position="relative"; tile.appendChild(b); }
+    }
+    col.appendChild(pos); col.appendChild(tile); col.appendChild(neg);
+    container.appendChild(col);
+  }
+}
+function runSimulator(){
+  const str = document.getElementById("simStr").value || "";
+  const start = parseNum(document.getElementById("simStart").value);
+  const stop = parseNum(document.getElementById("simStop").value);
+  const step = document.getElementById("simStep").value==="" ? 1 : parseInt(document.getElementById("simStep").value,10);
+
+  const exprBox = document.getElementById("codeExpr");
+  const outBox = document.getElementById("codeOut");
+  const exprVal = document.getElementById("codeExprVal");
+  const outVal = document.getElementById("codeOutVal");
+  const explain = document.getElementById("simExplain");
+
+  const startTxt = document.getElementById("simStart").value===""?"":start;
+  const stopTxt = document.getElementById("simStop").value===""?"":stop;
+  exprVal.textContent = `s[${startTxt}:${stopTxt}${step!==1?":"+step:""}]`;
+
+  if(step===0){
+    outBox.classList.add("err"); exprBox.classList.remove("err");
+    outVal.textContent = "ValueError: slice step cannot be zero";
+    explain.textContent = t("errStepZero");
+    renderRuler(document.getElementById("rulerRow"), str, [], new Set());
+    return;
+  }
+  outBox.classList.remove("err");
+  const idx = sliceIndices(str.length, start, stop, step);
+  const result = idx.map(i=>str[i]).join("");
+  outVal.textContent = `'${result}'`;
+  renderRuler(document.getElementById("rulerRow"), str, idx, new Set(idx));
+
+  const dir = step>0 ? (LANG==="ta"?"முன்நோக்கி":"forward") : (LANG==="ta"?"பின்நோக்கி":"backward");
+  const cnt = idx.length;
+  explain.textContent = LANG==="ta"
+    ? `${cnt} எழுத்துக்கள் தேர்ந்தெடுக்கப்பட்டன, step=${step} (${dir}) திசையில். எண் அட்டைகளின் மேல் தேர்வு வரிசை காட்டப்பட்டுள்ளது.`
+    : `${cnt} character(s) selected, walking ${dir} with step=${step}. The small numbers on selected tiles show the pick order.`;
+}
+["simStr","simStart","simStop","simStep"].forEach(id=>{
+  document.getElementById(id).addEventListener("input", runSimulator);
+});
+document.getElementById("simReset").addEventListener("click",()=>{
+  document.getElementById("simStr").value="PYTHON";
+  document.getElementById("simStart").value="";
+  document.getElementById("simStop").value="";
+  document.getElementById("simStep").value="";
+  runSimulator();
+});
+
+/* =====================================================================
+   HOW IT WORKS — STEP BY STEP
+   ===================================================================== */
+const HOW_STR = "PYTHON";
+const HOW_START=1, HOW_STOP=5, HOW_STEP=2;
+const HOW_STEPS_EN = [
+  "Start with the string \"PYTHON\" (length 6) and the slice [1:5:2].",
+  "step = 2 is positive, so we read left to right. Since start is given, start = 1.",
+  "stop = 5 is within range, so stop stays 5. We will stop before index 5.",
+  "Begin at index 1 ('Y'). Take it, then jump by step=2 to index 3.",
+  "At index 3 ('H'). Take it, then jump to index 5 — but 5 is not < stop(5), so we stop.",
+  "Final result: characters at index 1 and 3 → \"YH\"."
+];
+const HOW_STEPS_TA = [
+  "\"PYTHON\" (நீளம் 6) எனும் சரத்தையும் [1:5:2] slice-ஐயும் தொடங்குவோம்.",
+  "step = 2 நேர்மறை, எனவே இடமிருந்து வலமாக படிப்போம். start கொடுக்கப்பட்டதால் start = 1.",
+  "stop = 5 வரம்பிற்குள் உள்ளது, எனவே stop 5 ஆகவே இருக்கும். index 5-க்கு முன் நிற்போம்.",
+  "index 1 ('Y')-இல் தொடங்குக. அதை எடுத்து, step=2 மூலம் index 3-க்கு தாவுக.",
+  "index 3 ('H')-இல். அதை எடுத்து, index 5-க்கு தாவினால் — 5, stop(5)-ஐ விட குறைவாக இல்லை, எனவே நிறுத்துக.",
+  "இறுதி விடை: index 1, 3-இல் உள்ள எழுத்துக்கள் → \"YH\"."
+];
+let howStepN = 0, howPlaying=false, howTimer=null;
+function renderHowStep(){
+  const list = document.getElementById("stepList"); list.innerHTML="";
+  const steps = LANG==="ta"?HOW_STEPS_TA:HOW_STEPS_EN;
+  steps.forEach((s,i)=>{
+    const el = document.createElement("div"); el.className="step-item"+(i<=howStepN?" active":"");
+    el.innerHTML = `<div class="step-num">${i+1}</div><div>${s}</div>`;
+    list.appendChild(el);
+  });
+  const idxSoFar = sliceIndices(HOW_STR.length, HOW_START, HOW_STOP, HOW_STEP).slice(0, howStepN>=3?(howStepN>=4?2:1):0);
+  renderRuler(document.getElementById("stepRuler"), HOW_STR, idxSoFar, new Set(idxSoFar));
+  document.getElementById("stepOutVal").textContent = howStepN>=5 ? `'${idxSoFar.map(i=>HOW_STR[i]).join("")}'` : "…";
+  document.getElementById("stepPrev").disabled = howStepN===0;
+  document.getElementById("stepNext").disabled = howStepN===steps.length-1;
+}
+document.getElementById("stepPrev").addEventListener("click",()=>{ howStepN=Math.max(0,howStepN-1); renderHowStep(); });
+document.getElementById("stepNext").addEventListener("click",()=>{ howStepN=Math.min(5,howStepN+1); renderHowStep(); });
+document.getElementById("stepReset").addEventListener("click",()=>{ howStepN=0; stopPlay(); renderHowStep(); });
+function stopPlay(){ howPlaying=false; clearInterval(howTimer); document.getElementById("stepPlay").textContent=t("btnPlay"); }
+document.getElementById("stepPlay").addEventListener("click",(e)=>{
+  if(howPlaying){ stopPlay(); return; }
+  howPlaying=true; e.target.textContent=t("btnPause");
+  howTimer = setInterval(()=>{
+    if(howStepN>=5){ stopPlay(); return; }
+    howStepN++; renderHowStep();
+  },1100);
+});
+
+/* =====================================================================
+   DRAG & DROP (click-to-match) ACTIVITY
+   ===================================================================== */
+const DD_STR = "COMPUTER";
+const DD_PAIRS = [
+  {expr:"s[0:3]", out:sliceString(DD_STR,0,3,1)},
+  {expr:"s[-3:]", out:sliceString(DD_STR,-3,null,1)},
+  {expr:"s[::-1]", out:sliceString(DD_STR,null,null,-1)},
+  {expr:"s[2:6:2]", out:sliceString(DD_STR,2,6,2)},
+];
+let ddSelectedLeft = null, ddMatched = new Set();
+function renderDD(){
+  const left = document.getElementById("ddLeft"); left.innerHTML="";
+  const right = document.getElementById("ddRight"); right.innerHTML="";
+  const shuffledRight = [...DD_PAIRS].sort(()=> LANG==="init"?0:0.5-Math.random());
+  DD_PAIRS.forEach((p,i)=>{
+    const l = document.createElement("div"); l.className="dd-item"; l.textContent=p.expr; l.dataset.i=i;
+    l.addEventListener("click",()=>ddClickLeft(i,l));
+    left.appendChild(l);
+  });
+  shuffledRight.forEach((p)=>{
+    const idx = DD_PAIRS.indexOf(p);
+    const r = document.createElement("div"); r.className="dd-item"; r.textContent=`"${p.out}"`; r.dataset.i=idx;
+    r.addEventListener("click",()=>ddClickRight(idx,r));
+    right.appendChild(r);
+  });
+  ddSelectedLeft=null; ddMatched=new Set();
+  document.getElementById("ddFeedback").textContent="";
+}
+function ddClickLeft(i,el){
+  if(ddMatched.has(i)) return;
+  document.querySelectorAll("#ddLeft .dd-item").forEach(x=>x.classList.remove("sel"));
+  el.classList.add("sel"); ddSelectedLeft=i;
+}
+function ddClickRight(i,el){
+  if(ddMatched.has(i) || ddSelectedLeft===null) return;
+  const fb = document.getElementById("ddFeedback");
+  if(i===ddSelectedLeft){
+    el.classList.add("matched");
+    document.querySelector(`#ddLeft .dd-item[data-i="${i}"]`).classList.add("matched");
+    ddMatched.add(i);
+    fb.textContent = t("ddOk"); fb.className="feedback-line ok";
+    markProgress("dragdrop");
+  } else {
+    el.classList.add("wrong"); setTimeout(()=>el.classList.remove("wrong"),320);
+    fb.textContent = t("ddBad"); fb.className="feedback-line bad";
+  }
+  document.querySelectorAll("#ddLeft .dd-item").forEach(x=>x.classList.remove("sel"));
+  ddSelectedLeft=null;
+}
+
+/* =====================================================================
+   MATCHING GAME (terms)
+   ===================================================================== */
+const MATCH_TERMS = [
+  {en:["Index","A position number of a character in a string."],ta:["Index","சரத்தில் ஓர் எழுத்தின் இட எண்."]},
+  {en:["Slice","A sub-part of a string extracted using start:stop:step."],ta:["Slice","start:stop:step கொண்டு எடுக்கப்படும் சரத்தின் ஒரு பகுதி."]},
+  {en:["Step","The gap and direction between picked characters."],ta:["Step","தேர்ந்தெடுக்கப்படும் எழுத்துக்கள் இடையேயான இடைவெளியும் திசையும்."]},
+  {en:["Negative index","Counting positions backward from the end of the string."],ta:["எதிர்மறை Index","சரத்தின் முடிவிலிருந்து பின்நோக்கி இடங்களை எண்ணுவது."]},
+  {en:["Immutable","A property meaning a string cannot be changed in place."],ta:["Immutable","சரத்தை அப்படியே மாற்ற முடியாது என்ற தன்மை."]},
+];
+let matchSelLeft=null, matchDoneSet=new Set();
+function renderMatching(){
+  const left = document.getElementById("matchLeft"); left.innerHTML="";
+  const right = document.getElementById("matchRight"); right.innerHTML="";
+  const order = MATCH_TERMS.map((_,i)=>i).sort(()=>0.5-Math.random());
+  MATCH_TERMS.forEach((m,i)=>{
+    const [term] = LANG==="ta"?m.ta:m.en;
+    const l = document.createElement("div"); l.className="dd-item"; l.textContent=term; l.dataset.i=i;
+    l.addEventListener("click",()=>matchClickLeft(i,l));
+    left.appendChild(l);
+  });
+  order.forEach(i=>{
+    const [,def] = LANG==="ta"?MATCH_TERMS[i].ta:MATCH_TERMS[i].en;
+    const r = document.createElement("div"); r.className="dd-item"; r.textContent=def; r.dataset.i=i;
+    r.addEventListener("click",()=>matchClickRight(i,r));
+    right.appendChild(r);
+  });
+  matchSelLeft=null; matchDoneSet=new Set();
+  document.getElementById("matchFeedback").textContent="";
+  updateMatchScore();
+}
+function updateMatchScore(){
+  document.getElementById("matchScoreLine").textContent = `${t("matchScore")}: ${matchDoneSet.size}/${MATCH_TERMS.length}`;
+}
+function matchClickLeft(i,el){
+  if(matchDoneSet.has(i)) return;
+  document.querySelectorAll("#matchLeft .dd-item").forEach(x=>x.classList.remove("sel"));
+  el.classList.add("sel"); matchSelLeft=i;
+}
+function matchClickRight(i,el){
+  if(matchDoneSet.has(i) || matchSelLeft===null) return;
+  const fb = document.getElementById("matchFeedback");
+  if(i===matchSelLeft){
+    el.classList.add("matched");
+    document.querySelector(`#matchLeft .dd-item[data-i="${i}"]`).classList.add("matched");
+    matchDoneSet.add(i);
+    fb.textContent = t("matchOk"); fb.className="feedback-line ok";
+    updateMatchScore();
+    if(matchDoneSet.size===MATCH_TERMS.length){ fb.textContent=t("matchDone"); markProgress("matching"); }
+  } else {
+    el.classList.add("wrong"); setTimeout(()=>el.classList.remove("wrong"),320);
+    fb.textContent = t("matchBad"); fb.className="feedback-line bad";
+  }
+  document.querySelectorAll("#matchLeft .dd-item").forEach(x=>x.classList.remove("sel"));
+  matchSelLeft=null;
+}
+
+/* =====================================================================
+   WORKED EXAMPLES
+   ===================================================================== */
+const EXAMPLES = [
+  {
+    en:{q:"Extract the file extension from \"report.csv\".", body:'name = "report.csv"\ndot = name.rfind(".")\next = name[dot+1:]', out:'ext = "csv"'},
+    ta:{q:'"report.csv" என்பதிலிருந்து கோப்பு நீட்டிப்பை (extension) பிரித்தெடுக்கவும்.', body:'name = "report.csv"\ndot = name.rfind(".")\next = name[dot+1:]', out:'ext = "csv"'}
+  },
+  {
+    en:{q:"Reverse the word \"KEELADI\" without a loop.", body:'word = "KEELADI"\nrev = word[::-1]', out:"rev = \"IDALEEK\""},
+    ta:{q:'loop இல்லாமல் "KEELADI" எனும் சொல்லை தலைகீழாக்கவும்.', body:'word = "KEELADI"\nrev = word[::-1]', out:"rev = \"IDALEEK\""}
+  },
+  {
+    en:{q:"Get every alternate character of \"SIVAGANGAI\" starting from index 1.", body:'s = "SIVAGANGAI"\nres = s[1::2]', out:'res = "IAAGI"'},
+    ta:{q:'"SIVAGANGAI" எனும் சரத்தில் index 1 முதல் ஒவ்வொரு மாற்று எழுத்தையும் பெறவும்.', body:'s = "SIVAGANGAI"\nres = s[1::2]', out:'res = "IAAGI"'}
+  }
+];
+function renderExamples(){
+  const wrap = document.getElementById("exampleWrap"); wrap.innerHTML="";
+  EXAMPLES.forEach(ex=>{
+    const d = LANG==="ta"?ex.ta:ex.en;
+    const el = document.createElement("div"); el.className="example-card";
+    el.innerHTML = `<div class="q">${d.q}</div><div class="work">${d.body.replace(/\n/g,"<br>")}<br><span class="out">${d.out}</span></div>`;
+    wrap.appendChild(el);
+  });
+}
+
+/* =====================================================================
+   COMMON MISTAKES
+   ===================================================================== */
+const MISTAKES = [
+  {en:["Thinking s[stop] is included","stop is the boundary you stop BEFORE — s[0:3] gives 3 characters (0,1,2), not 4."],
+   ta:["s[stop] சேர்க்கப்படும் என நினைப்பது","stop என்பது நிறுத்தும் எல்லை — s[0:3] என்றால் 3 எழுத்துக்கள் (0,1,2) மட்டுமே, 4 அல்ல."]},
+  {en:["Using step=0","Python raises ValueError: slice step cannot be zero — step must be a non-zero integer."],
+   ta:["step=0 பயன்படுத்துவது","Python ValueError: slice step cannot be zero எனும் பிழையைத் தரும் — step பூஜ்ஜியமற்ற எண்ணாக இருக்க வேண்டும்."]},
+  {en:["Forgetting step direction with negative step","With a negative step, start must be greater than stop, or you get an empty string."],
+   ta:["எதிர்மறை step-இல் திசையை மறப்பது","step எதிர்மறையாக இருந்தால், start, stop-ஐ விட பெரியதாக இருக்க வேண்டும்; இல்லையெனில் காலி சரம் கிடைக்கும்."]},
+  {en:["Assuming slicing changes the original","result = s[1:3] creates a new string; s itself is untouched (strings are immutable)."],
+   ta:["Slicing மூல சரத்தை மாற்றும் என நினைப்பது","result = s[1:3] புதிய சரத்தை உருவாக்கும்; s மாறாது (strings immutable)."]},
+];
+function renderMistakes(){
+  const wrap = document.getElementById("mistakeWrap"); wrap.innerHTML="";
+  MISTAKES.forEach(m=>{
+    const [h,body] = LANG==="ta"?m.ta:m.en;
+    const el = document.createElement("div"); el.className="mistake-card";
+    el.innerHTML = `<div class="x">✗</div><div><div class="row"><strong>${h}</strong></div><div style="color:var(--muted);font-size:13.6px;">${body}</div></div>`;
+    wrap.appendChild(el);
+  });
+}
+
+/* =====================================================================
+   REAL WORLD APPLICATIONS
+   ===================================================================== */
+const APPS = [
+  {icon:"📁",en:["File extensions","Split names like report.pdf into name and type."],ta:["கோப்பு நீட்டிப்பு","report.pdf போன்ற பெயர்களை பெயர் மற்றும் வகையாக பிரித்தல்."]},
+  {icon:"📅",en:["Date parsing","Pull day, month, year out of a fixed-format date string."],ta:["தேதி பகுப்பாய்வு","நிலையான வடிவ தேதி சரத்திலிருந்து நாள், மாதம், வருடத்தை எடுத்தல்."]},
+  {icon:"🧹",en:["Text cleaning","Trim unwanted characters from the start or end of user input."],ta:["உரை சுத்தம்","பயனர் உள்ளீட்டின் தொடக்கம்/முடிவிலிருந்து தேவையற்ற எழுத்துக்களை நீக்குதல்."]},
+  {icon:"🔐",en:["Data masking","Show only the last 4 digits of a card or phone number."],ta:["தரவு மறைத்தல்","அட்டை அல்லது தொலைபேசி எண்ணின் கடைசி 4 இலக்கங்களை மட்டும் காட்டுதல்."]},
+];
+function renderApps(){
+  const wrap = document.getElementById("appCards"); wrap.innerHTML="";
+  APPS.forEach(a=>{
+    const [h,p] = LANG==="ta"?a.ta:a.en;
+    const el = document.createElement("div"); el.className="card";
+    el.innerHTML = `<div class="icon">${a.icon}</div><h3>${h}</h3><p>${p}</p>`;
+    wrap.appendChild(el);
+  });
+}
+
+/* =====================================================================
+   QUIZ
+   ===================================================================== */
+const QUIZ = [
+  {en:{q:'What does "PYTHON"[1:4] return?', opts:['"YTH"','"PYT"','"YTHO"','"HON"'], a:0, exp:'Characters at index 1,2,3 → Y,T,H.'},
+   ta:{q:'"PYTHON"[1:4] என்ன தரும்?', opts:['"YTH"','"PYT"','"YTHO"','"HON"'], a:0, exp:'index 1,2,3-இல் உள்ள எழுத்துக்கள் → Y,T,H.'}},
+  {en:{q:'What is "COMPUTER"[-1]?', opts:['C','R','E','T'], a:1, exp:'-1 always refers to the last character.'},
+   ta:{q:'"COMPUTER"[-1] என்ன?', opts:['C','R','E','T'], a:1, exp:'-1 எப்போதும் கடைசி எழுத்தைக் குறிக்கும்.'}},
+  {en:{q:'True or False: s[0:3] includes the character at index 3.', opts:['True','False'], a:1, exp:'stop is exclusive — index 3 is NOT included.'},
+   ta:{q:'சரி/தவறு: s[0:3] index 3-இல் உள்ள எழுத்தையும் சேர்க்கும்.', opts:['சரி','தவறு'], a:1, exp:'stop exclusive ஆகும் — index 3 சேர்க்கப்படாது.'}},
+  {en:{q:'Which slice reverses a string s?', opts:['s[::1]','s[1:-1]','s[::-1]','s[-1:1]'], a:2, exp:'A step of -1 walks from end to start.'},
+   ta:{q:'எந்த slice ஒரு சரத்தை தலைகீழாக்கும்?', opts:['s[::1]','s[1:-1]','s[::-1]','s[-1:1]'], a:2, exp:'-1 step முடிவிலிருந்து தொடக்கம் வரை நகர்த்தும்.'}},
+  {en:{q:'What does "SIVAGANGAI"[::2] pick?', opts:['Every character','Every 2nd character starting at 0','Last 2 characters','Nothing'], a:1, exp:'Step 2 means indices 0,2,4,6…'},
+   ta:{q:'"SIVAGANGAI"[::2] எதை தேர்ந்தெடுக்கும்?', opts:['அனைத்து எழுத்துக்கள்','0-இலிருந்து ஒவ்வொரு 2வது எழுத்து','கடைசி 2 எழுத்துக்கள்','ஒன்றுமில்லை'], a:1, exp:'Step 2 என்றால் index 0,2,4,6…'}},
+  {en:{q:'What error does s[1:5:0] raise?', opts:['IndexError','TypeError','ValueError','No error'], a:2, exp:'A step of zero is invalid — Python raises ValueError.'},
+   ta:{q:'s[1:5:0] எந்த error தரும்?', opts:['IndexError','TypeError','ValueError','error இல்லை'], a:2, exp:'step 0 செல்லாதது — Python ValueError தரும்.'}},
+  {en:{q:'What is "COMPUTER"[-3:]?', opts:['"TER"','"UTE"','"COM"','"MPU"'], a:0, exp:'-3 to the end picks the last 3 characters.'},
+   ta:{q:'"COMPUTER"[-3:] என்ன?', opts:['"TER"','"UTE"','"COM"','"MPU"'], a:0, exp:'-3-இலிருந்து இறுதி வரை கடைசி 3 எழுத்துக்களைத் தரும்.'}},
+  {en:{q:'Slicing a string s and storing it in r — does s change?', opts:['Yes, always','No, strings are immutable','Only if step is negative','Only if start is 0'], a:1, exp:'Slicing returns a new string; the original is untouched.'},
+   ta:{q:'சரம் s-ஐ slice செய்து r-இல் சேமித்தால் — s மாறுமா?', opts:['ஆம், எப்போதும்','இல்லை, strings immutable','step எதிர்மறையானால் மட்டும்','start 0 ஆனால் மட்டும்'], a:1, exp:'Slicing புதிய சரத்தை தரும்; மூலம் மாறாது.'}},
+  {en:{q:'What does "COMPUTER"[2:6:2] give?', opts:['"MU"','"PT"','"MP"','"UE"'], a:0, exp:'Indices 2 and 4 → M, U.'},
+   ta:{q:'"COMPUTER"[2:6:2] என்ன தரும்?', opts:['"MU"','"PT"','"MP"','"UE"'], a:0, exp:'index 2, 4 → M, U.'}},
+  {en:{q:'With a negative step, what must be true for a non-empty result?', opts:['start < stop','start > stop','start == stop','stop must be 0'], a:1, exp:'Negative step walks backward, so start must be after stop.'},
+   ta:{q:'எதிர்மறை step-இல், காலியில்லாத விடை கிடைக்க எது சரியாக இருக்க வேண்டும்?', opts:['start < stop','start > stop','start == stop','stop 0 ஆக இருக்க வேண்டும்'], a:1, exp:'எதிர்மறை step பின்நோக்கி நகரும், எனவே start, stop-ஐ விட பிறகு இருக்க வேண்டும்.'}},
+];
+let quizI=0, quizScore=0, quizAnswered=false;
+function renderQuiz(){
+  const panel = document.getElementById("quizPanel");
+  if(quizI>=QUIZ.length){ renderQuizScore(); return; }
+  const q = LANG==="ta"?QUIZ[quizI].ta:QUIZ[quizI].en;
+  quizAnswered=false;
+  panel.innerHTML = `
+    <div class="quiz-progress">${quizI+1} / ${QUIZ.length}</div>
+    <div class="quiz-q">${q.q}</div>
+    <div id="quizOpts"></div>
+    <div class="quiz-explain" id="quizExp"></div>
+  `;
+  const optsWrap = document.getElementById("quizOpts");
+  q.opts.forEach((o,i)=>{
+    const b = document.createElement("button"); b.className="quiz-opt"; b.textContent=o;
+    b.addEventListener("click",()=>answerQuiz(i,q,b));
+    optsWrap.appendChild(b);
+  });
+}
+function answerQuiz(i,q,btn){
+  if(quizAnswered) return;
+  quizAnswered=true;
+  document.querySelectorAll(".quiz-opt").forEach((b,bi)=>{
+    b.disabled=true;
+    if(bi===q.a) b.classList.add("correct");
+    else if(bi===i) b.classList.add("incorrect");
+  });
+  if(i===q.a) quizScore++;
+  const exp = document.getElementById("quizExp");
+  exp.style.display="block";
+  exp.innerHTML = `<strong>${i===q.a?t("quizCorrect"):t("quizIncorrect")}</strong><br>${q.exp}`;
+  const panel = document.getElementById("quizPanel");
+  const nextBtn = document.createElement("button");
+  nextBtn.className="btn primary"; nextBtn.style.marginTop="16px";
+  nextBtn.textContent = (quizI<QUIZ.length-1) ? (LANG==="ta"?"அடுத்த கேள்வி ▶":"Next Question ▶") : (LANG==="ta"?"முடிவைப் பார்":"See Score");
+  nextBtn.addEventListener("click",()=>{ quizI++; renderQuiz(); });
+  panel.appendChild(nextBtn);
+}
+function renderQuizScore(){
+  const pct = Math.round((quizScore/QUIZ.length)*100);
+  let perfKey = pct>=90?"perf90":pct>=70?"perf70":pct>=50?"perf50":"perf0";
+  const panel = document.getElementById("quizPanel");
+  panel.innerHTML = `
+    <div class="quiz-score">
+      <div class="big">${quizScore}/${QUIZ.length}</div>
+      <div style="color:var(--muted);margin:6px 0 14px;">${pct}%</div>
+      <div style="margin-bottom:20px;">${t(perfKey)}</div>
+      <button class="btn primary" id="quizRetryBtn">${t("quizRetry")}</button>
+    </div>`;
+  document.getElementById("quizRetryBtn").addEventListener("click",()=>{ quizI=0; quizScore=0; renderQuiz(); });
+  markProgress("quiz");
+}
+
+/* =====================================================================
+   PROGRESS TRACKER / BADGES
+   ===================================================================== */
+const PROGRESS_KEYS = ["home","learn","concepts","simulator","howworks","dragdrop","matching","examples","mistakes","applications","quiz"];
+let progressState = {};
+function markProgress(key){
+  if(PROGRESS_KEYS.includes(key)) progressState[key]=true;
+  updateProgressUI();
+}
+function updateProgressUI(){
+  const done = Object.keys(progressState).length;
+  const pct = Math.round((done/PROGRESS_KEYS.length)*100);
+  document.getElementById("progressPct").textContent = pct+"%";
+  document.getElementById("progressBar").style.width = pct+"%";
+  const badgeRow = document.getElementById("badgeRow");
+  badgeRow.innerHTML="";
+  const badgeIcons = ["📖","🧩","🧪","🔧","🎯","🏆","⭐","🃏","🚫","🌍","🎓"];
+  PROGRESS_KEYS.forEach((k,i)=>{
+    const b = document.createElement("div"); b.className="badge"+(progressState[k]?" on":"");
+    b.textContent = badgeIcons[i]||"•"; b.title=k;
+    badgeRow.appendChild(b);
+  });
+}
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting) markProgress(e.target.id); });
+},{threshold:0.4});
+PROGRESS_KEYS.forEach(id=>{ const el=document.getElementById(id); if(el) observer.observe(el); });
+
+/* =====================================================================
+   LANGUAGE SWITCH + INIT
+   ===================================================================== */
+function renderAll(){
+  applyStaticI18n();
+  buildNav();
+  renderIntroCards();
+  renderObjectives();
+  renderConcepts();
+  runSimulator();
+  renderHowStep();
+  renderDD();
+  renderMatching();
+  renderExamples();
+  renderMistakes();
+  renderApps();
+  quizI=0; quizScore=0; renderQuiz();
+  updateProgressUI();
+}
+document.getElementById("langToggle").addEventListener("change",(e)=>{
+  LANG = e.target.checked ? "ta" : "en";
+  document.getElementById("lblEn").classList.toggle("active", LANG==="en");
+  document.getElementById("lblTa").classList.toggle("active", LANG==="ta");
+  document.documentElement.lang = LANG;
+  stopPlay();
+  renderAll();
+});
+
+renderAll();
+</script>
+</body>
+</html>
