@@ -1,0 +1,1670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elastic Potential Energy | Sivagangai PG Teachers' Resource Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Source+Sans+3:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&family=Noto+Sans+Tamil:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0a2a5e;
+  --blue:#0b3d91;
+  --blue-mid:#1f5fbf;
+  --sky:#2f8fe0;
+  --sky-pale:#eaf3fd;
+  --paper:#f5f8fc;
+  --white:#ffffff;
+  --ink:#0f2140;
+  --ink-soft:#3a5170;
+  --amber:#e8a33d;
+  --amber-deep:#c97f14;
+  --good:#1f8a5f;
+  --good-bg:#e7f6ee;
+  --bad:#c93f3f;
+  --bad-bg:#fbeaea;
+  --line:#d7e3f3;
+  --shadow: 0 10px 30px -12px rgba(10,42,94,0.25);
+  --radius:16px;
+  --maxw:1120px;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  font-family:'Source Sans 3', 'Noto Sans Tamil', sans-serif;
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.55;
+}
+[lang-ta]{font-family:'Noto Sans Tamil','Source Sans 3',sans-serif;}
+h1,h2,h3,h4,.display{font-family:'Sora','Noto Sans Tamil',sans-serif;}
+.mono, code, .formula{font-family:'JetBrains Mono',monospace;}
+a{color:inherit;}
+img,svg{max-width:100%;}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;}
+button{font-family:inherit;cursor:pointer;}
+:focus-visible{outline:3px solid var(--amber);outline-offset:2px;}
+.hidden{display:none !important;}
+
+/* ---------- NAV ---------- */
+#topnav{
+  position:sticky;top:0;z-index:200;
+  background:rgba(10,42,94,0.97);
+  backdrop-filter:blur(6px);
+  border-bottom:1px solid rgba(255,255,255,0.08);
+}
+.nav-inner{max-width:var(--maxw);margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:58px;}
+.nav-brand{display:flex;align-items:center;gap:10px;color:#fff;font-weight:700;font-size:.98rem;white-space:nowrap;}
+.nav-brand .dot{width:10px;height:10px;border-radius:50%;background:var(--amber);box-shadow:0 0 0 4px rgba(232,163,61,.25);}
+.nav-links{display:flex;gap:2px;flex-wrap:wrap;}
+.nav-links button{
+  background:none;border:none;color:#cfe0fb;padding:9px 12px;border-radius:8px;font-size:.86rem;font-weight:600;
+  transition:background .15s,color .15s;
+}
+.nav-links button:hover, .nav-links button.active{background:rgba(255,255,255,0.12);color:#fff;}
+#langToggle{
+  display:flex;align-items:center;background:rgba(255,255,255,0.1);border-radius:999px;padding:3px;border:1px solid rgba(255,255,255,0.18);flex-shrink:0;
+}
+#langToggle button{
+  border:none;background:transparent;color:#cfe0fb;padding:6px 14px;border-radius:999px;font-weight:700;font-size:.82rem;
+}
+#langToggle button.active{background:var(--amber);color:#1a1206;}
+.hamburger{display:none;background:none;border:none;color:#fff;font-size:1.5rem;padding:4px 8px;}
+@media(max-width:920px){
+  .nav-links{display:none;position:absolute;top:58px;left:0;right:0;background:var(--navy);flex-direction:column;padding:10px;border-bottom:1px solid rgba(255,255,255,.1);}
+  .nav-links.open{display:flex;}
+  .hamburger{display:block;}
+}
+
+/* ---------- HEADER ---------- */
+header.hero{
+  background:linear-gradient(155deg,var(--navy) 0%, var(--blue) 55%, var(--blue-mid) 100%);
+  color:#fff;position:relative;overflow:hidden;padding:56px 0 44px;
+}
+header.hero::after{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(circle at 85% 20%, rgba(47,143,224,.35), transparent 55%);
+  pointer-events:none;
+}
+.hero-inner{position:relative;display:grid;grid-template-columns:1.15fr .85fr;gap:36px;align-items:center;}
+@media(max-width:840px){.hero-inner{grid-template-columns:1fr;}}
+.hero-eyebrow{color:#a9c6f2;font-weight:600;font-size:.85rem;margin-bottom:10px;}
+.hero h1{font-size:clamp(1.9rem,4vw,2.7rem);margin:0 0 6px;font-weight:800;letter-spacing:-.01em;}
+.hero .subject{color:var(--amber);font-weight:600;font-size:1.05rem;margin-bottom:16px;}
+.hero .subtitle{color:#dbe8fb;font-size:1.02rem;margin-bottom:22px;}
+.hero-credit{font-size:.85rem;color:#b8cdf1;border-left:3px solid var(--amber);padding-left:12px;line-height:1.5;}
+.hero-credit b{color:#fff;display:block;font-size:.92rem;}
+.hero-visual{display:flex;justify-content:center;}
+.springSVG{width:100%;max-width:340px;}
+
+/* ---------- SECTIONS ---------- */
+section{padding:64px 0;}
+section.alt{background:var(--white);}
+.section-head{max-width:680px;margin:0 auto 34px;text-align:center;}
+.section-head .kicker{color:var(--blue-mid);font-weight:700;font-size:.82rem;margin-bottom:6px;}
+.section-head h2{font-size:clamp(1.5rem,3vw,2rem);margin:0 0 10px;color:var(--navy);}
+.section-head p{color:var(--ink-soft);margin:0;}
+
+/* ---------- CARDS GRID (intro) ---------- */
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+@media(max-width:900px){.grid-4{grid-template-columns:repeat(2,1fr);}.grid-3{grid-template-columns:1fr 1fr;}}
+@media(max-width:600px){.grid-4,.grid-3,.grid-2{grid-template-columns:1fr;}}
+
+.info-card{
+  background:var(--white);border:1px solid var(--line);border-radius:var(--radius);
+  padding:20px;box-shadow:var(--shadow);
+}
+.info-card .ic{font-size:1.7rem;margin-bottom:8px;display:block;}
+.info-card h3{margin:0 0 6px;font-size:1.02rem;color:var(--navy);}
+.info-card p{margin:0;color:var(--ink-soft);font-size:.92rem;}
+
+/* objectives */
+.obj-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+@media(max-width:700px){.obj-list{grid-template-columns:1fr;}}
+.obj-list li{
+  display:flex;gap:12px;align-items:flex-start;background:var(--white);border:1px solid var(--line);
+  border-radius:12px;padding:13px 15px;font-size:.94rem;
+}
+.obj-list .num{
+  flex-shrink:0;width:26px;height:26px;border-radius:50%;background:var(--sky-pale);color:var(--blue);
+  display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.78rem;
+}
+
+/* concept cards */
+.concept-card{
+  background:var(--white);border:1px solid var(--line);border-radius:var(--radius);
+  padding:18px;cursor:pointer;transition:box-shadow .2s,transform .15s;box-shadow:var(--shadow);
+}
+.concept-card:hover{transform:translateY(-2px);}
+.concept-card.open{border-color:var(--blue-mid);}
+.concept-card .chead{display:flex;align-items:center;gap:12px;}
+.concept-card .cicon{font-size:1.5rem;width:42px;height:42px;background:var(--sky-pale);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.concept-card h3{margin:0;font-size:1rem;color:var(--navy);}
+.concept-card .cbody{max-height:0;overflow:hidden;transition:max-height .25s ease;}
+.concept-card.open .cbody{max-height:400px;margin-top:12px;}
+.concept-card .cbody p{margin:0 0 8px;color:var(--ink-soft);font-size:.92rem;}
+.concept-card .formula-pill{
+  display:inline-block;background:var(--navy);color:#fff;padding:6px 12px;border-radius:8px;font-size:.9rem;margin-top:4px;
+}
+.concept-card .toggle-hint{font-size:.78rem;color:var(--blue-mid);margin-top:10px;font-weight:600;}
+
+/* ---------- SIMULATOR ---------- */
+.sim-shell{
+  background:var(--white);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);
+  overflow:hidden;
+}
+.sim-grid{display:grid;grid-template-columns:1.3fr 1fr;}
+@media(max-width:880px){.sim-grid{grid-template-columns:1fr;}}
+.sim-stage{background:linear-gradient(180deg,#f4f9ff,#e9f2fd);padding:24px;position:relative;}
+.sim-canvas-wrap{background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px;}
+.flow-row{display:flex;justify-content:space-around;text-align:center;margin-top:16px;gap:8px;flex-wrap:wrap;}
+.flow-chip{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:.82rem;min-width:110px;}
+.flow-chip .fv{font-weight:700;color:var(--navy);font-size:1.05rem;display:block;margin-top:2px;}
+.flow-arrow{align-self:center;color:var(--blue-mid);font-size:1.3rem;}
+.energy-bars{display:flex;gap:14px;margin-top:16px;}
+.ebar-col{flex:1;text-align:center;}
+.ebar-track{height:120px;width:100%;background:#e7eefb;border-radius:8px;position:relative;overflow:hidden;border:1px solid var(--line);}
+.ebar-fill{position:absolute;bottom:0;left:0;right:0;border-radius:8px 8px 0 0;transition:height .08s linear;}
+.ebar-fill.pe{background:linear-gradient(180deg,var(--amber),var(--amber-deep));}
+.ebar-fill.ke{background:linear-gradient(180deg,var(--sky),var(--blue-mid));}
+.ebar-col span.lbl{display:block;font-size:.78rem;margin-top:6px;color:var(--ink-soft);font-weight:600;}
+
+.sim-panel{padding:24px;border-left:1px solid var(--line);}
+@media(max-width:880px){.sim-panel{border-left:none;border-top:1px solid var(--line);}}
+.ctrl-block{margin-bottom:20px;}
+.ctrl-block label{display:flex;justify-content:space-between;font-size:.88rem;font-weight:600;color:var(--navy);margin-bottom:6px;}
+.ctrl-block .valpill{background:var(--sky-pale);color:var(--blue);padding:2px 9px;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:.82rem;}
+input[type=range]{width:100%;accent-color:var(--blue-mid);}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;}
+.btn{
+  border:none;border-radius:10px;padding:10px 16px;font-weight:700;font-size:.86rem;
+  display:inline-flex;align-items:center;gap:6px;transition:filter .15s,transform .1s;
+}
+.btn:active{transform:scale(.97);}
+.btn-primary{background:var(--blue-mid);color:#fff;}
+.btn-primary:hover{filter:brightness(1.08);}
+.btn-amber{background:var(--amber);color:#3a2400;}
+.btn-amber:hover{filter:brightness(1.05);}
+.btn-outline{background:#fff;border:1.5px solid var(--blue-mid);color:var(--blue-mid);}
+.btn-outline:hover{background:var(--sky-pale);}
+.btn-ghost{background:var(--sky-pale);color:var(--blue);}
+.readout{background:var(--sky-pale);border-radius:12px;padding:14px;margin-top:14px;font-size:.9rem;}
+.readout .row{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px dashed #c6d9f2;}
+.readout .row:last-child{border-bottom:none;}
+.readout .row b{font-family:'JetBrains Mono',monospace;color:var(--navy);}
+
+/* steps */
+.step-shell{background:var(--white);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:26px;}
+.step-progress{display:flex;gap:6px;margin-bottom:20px;}
+.step-progress .dot{flex:1;height:6px;border-radius:4px;background:#e2eafb;}
+.step-progress .dot.done{background:var(--blue-mid);}
+.step-progress .dot.current{background:var(--amber);}
+.step-view{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:center;min-height:220px;}
+@media(max-width:760px){.step-view{grid-template-columns:1fr;}}
+.step-num{color:var(--blue-mid);font-weight:800;font-size:.85rem;margin-bottom:6px;}
+.step-title{font-size:1.2rem;color:var(--navy);margin:0 0 10px;}
+.step-text{color:var(--ink-soft);font-size:.96rem;}
+.step-formula{margin-top:12px;background:var(--navy);color:#fff;display:inline-block;padding:10px 16px;border-radius:10px;font-family:'JetBrains Mono',monospace;}
+.step-visual{display:flex;align-items:center;justify-content:center;}
+.step-controls{display:flex;justify-content:space-between;margin-top:22px;flex-wrap:wrap;gap:10px;}
+
+/* drag & drop sequence */
+.seq-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;max-width:640px;margin:0 auto;}
+.seq-item{
+  background:var(--white);border:2px solid var(--line);border-radius:12px;padding:14px 16px;
+  display:flex;align-items:center;gap:12px;cursor:grab;user-select:none;box-shadow:var(--shadow);
+}
+.seq-item.dragging{opacity:.4;}
+.seq-item .grip{color:#a9bdd9;font-size:1.1rem;}
+.seq-item .seqbadge{background:var(--sky-pale);color:var(--blue);font-weight:700;border-radius:8px;padding:2px 9px;font-size:.8rem;min-width:24px;text-align:center;}
+.seq-item .arrows{margin-left:auto;display:flex;gap:4px;}
+.seq-item .arrows button{background:var(--sky-pale);border:none;border-radius:6px;width:28px;height:28px;color:var(--blue);font-weight:700;}
+.seq-item.correct{border-color:var(--good);background:var(--good-bg);}
+
+/* matching */
+.match-shell{display:grid;grid-template-columns:1fr 1fr;gap:26px;max-width:760px;margin:0 auto;}
+@media(max-width:640px){.match-shell{grid-template-columns:1fr;}}
+.match-col h4{text-align:center;color:var(--navy);font-size:.88rem;margin:0 0 10px;}
+.match-item{
+  background:var(--white);border:2px solid var(--line);border-radius:10px;padding:12px 14px;margin-bottom:10px;
+  font-size:.9rem;cursor:pointer;transition:border-color .15s,background .15s;
+}
+.match-item.selected{border-color:var(--amber);background:#fff7e8;}
+.match-item.matched{border-color:var(--good);background:var(--good-bg);cursor:default;}
+.match-item.wrong-flash{border-color:var(--bad);background:var(--bad-bg);}
+.match-score{text-align:center;margin-top:16px;font-weight:700;color:var(--navy);}
+
+/* examples */
+.example-card{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:22px;box-shadow:var(--shadow);margin-bottom:20px;}
+.example-card h3{margin:0 0 8px;color:var(--navy);font-size:1.05rem;}
+.example-card .scenario{color:var(--ink-soft);font-size:.93rem;margin-bottom:14px;}
+.example-inputs{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:14px;}
+.example-inputs .fld{background:var(--sky-pale);border-radius:10px;padding:8px 12px;}
+.example-inputs label{display:block;font-size:.72rem;font-weight:700;color:var(--blue);margin-bottom:3px;}
+.example-inputs input{border:none;background:transparent;font-family:'JetBrains Mono',monospace;font-size:.95rem;width:80px;color:var(--navy);font-weight:700;}
+.example-work{background:#f7fafe;border-left:3px solid var(--blue-mid);padding:12px 16px;border-radius:0 10px 10px 0;font-size:.9rem;color:var(--ink-soft);}
+.example-work .line{margin-bottom:4px;font-family:'JetBrains Mono',monospace;color:var(--navy);}
+
+/* discovery */
+.disc-card{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:14px;box-shadow:var(--shadow);}
+.disc-q{font-weight:700;color:var(--navy);margin-bottom:10px;}
+.disc-opts{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px;}
+.disc-opts button{background:var(--sky-pale);border:1.5px solid transparent;border-radius:8px;padding:8px 14px;font-size:.86rem;font-weight:600;color:var(--blue);}
+.disc-opts button.chosen{border-color:var(--blue-mid);}
+.disc-reveal{display:none;background:var(--sky-pale);border-radius:8px;padding:10px 12px;font-size:.88rem;color:var(--navy);}
+.disc-reveal.show{display:block;}
+
+/* mistakes */
+.mistake-card{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:12px;box-shadow:var(--shadow);}
+.mistake-row{display:flex;gap:10px;align-items:flex-start;margin-bottom:6px;font-size:.9rem;}
+.mistake-row.no{color:var(--bad);}
+.mistake-row.yes{color:var(--good);}
+.mistake-row b{flex-shrink:0;}
+.mistake-ex{color:var(--ink-soft);font-size:.85rem;margin-top:4px;}
+
+/* applications */
+.app-card{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:20px;text-align:center;box-shadow:var(--shadow);}
+.app-card .aic{font-size:2rem;margin-bottom:8px;}
+.app-card h3{margin:0 0 6px;font-size:.98rem;color:var(--navy);}
+.app-card p{margin:0;color:var(--ink-soft);font-size:.87rem;}
+
+/* challenge */
+.tab-row{display:flex;gap:8px;justify-content:center;margin-bottom:22px;flex-wrap:wrap;}
+.tab-row button{
+  background:var(--white);border:1.5px solid var(--line);color:var(--ink-soft);padding:9px 20px;border-radius:999px;font-weight:700;font-size:.86rem;
+}
+.tab-row button.active{background:var(--blue-mid);border-color:var(--blue-mid);color:#fff;}
+.challenge-card{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:20px;margin-bottom:16px;box-shadow:var(--shadow);}
+.challenge-card .diff-badge{display:inline-block;font-size:.7rem;font-weight:800;padding:3px 10px;border-radius:6px;margin-bottom:10px;letter-spacing:.02em;}
+.diff-easy{background:#e7f6ee;color:var(--good);}
+.diff-medium{background:#fff2df;color:var(--amber-deep);}
+.diff-hard{background:var(--bad-bg);color:var(--bad);}
+.challenge-answer-row{display:flex;gap:10px;align-items:center;margin-top:12px;flex-wrap:wrap;}
+.challenge-answer-row input{border:1.5px solid var(--line);border-radius:8px;padding:9px 12px;font-family:'JetBrains Mono',monospace;width:130px;}
+.challenge-feedback{margin-top:10px;font-size:.88rem;font-weight:600;min-height:1.2em;}
+.challenge-feedback.ok{color:var(--good);}
+.challenge-feedback.bad{color:var(--bad);}
+
+/* quiz */
+.quiz-shell{background:var(--white);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:28px;max-width:760px;margin:0 auto;}
+.quiz-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;font-size:.85rem;color:var(--ink-soft);font-weight:600;}
+.quiz-bar{height:8px;background:#e6eefb;border-radius:6px;overflow:hidden;margin-bottom:24px;}
+.quiz-bar-fill{height:100%;background:var(--amber);transition:width .25s;}
+.quiz-q{font-size:1.08rem;color:var(--navy);font-weight:700;margin-bottom:16px;}
+.quiz-opts{display:flex;flex-direction:column;gap:10px;}
+.quiz-opt{
+  text-align:left;background:var(--sky-pale);border:2px solid transparent;border-radius:12px;padding:12px 16px;font-size:.94rem;color:var(--ink);
+}
+.quiz-opt:hover{border-color:var(--blue-mid);}
+.quiz-opt.correct{background:var(--good-bg);border-color:var(--good);color:var(--good);font-weight:700;}
+.quiz-opt.incorrect{background:var(--bad-bg);border-color:var(--bad);color:var(--bad);font-weight:700;}
+.quiz-feedback{margin-top:16px;background:var(--sky-pale);border-radius:10px;padding:12px 14px;font-size:.9rem;display:none;}
+.quiz-feedback.show{display:block;}
+.quiz-nextbtn{margin-top:16px;text-align:right;}
+.quiz-result{text-align:center;}
+.quiz-result .bigscore{font-size:3rem;font-weight:800;color:var(--navy);margin:10px 0;}
+.quiz-result .perf{font-size:1.05rem;font-weight:700;margin-bottom:20px;}
+
+/* progress + achievements */
+.progress-shell{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:20px 24px;box-shadow:var(--shadow);}
+.progress-topline{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-weight:700;color:var(--navy);}
+.progress-outer{height:12px;background:#e6eefb;border-radius:8px;overflow:hidden;}
+.progress-inner{height:100%;background:linear-gradient(90deg,var(--sky),var(--blue-mid));border-radius:8px;transition:width .3s;}
+.progress-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;}
+.ptag{font-size:.78rem;padding:5px 10px;border-radius:999px;background:#eef3fb;color:var(--ink-soft);border:1px solid var(--line);}
+.ptag.done{background:var(--good-bg);color:var(--good);border-color:var(--good);font-weight:600;}
+
+.badge-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-top:18px;}
+@media(max-width:820px){.badge-grid{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:480px){.badge-grid{grid-template-columns:repeat(2,1fr);}}
+.badge{
+  text-align:center;padding:16px 8px;border-radius:14px;background:#eef3fb;border:1.5px dashed #c6d9f2;opacity:.5;transition:opacity .2s,transform .2s;
+}
+.badge.unlocked{opacity:1;background:var(--white);border:1.5px solid var(--amber);box-shadow:var(--shadow);}
+.badge .bic{font-size:1.7rem;display:block;margin-bottom:6px;}
+.badge .btxt{font-size:.7rem;font-weight:700;color:var(--navy);}
+
+/* reference */
+.ref-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+@media(max-width:760px){.ref-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:520px){.ref-grid{grid-template-columns:1fr;}}
+.ref-card{background:var(--navy);color:#fff;border-radius:14px;padding:18px;}
+.ref-card h4{margin:0 0 10px;font-size:.85rem;color:#a9c6f2;text-transform:none;}
+.ref-card .rf{font-family:'JetBrains Mono',monospace;font-size:1.15rem;font-weight:700;margin-bottom:6px;}
+.ref-card p{margin:0;font-size:.82rem;color:#cfe0fb;}
+.ref-table{width:100%;border-collapse:collapse;background:#fff;border-radius:14px;overflow:hidden;box-shadow:var(--shadow);margin-top:20px;}
+.ref-table th,.ref-table td{padding:12px 16px;text-align:left;font-size:.9rem;border-bottom:1px solid var(--line);}
+.ref-table th{background:var(--sky-pale);color:var(--navy);}
+
+/* footer */
+footer{background:var(--navy);color:#cfe0fb;padding:36px 0;text-align:center;font-size:.85rem;}
+footer b{color:#fff;display:block;font-size:1rem;margin-bottom:4px;}
+footer .tagline{margin-top:10px;color:#8fabd8;}
+
+/* toast / error */
+#toast{
+  position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(20px);
+  background:var(--navy);color:#fff;padding:12px 20px;border-radius:10px;font-size:.88rem;
+  box-shadow:0 10px 26px rgba(0,0,0,.25);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:400;max-width:90vw;
+}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+.skip-link{position:absolute;left:-999px;top:0;background:#fff;color:var(--navy);padding:10px;z-index:999;}
+.skip-link:focus{left:10px;top:10px;}
+</style>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<nav id="topnav" aria-label="Section navigation">
+  <div class="nav-inner">
+    <div class="nav-brand"><span class="dot"></span><span data-i18n="brandShort">SrgDB Physics Lab</span></div>
+    <button class="hamburger" id="hamBtn" aria-label="Open menu" aria-expanded="false">&#9776;</button>
+    <div class="nav-links" id="navLinks">
+      <button data-scroll="home" data-i18n="navHome">Home</button>
+      <button data-scroll="learn" data-i18n="navLearn">Learn</button>
+      <button data-scroll="simulator" data-i18n="navSimulator">Simulator</button>
+      <button data-scroll="how" data-i18n="navHow">How It Works</button>
+      <button data-scroll="dragdrop" data-i18n="navDrag">Drag &amp; Drop</button>
+      <button data-scroll="matching" data-i18n="navMatch">Matching</button>
+      <button data-scroll="examples" data-i18n="navExamples">Examples</button>
+      <button data-scroll="challenge" data-i18n="navChallenge">Challenges</button>
+      <button data-scroll="quiz" data-i18n="navQuiz">Quiz</button>
+    </div>
+    <div id="langToggle" role="group" aria-label="Language">
+      <button id="btnEN" class="active" onclick="setLang('en')">EN</button>
+      <button id="btnTA" onclick="setLang('ta')">தமிழ்</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="home">
+  <div class="wrap hero-inner">
+    <div>
+      <div class="hero-eyebrow" data-i18n="portalName">SIVAGANGAI PG TEACHERS' RESOURCE PORTAL</div>
+      <h1 data-i18n="topicTitle">Elastic Potential Energy</h1>
+      <div class="subject" data-i18n="subjectLine">Physics · Work, Energy and Power</div>
+      <p class="subtitle" data-i18n="heroSubtitle">Learn • Visualize • Interact • Practise • Master</p>
+      <div class="hero-credit">
+        <b data-i18n="devName">Developed by B. Nirmal Singh</b>
+        <span data-i18n="devRole">Computer Instructor Grade 1, GHSS Keeladi, Sivagangai Dt.</span>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <svg class="springSVG" viewBox="0 0 320 220" id="heroSpring">
+        <rect x="0" y="0" width="18" height="220" fill="#0a2a5e"/>
+        <path id="heroCoil" d="M18,60 L45,40 L65,80 L85,40 L105,80 L125,40 L145,80 L165,40 L185,80 L205,40 L220,60" stroke="#eaf3fd" stroke-width="6" fill="none" stroke-linecap="round"/>
+        <rect id="heroMass" x="220" y="30" width="60" height="60" rx="10" fill="#e8a33d"/>
+        <text id="heroMassLabel" x="250" y="65" text-anchor="middle" font-family="JetBrains Mono" font-size="16" fill="#3a2400" font-weight="700">m</text>
+        <line x1="20" y1="140" x2="300" y2="140" stroke="#8fabd8" stroke-dasharray="4 4"/>
+        <text x="160" y="160" text-anchor="middle" fill="#a9c6f2" font-size="13" font-family="Source Sans 3" data-i18n="heroCaption">equilibrium position (x = 0)</text>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- INTRODUCTION -->
+<section id="learn" aria-labelledby="introHead">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker" data-i18n="kickerIntro">GETTING STARTED</div>
+      <h2 id="introHead" data-i18n="introHeadTxt">What is Elastic Potential Energy?</h2>
+      <p data-i18n="introSub">A short introduction before you step into the laboratory.</p>
+    </div>
+    <div class="grid-4" id="introCards"></div>
+  </div>
+</section>
+
+<!-- OBJECTIVES -->
+<section class="alt" aria-labelledby="objHead">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker" data-i18n="kickerObj">LEARNING OBJECTIVES</div>
+      <h2 id="objHead" data-i18n="objHeadTxt">By the end of this lab, you will be able to</h2>
+    </div>
+    <ul class="obj-list" id="objList"></ul>
+  </div>
+</section>
+
+<!-- CONCEPT EXPLORER -->
+<section aria-labelledby="conceptHead">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker" data-i18n="kickerConcept">CONCEPT EXPLORER</div>
+      <h2 id="conceptHead" data-i18n="conceptHeadTxt">Tap a card to explore each idea</h2>
+    </div>
+    <div class="grid-3" id="conceptGrid"></div>
+  </div>
+</section>
+
+<!-- SIMULATOR -->
+<section class="alt" id="simulator" aria-labelledby="simHead">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker" data-i18n="kickerSim">MAIN INTERACTIVE SIMULATOR</div>
+      <h2 id="simHead" data-i18n="simHeadTxt">Spring–Mass Laboratory</h2>
+      <p data-i18n="simSub">Drag the slider to stretch or compress the spring, then press Oscillate to watch energy change form.</p>
+    </div>
+    <div class="sim-shell">
+      <div class="sim-grid">
+        <div class="sim-stage">
+          <div class="sim-canvas-wrap">
+            <svg viewBox="0 0 480 190" id="simSVG" style="width:100%;display:block;" aria-hidden="true">
+              <rect x="0" y="0" width="16" height="190" fill="#0a2a5e"/>
+              <path id="simCoil" stroke="#2f8fe0" stroke-width="6" fill="none" stroke-linecap="round"/>
+              <rect id="simMass" y="65" width="56" height="56" rx="10" fill="#e8a33d" stroke="#c97f14" stroke-width="2"/>
+              <text id="simMassLabel" y="98" text-anchor="middle" font-family="JetBrains Mono" font-size="14" fill="#3a2400" font-weight="700">m</text>
+              <line id="simEqLine" x1="0" y1="150" x2="480" y2="150" stroke="#c6d9f2" stroke-dasharray="4 4"/>
+              <text x="240" y="170" text-anchor="middle" font-size="11" fill="#7f95b8" data-i18n="simEqLabel">equilibrium (x = 0)</text>
+            </svg>
+          </div>
+          <div class="flow-row">
+            <div class="flow-chip"><span data-i18n="flowInput">INPUT — Displacement x</span><span class="fv" id="flowX">0.00 m</span></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-chip"><span data-i18n="flowProcess">PROCESS — Restoring Force</span><span class="fv" id="flowF">0.0 N</span></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-chip"><span data-i18n="flowOutput">OUTPUT — Elastic PE</span><span class="fv" id="flowU">0.00 J</span></div>
+          </div>
+          <div class="energy-bars">
+            <div class="ebar-col">
+              <div class="ebar-track"><div class="ebar-fill pe" id="peBar" style="height:0%"></div></div>
+              <span class="lbl" data-i18n="lblPE">Potential Energy (U)</span>
+            </div>
+            <div class="ebar-col">
+              <div class="ebar-track"><div class="ebar-fill ke" id="keBar" style="height:0%"></div></div>
+              <span class="lbl" data-i18n="lblKE">Kinetic Energy (KE)</span>
+            </div>
+          </div>
+        </div>
+        <div class="sim-panel">
+          <div class="ctrl-block">
+            <label><span data-i18n="ctrlX">Displacement, x</span><span class="valpill" id="xVal">0.10 m</span></label>
+            <input type="range" id="xSlider" min="-0.20" max="0.20" step="0.005" value="0.10">
+          </div>
+          <div class="ctrl-block">
+            <label><span data-i18n="ctrlK">Spring constant, k</span><span class="valpill" id="kVal">200 N/m</span></label>
+            <input type="range" id="kSlider" min="50" max="500" step="10" value="200">
+          </div>
+          <div class="ctrl-block">
+            <label><span data-i18n="ctrlM">Mass, m</span><span class="valpill" id="mVal">0.50 kg</span></label>
+            <input type="range" id="mSlider" min="0.1" max="2" step="0.05" value="0.5">
+          </div>
+          <div class="btn-row">
+            <button class="btn btn-primary" id="oscBtn" data-i18n="btnOscillate">▶ Oscillate</button>
+            <button class="btn btn-outline" id="simResetBtn" data-i18n="btnReset">Reset</button>
+          </div>
+          <div class="readout">
+            <div class="row"><span data-i18n="roForce">Restoring force F = −kx</span><b id="roForce">0.0 N</b></div>
+            <div class="row"><span data-i18n="roU">Elastic PE, U = ½kx²</span><b id="roU">0.00 J</b></div>
+            <div class="row"><span data-i18n="roKE">Kinetic energy, KE</span><b id="roKE">0.00 J</b></div>
+            <div class="row"><span data-i18n="roTotal">Total mechanical energy</span><b id="roTotal">0.00 J</b></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how" aria-labelledby="howHead">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker" data-i18n="kickerHow">STEP-BY-STEP WORKING</div>
+      <h2 id="howHead" data-i18n="howHeadTxt">How the energy gets stored</h2>
+    </div>
+    <div class="step-shell">
+      <div class="step-progress" id="stepProgress"></div>
+      <div class="step-view">
+        <div>
+          <div class="step-num" id="stepNum">STEP 1 / 5</div>
+          <h3 class="step-title" id="stepTitle"></h3>
+          <p class="step-text" id="stepText"></p>
+          <div class="step-formula" id="stepFormula"></div>
+        </div>
+        <div class="step-visual"><svg viewBox="0 0 260 160" id="stepSVG" style="width:100%;max-width:260px;"></svg></div>
+      </div>
+      <div class="step-controls">
+        <div class="btn-row">
+          <button class="btn btn-outline" id="stepPrev" data-i18n="btnPrev">◀ Previous</button>
+          <button class="btn btn-primary" id="stepPlay" data-i18n="btnPlay">▶ Play</button>
+          <button class="btn btn-outline" id="stepNext" data-i18n="btnNext">Next ▶</button>
+        </div>
+        <button class="btn btn-ghost" id="stepReset" data-i18n="btnReset">Reset</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DRAG & DROP SEQUENCE -->
+<section class="alt" id="dragdrop" aria-labelledby="dragHead">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker" data-i18n="kickerDrag">DRAG &amp; DROP SEQUENCE CHALLENGE</div>
+      <h2 id="dragHead" data-i18n="dragHeadTxt">Arrange the derivation in the correct order</h2>
+      <p data-i18n="dragSub">Drag the cards (or use the ▲▼ buttons) so Step 1 is on top and Step 5 is at the bottom, then check your answer.</p>
+    </div>
+    <ul class="seq-list" id="seqList"></ul>
+    <div class="btn-row" style="justify-content:center;margin-top:18px;">
+      <button class="btn btn-primary" id="seqCheck" data-i18n="btnCheckOrder">Check Order</button>
+      <button class="btn btn-outline" id="seqReset" data-i18n="btnReset">Reset</button>
+    </div>
+    <p id="seqFeedback" style="text-align:center;font-weight:700;margin-top:12px;"></p>
+  </div>
+</section>
+
+<!-- MATCHING GAME -->
+<section id="matching" aria-labelledby="matchHead">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker" data-i18n="kickerMatch">MATCHING GAME</div>
+      <h2 id="matchHead" data-i18n="matchHeadTxt">Match each term with its meaning</h2>
+      <p data-i18n="matchSub">Tap a term on the left, then tap its matching definition on the right.</p>
+    </div>
+    <div class="match-shell">
+      <div class="match-col"><h4 data-i18n="matchColTerms">TERMS</h4><div id="matchLeft"></div></div>
+      <div class="match-col"><h4 data-i18n="matchColDefs">DEFINITIONS</h4><div id="matchRight"></div></div>
+    </div>
+    <p class="match-score" id="matchScore"></p>
+  </div>
+</section>
+
+<!-- EXAMPLES -->
+<section class="alt" id="examples" aria-labelledby="exHead">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker" data-i18n="kickerEx">WORKED EXAMPLES</div>
+      <h2 id="exHead" data-i18n="exHeadTxt">Try it yourself</h2>
+      <p data-i18n="exSub">Change the numbers and watch the working update instantly.</p>
+    </div>
+    <div id="examplesWrap"></div>
+  </div>
+</section>
+
+<!-- FREE EXPERIMENT MODE -->
+<section aria-labelledby="freeHead">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker" data-i18n="kickerFree">FREE EXPERIMENT MODE</div>
+      <h2 id="freeHead" data-i18n="freeHeadTxt">Explore without limits</h2>
+      <p data-i18n="freeSub">No fixed goal here — pull the spring, change k and m, and see how the oscillation period changes.</p>
+    </div>
+    <div class="sim-shell">
+      <div class="sim-panel" style="border-left:none;">
+        <div class="grid-3">
+          <div class="ctrl-block">
+            <label><span data-i18n="ctrlAmp">Amplitude, x₀</span><span class="valpill" id="freeXVal">0.15 m</span></label>
+            <input type="range" id="freeXSlider" min="0.02" max="0.20" step="0.01" value="0.15">
+          </div>
+          <div class="ctrl-block">
+            <label><span data-i18n="ctrlK">Spring constant, k</span><span class="valpill" id="freeKVal">250 N/m</span></label>
+            <input type="range" id="freeKSlider" min="50" max="500" step="10" value="250">
+          </div>
+          <div class="ctrl-block">
+            <label><span data-i18n="ctrlM">Mass, m</span><span class="valpill" id="freeMVal">0.60 kg</span></label>
+            <input type="range" id="freeMSlider" min="0.1" max="2" step="0.05" value="0.6">
+          </div>
+        </div>
+        <div class="readout">
+          <div class="row"><span data-i18n="roMaxU">Maximum PE (at x₀)</span><b id="freeMaxU">0.00 J</b></div>
+          <div class="row"><span data-i18n="roMaxKE">Maximum KE (at x = 0)</span><b id="freeMaxKE">0.00 J</b></div>
+          <div class="row"><span data-i18n="roMaxSpeed">Maximum speed, v_max</span><b id="freeMaxSpeed">0.00 m/s</b></div>
+          <div class="row"><span data-i18n="roPeriod">Oscillation period, T = 2π√(m/k)</span><b id="freePeriod">0.00 s</b></div>
+        </div>
+        <div class="btn-row"><button class="btn btn-outline" id="freeResetBtn" data-i18n="btnReset">Reset Experiment</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DISCOVERY QUESTIONS -->
+<section class="alt" aria-labelledby="discHead">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker" data-i18n="kickerDisc">DISCOVERY QUESTIONS</div>
+      <h2 id="discHead" data-i18n="discHeadTxt">Predict, then check</h2>
+    </div>
+    <div id="discWrap" style="max-width:700px;margin:0 auto;"></div>
+  </div>
+</section>
+
+<!-- COMMON MISTAKES -->
+<section aria-labelledby="mistakeHead">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker" data-i18n="kickerMistake">COMMON MISTAKES</div>
+      <h2 id="mistakeHead" data-i18n="mistakeHeadTxt">Ideas students often get wrong</h2>
+    </div>
+    <div id="mistakeWrap" style="max-width:760px;margin:0 auto;"></div>
+  </div>
+</section>
+
+<!-- APPLICATIONS -->
+<section class="alt" aria-labelledby="appHead">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker" data-i18n="kickerApp">REAL-WORLD APPLICATIONS</div>
+      <h2 id="appHead" data-i18n="appHeadTxt">Where you meet elastic PE every day</h2>
+    </div>
+    <div class="grid-3" id="appGrid"></div>
+  </div>
+</section>
+
+<!-- CHALLENGE MODE -->
+<section id="challenge" aria-labelledby="chalHead">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker" data-i18n="kickerChal">CHALLENGE MODE</div>
+      <h2 id="chalHead" data-i18n="chalHeadTxt">Test your problem-solving</h2>
+    </div>
+    <div class="tab-row" id="chalTabs">
+      <button data-lvl="easy" class="active" data-i18n="lvlEasy">Easy</button>
+      <button data-lvl="medium" data-i18n="lvlMedium">Medium</button>
+      <button data-lvl="hard" data-i18n="lvlHard">Hard</button>
+    </div>
+    <div id="chalWrap" style="max-width:700px;margin:0 auto;"></div>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section class="alt" id="quiz" aria-labelledby="quizHead">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker" data-i18n="kickerQuiz">INTERACTIVE QUIZ</div>
+      <h2 id="quizHead" data-i18n="quizHeadTxt">Final Quiz — 10 Questions</h2>
+    </div>
+    <div class="quiz-shell" id="quizShell"></div>
+  </div>
+</section>
+
+<!-- PROGRESS + ACHIEVEMENTS -->
+<section aria-labelledby="progHead">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker" data-i18n="kickerProg">YOUR PROGRESS</div>
+      <h2 id="progHead" data-i18n="progHeadTxt">Track how far you've come</h2>
+    </div>
+    <div class="progress-shell">
+      <div class="progress-topline"><span data-i18n="progLabel">Lab completion</span><span id="progPct">0%</span></div>
+      <div class="progress-outer"><div class="progress-inner" id="progInner" style="width:0%"></div></div>
+      <div class="progress-tags" id="progTags"></div>
+    </div>
+    <div class="badge-grid" id="badgeGrid"></div>
+  </div>
+</section>
+
+<!-- QUICK REFERENCE -->
+<section class="alt" aria-labelledby="refHead">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker" data-i18n="kickerRef">QUICK REFERENCE</div>
+      <h2 id="refHead" data-i18n="refHeadTxt">Revision card</h2>
+    </div>
+    <div class="ref-grid">
+      <div class="ref-card"><h4 data-i18n="refCard1h">HOOKE'S LAW</h4><div class="rf">F = −kx</div><p data-i18n="refCard1p">Restoring force is proportional to displacement and opposite in direction.</p></div>
+      <div class="ref-card"><h4 data-i18n="refCard2h">ELASTIC PE</h4><div class="rf">U = ½kx²</div><p data-i18n="refCard2p">Energy stored in a stretched or compressed spring.</p></div>
+      <div class="ref-card"><h4 data-i18n="refCard3h">ENERGY CONSERVATION</h4><div class="rf">U + KE = constant</div><p data-i18n="refCard3p">In a frictionless spring–mass system, total mechanical energy never changes.</p></div>
+    </div>
+    <table class="ref-table">
+      <thead><tr><th data-i18n="refTh1">Quantity</th><th data-i18n="refTh2">Symbol</th><th data-i18n="refTh3">SI Unit</th><th data-i18n="refTh4">Note</th></tr></thead>
+      <tbody id="refTbody"></tbody>
+    </table>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <b data-i18n="devName">Developed by B. Nirmal Singh</b>
+    <span data-i18n="devRoleFooter">Computer Instructor Grade 1 · GHSS Keeladi, Sivagangai District</span>
+    <div class="tagline" data-i18n="footerTagline">Sivagangai PG Teachers' Resource Portal — Interactive Physics Laboratory</div>
+  </div>
+</footer>
+
+<script>
+/* =====================================================================
+   0. STATE + TRANSLATION DICTIONARY
+===================================================================== */
+let LANG = 'en';
+const state = {
+  visited:new Set(),
+  matched:0,
+  seqCorrectOnce:false,
+  challengeCorrect:0,
+  quizDone:false,
+  quizScore:0,
+  simInteracted:false,
+  conceptsOpened:new Set(),
+};
+
+const STR = {
+  brandShort:{en:"Elastic Potential Energy Physics Lab",ta:"மீட்சி நிலை ஆற்றல் இயற்பியல் ஆய்வகம்"},
+  navHome:{en:"Home",ta:"முகப்பு"},
+  navLearn:{en:"Learn",ta:"கற்றல்"},
+  navSimulator:{en:"Simulator",ta:"உருவகப்படுத்தி"},
+  navHow:{en:"How It Works",ta:"செயல்முறை"},
+  navDrag:{en:"Drag & Drop",ta:"இழுத்து இடு"},
+  navMatch:{en:"Matching",ta:"பொருத்துக"},
+  navExamples:{en:"Examples",ta:"உதாரணங்கள்"},
+  navChallenge:{en:"Challenges",ta:"சவால்கள்"},
+  navQuiz:{en:"Quiz",ta:"வினாடி வினா"},
+  portalName:{en:"SIVAGANGAI PG TEACHERS' RESOURCE PORTAL",ta:"சிவகங்கை முதுகலை ஆசிரியர் வள போர்டல்"},
+  topicTitle:{en:"Elastic Potential Energy",ta:"மீட்சி நிலை ஆற்றல்"},
+  subjectLine:{en:"Physics · Work, Energy and Power",ta:"இயற்பியல் · வேலை, ஆற்றல் மற்றும் திறன்"},
+  heroSubtitle:{en:"Learn • Visualize • Interact • Practise • Master",ta:"கற்று • காட்சிப்படுத்து • ஊடாடு • பயிற்சி செய் • தேர்ச்சி பெறு"},
+  devName:{en:"Developed by B. Nirmal Singh",ta:"உருவாக்கியவர்: B. நிர்மல் சிங்"},
+  devRole:{en:"Computer Instructor Grade 1, GHSS Keeladi, Sivagangai Dt.",ta:"கணினி ஆசிரியர் நிலை 1, அரசு மேல்நிலைப் பள்ளி கீழடி, சிவகங்கை மாவட்டம்"},
+  devRoleFooter:{en:"Computer Instructor Grade 1 · GHSS Keeladi, Sivagangai District",ta:"கணினி ஆசிரியர் நிலை 1 · அரசு மேல்நிலைப் பள்ளி கீழடி, சிவகங்கை மாவட்டம்"},
+  footerTagline:{en:"Sivagangai PG Teachers' Resource Portal — Interactive Physics Laboratory",ta:"சிவகங்கை முதுகலை ஆசிரியர் வள போர்டல் — ஊடாடும் இயற்பியல் ஆய்வகம்"},
+  heroCaption:{en:"equilibrium position (x = 0)",ta:"சமநிலை நிலை (x = 0)"},
+  simEqLabel:{en:"equilibrium (x = 0)",ta:"சமநிலை (x = 0)"},
+
+  kickerIntro:{en:"GETTING STARTED",ta:"தொடங்குவோம்"},
+  introHeadTxt:{en:"What is Elastic Potential Energy?",ta:"மீட்சி நிலை ஆற்றல் என்றால் என்ன?"},
+  introSub:{en:"A short introduction before you step into the laboratory.",ta:"ஆய்வகத்திற்குள் நுழையும் முன் ஒரு சிறு அறிமுகம்."},
+
+  kickerObj:{en:"LEARNING OBJECTIVES",ta:"கற்றல் நோக்கங்கள்"},
+  objHeadTxt:{en:"By the end of this lab, you will be able to",ta:"இந்த ஆய்வகத்தின் முடிவில், நீங்கள் இதை செய்ய முடியும்"},
+
+  kickerConcept:{en:"CONCEPT EXPLORER",ta:"கருத்து ஆய்வு"},
+  conceptHeadTxt:{en:"Tap a card to explore each idea",ta:"ஒவ்வொரு கருத்தையும் அறிய அட்டையைத் தட்டவும்"},
+
+  kickerSim:{en:"MAIN INTERACTIVE SIMULATOR",ta:"முதன்மை உருவகப்படுத்தி"},
+  simHeadTxt:{en:"Spring–Mass Laboratory",ta:"சுருள்வில்-நிறை ஆய்வகம்"},
+  simSub:{en:"Drag the slider to stretch or compress the spring, then press Oscillate to watch energy change form.",ta:"சுருள்வில்லை நீட்ட அல்லது சுருக்க ஸ்லைடரை இழுக்கவும், பின் ஆற்றல் மாறுவதைக் காண 'அலைவு' அழுத்தவும்."},
+  flowInput:{en:"INPUT — Displacement x",ta:"உள்ளீடு — இடப்பெயர்ச்சி x"},
+  flowProcess:{en:"PROCESS — Restoring Force",ta:"செயல்முறை — மீட்பு விசை"},
+  flowOutput:{en:"OUTPUT — Elastic PE",ta:"வெளியீடு — நெகிழ்திறன் ஆற்றல்"},
+  lblPE:{en:"Potential Energy (U)",ta:"நிலை ஆற்றல் (U)"},
+  lblKE:{en:"Kinetic Energy (KE)",ta:"இயக்க ஆற்றல் (KE)"},
+  ctrlX:{en:"Displacement, x",ta:"இடப்பெயர்ச்சி, x"},
+  ctrlK:{en:"Spring constant, k",ta:"சுருள்வில் மாறிலி, k"},
+  ctrlM:{en:"Mass, m",ta:"நிறை, m"},
+  ctrlAmp:{en:"Amplitude, x₀",ta:"அலைவீச்சு, x₀"},
+  btnOscillate:{en:"▶ Oscillate",ta:"▶ அலைவு"},
+  btnReset:{en:"Reset",ta:"மீட்டமை"},
+  roForce:{en:"Restoring force F = −kx",ta:"மீட்பு விசை F = −kx"},
+  roU:{en:"Elastic PE, U = ½kx²",ta:"நெகிழ்திறன் ஆற்றல், U = ½kx²"},
+  roKE:{en:"Kinetic energy, KE",ta:"இயக்க ஆற்றல், KE"},
+  roTotal:{en:"Total mechanical energy",ta:"மொத்த இயந்திர ஆற்றல்"},
+  roMaxU:{en:"Maximum PE (at x₀)",ta:"அதிகபட்ச PE (x₀ இல்)"},
+  roMaxKE:{en:"Maximum KE (at x = 0)",ta:"அதிகபட்ச KE (x = 0 இல்)"},
+  roMaxSpeed:{en:"Maximum speed, v_max",ta:"அதிகபட்ச வேகம், v_max"},
+  roPeriod:{en:"Oscillation period, T = 2π√(m/k)",ta:"அலைவு காலம், T = 2π√(m/k)"},
+
+  kickerHow:{en:"STEP-BY-STEP WORKING",ta:"படிப்படியான செயல்முறை"},
+  howHeadTxt:{en:"How the energy gets stored",ta:"ஆற்றல் எவ்வாறு சேமிக்கப்படுகிறது"},
+  btnPrev:{en:"◀ Previous",ta:"◀ முந்தையது"},
+  btnPlay:{en:"▶ Play",ta:"▶ இயக்கு"},
+  btnPause:{en:"❚❚ Pause",ta:"❚❚ இடைநிறுத்து"},
+  btnNext:{en:"Next ▶",ta:"அடுத்தது ▶"},
+
+  kickerDrag:{en:"DRAG & DROP SEQUENCE CHALLENGE",ta:"இழுத்து இடும் வரிசைச் சவால்"},
+  dragHeadTxt:{en:"Arrange the derivation in the correct order",ta:"வழிமுறையை சரியான வரிசையில் அமைக்கவும்"},
+  dragSub:{en:"Drag the cards (or use the ▲▼ buttons) so Step 1 is on top and Step 5 is at the bottom, then check your answer.",ta:"படி 1 மேலேயும் படி 5 கீழேயும் வருமாறு அட்டைகளை இழுக்கவும் (அல்லது ▲▼ பொத்தான்களைப் பயன்படுத்தவும்), பின் விடையைச் சரிபார்க்கவும்."},
+  btnCheckOrder:{en:"Check Order",ta:"வரிசையைச் சரிபார்"},
+
+  kickerMatch:{en:"MATCHING GAME",ta:"பொருத்தும் விளையாட்டு"},
+  matchHeadTxt:{en:"Match each term with its meaning",ta:"ஒவ்வொரு சொல்லையும் அதன் பொருளுடன் பொருத்துக"},
+  matchSub:{en:"Tap a term on the left, then tap its matching definition on the right.",ta:"இடதுபுறம் ஒரு சொல்லைத் தட்டவும், பின் வலதுபுறம் அதற்கான விளக்கத்தைத் தட்டவும்."},
+  matchColTerms:{en:"TERMS",ta:"சொற்கள்"},
+  matchColDefs:{en:"DEFINITIONS",ta:"விளக்கங்கள்"},
+
+  kickerEx:{en:"WORKED EXAMPLES",ta:"தீர்க்கப்பட்ட உதாரணங்கள்"},
+  exHeadTxt:{en:"Try it yourself",ta:"நீங்களே முயற்சிக்கவும்"},
+  exSub:{en:"Change the numbers and watch the working update instantly.",ta:"எண்களை மாற்றி, செயல்முறை உடனடியாக மாறுவதைக் காணுங்கள்."},
+
+  kickerFree:{en:"FREE EXPERIMENT MODE",ta:"சுதந்திர பரிசோதனை முறை"},
+  freeHeadTxt:{en:"Explore without limits",ta:"வரம்பின்றி ஆராயுங்கள்"},
+  freeSub:{en:"No fixed goal here — pull the spring, change k and m, and see how the oscillation period changes.",ta:"இங்கே குறிப்பிட்ட இலக்கு இல்லை — சுருள்வில்லை இழுத்து, k மற்றும் m ஐ மாற்றி, அலைவு காலம் எவ்வாறு மாறுகிறது எனக் காணுங்கள்."},
+
+  kickerDisc:{en:"DISCOVERY QUESTIONS",ta:"கண்டுபிடிப்பு கேள்விகள்"},
+  discHeadTxt:{en:"Predict, then check",ta:"முன்கூட்டியே யூகித்து, பின் சரிபார்க்கவும்"},
+
+  kickerMistake:{en:"COMMON MISTAKES",ta:"பொதுவான தவறுகள்"},
+  mistakeHeadTxt:{en:"Ideas students often get wrong",ta:"மாணவர்கள் அடிக்கடி தவறாக நினைக்கும் கருத்துகள்"},
+
+  kickerApp:{en:"REAL-WORLD APPLICATIONS",ta:"நிஜ வாழ்க்கை பயன்பாடுகள்"},
+  appHeadTxt:{en:"Where you meet elastic PE every day",ta:"தினசரி வாழ்க்கையில் நெகிழ்திறன் ஆற்றலைச் சந்திக்கும் இடங்கள்"},
+
+  kickerChal:{en:"CHALLENGE MODE",ta:"சவால் முறை"},
+  chalHeadTxt:{en:"Test your problem-solving",ta:"உங்கள் சிக்கல் தீர்க்கும் திறனைச் சோதிக்கவும்"},
+  lvlEasy:{en:"Easy",ta:"எளிது"},
+  lvlMedium:{en:"Medium",ta:"நடுத்தரம்"},
+  lvlHard:{en:"Hard",ta:"கடினம்"},
+  btnCheck:{en:"Check Answer",ta:"விடையைச் சரிபார்"},
+
+  kickerQuiz:{en:"INTERACTIVE QUIZ",ta:"ஊடாடும் வினாடி வினா"},
+  quizHeadTxt:{en:"Final Quiz — 10 Questions",ta:"இறுதி வினாடி வினா — 10 கேள்விகள்"},
+  quizOf:{en:"Question",ta:"கேள்வி"},
+  quizScoreLbl:{en:"Score",ta:"மதிப்பெண்"},
+  btnRetryQuiz:{en:"Retry Quiz",ta:"மீண்டும் முயற்சி"},
+  btnFinish:{en:"See Score",ta:"மதிப்பெண்ணைக் காண்க"},
+  quizCorrect:{en:"✓ Correct!",ta:"✓ சரியானது!"},
+  quizIncorrect:{en:"✗ Incorrect.",ta:"✗ தவறு."},
+
+  kickerProg:{en:"YOUR PROGRESS",ta:"உங்கள் முன்னேற்றம்"},
+  progHeadTxt:{en:"Track how far you've come",ta:"நீங்கள் எவ்வளவு தூரம் முன்னேறியுள்ளீர்கள் எனக் காணுங்கள்"},
+  progLabel:{en:"Lab completion",ta:"ஆய்வக நிறைவு"},
+
+  kickerRef:{en:"QUICK REFERENCE",ta:"விரைவு குறிப்பு"},
+  refHeadTxt:{en:"Revision card",ta:"திருத்த அட்டை"},
+  refCard1h:{en:"HOOKE'S LAW",ta:"ஹூக் விதி"},
+  refCard1p:{en:"Restoring force is proportional to displacement and opposite in direction.",ta:"மீட்பு விசை இடப்பெயர்ச்சிக்கு விகிதாசாரமாகவும் திசையில் எதிராகவும் இருக்கும்."},
+  refCard2h:{en:"ELASTIC PE",ta:"நெகிழ்திறன் ஆற்றல்"},
+  refCard2p:{en:"Energy stored in a stretched or compressed spring.",ta:"நீட்டப்பட்ட அல்லது சுருக்கப்பட்ட சுருள்வில்லில் சேமிக்கப்படும் ஆற்றல்."},
+  refCard3h:{en:"ENERGY CONSERVATION",ta:"ஆற்றல் பாதுகாப்பு"},
+  refCard3p:{en:"In a frictionless spring–mass system, total mechanical energy never changes.",ta:"உராய்வு இல்லாத சுருள்வில்-நிறை அமைப்பில், மொத்த இயந்திர ஆற்றல் மாறாது."},
+  refTh1:{en:"Quantity",ta:"அளவு"},
+  refTh2:{en:"Symbol",ta:"குறியீடு"},
+  refTh3:{en:"SI Unit",ta:"SI அலகு"},
+  refTh4:{en:"Note",ta:"குறிப்பு"},
+
+  errBadNumber:{en:"Please enter a valid number.",ta:"சரியான எண்ணை உள்ளிடவும்."},
+  toastSectionVisited:{en:"Progress updated",ta:"முன்னேற்றம் புதுப்பிக்கப்பட்டது"},
+};
+
+function T(key){ return (STR[key] && STR[key][LANG]) || (STR[key] && STR[key].en) || key; }
+function applyStaticLang(){
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const k = el.getAttribute('data-i18n');
+    if(STR[k]) el.textContent = STR[k][LANG];
+  });
+  document.documentElement.lang = LANG === 'ta' ? 'ta' : 'en';
+  document.body.querySelectorAll('*').forEach(()=>{});
+}
+
+/* =====================================================================
+   1. TOAST + PROGRESS + ACHIEVEMENTS
+===================================================================== */
+let toastTimer=null;
+function toast(msg){
+  const el=document.getElementById('toast');
+  el.textContent=msg; el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>el.classList.remove('show'),2200);
+}
+
+const SECTION_IDS = ['home','learn','simulator','how','dragdrop','matching','examples','challenge','quiz'];
+const SECTION_LABELS = {
+  home:{en:'Home',ta:'முகப்பு'}, learn:{en:'Learn',ta:'கற்றல்'}, simulator:{en:'Simulator',ta:'உருவகப்படுத்தி'},
+  how:{en:'How It Works',ta:'செயல்முறை'}, dragdrop:{en:'Drag & Drop',ta:'இழுத்து இடு'}, matching:{en:'Matching',ta:'பொருத்துக'},
+  examples:{en:'Examples',ta:'உதாரணங்கள்'}, challenge:{en:'Challenge',ta:'சவால்'}, quiz:{en:'Quiz',ta:'வினாடி வினா'}
+};
+
+const BADGES = [
+  {id:'explorer', icon:'🔎', label:{en:'Concept Explorer',ta:'கருத்து ஆய்வாளர்'}, test:()=>state.conceptsOpened.size>=4},
+  {id:'simmaster', icon:'⚡', label:{en:'Simulation Master',ta:'உருவகப்படுத்தல் நிபுணர்'}, test:()=>state.simInteracted},
+  {id:'sequencer', icon:'🧩', label:{en:'Sequence Solver',ta:'வரிசை தீர்வர்'}, test:()=>state.seqCorrectOnce},
+  {id:'matchmaster', icon:'🔗', label:{en:'Matching Master',ta:'பொருத்தும் நிபுணர்'}, test:()=>state.matched>=6},
+  {id:'challenger', icon:'🏆', label:{en:'Challenge Champion',ta:'சவால் வீரர்'}, test:()=>state.challengeCorrect>=3},
+  {id:'quizmaster', icon:'🎯', label:{en:'Quiz Master',ta:'வினாடி வினா நிபுணர்'}, test:()=>state.quizDone && state.quizScore>=7},
+];
+
+function markVisited(id){
+  if(!state.visited.has(id)){ state.visited.add(id); }
+  renderProgress();
+}
+function renderProgress(){
+  const pct = Math.round((state.visited.size/SECTION_IDS.length)*100);
+  document.getElementById('progPct').textContent = pct+'%';
+  document.getElementById('progInner').style.width = pct+'%';
+  const tagsWrap = document.getElementById('progTags');
+  tagsWrap.innerHTML='';
+  SECTION_IDS.forEach(id=>{
+    const done = state.visited.has(id);
+    const span=document.createElement('span');
+    span.className='ptag'+(done?' done':'');
+    span.textContent=(done?'✓ ':'')+SECTION_LABELS[id][LANG];
+    tagsWrap.appendChild(span);
+  });
+  renderBadges();
+}
+function renderBadges(){
+  const grid=document.getElementById('badgeGrid');
+  grid.innerHTML='';
+  BADGES.forEach(b=>{
+    const unlocked=b.test();
+    const div=document.createElement('div');
+    div.className='badge'+(unlocked?' unlocked':'');
+    div.innerHTML=`<span class="bic">${b.icon}</span><span class="btxt">${b.label[LANG]}</span>`;
+    grid.appendChild(div);
+  });
+}
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting && SECTION_IDS.includes(e.target.id)){ markVisited(e.target.id); } });
+},{threshold:0.35});
+SECTION_IDS.forEach(id=>{ const el=document.getElementById(id); if(el) io.observe(el); });
+
+/* =====================================================================
+   2. NAV
+===================================================================== */
+document.querySelectorAll('[data-scroll]').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.getElementById(btn.getAttribute('data-scroll')).scrollIntoView({behavior:'smooth'});
+    document.getElementById('navLinks').classList.remove('open');
+  });
+});
+document.getElementById('hamBtn').addEventListener('click',()=>{
+  const nl=document.getElementById('navLinks');
+  const open = nl.classList.toggle('open');
+  document.getElementById('hamBtn').setAttribute('aria-expanded',open);
+});
+
+/* =====================================================================
+   3. INTRO CARDS
+===================================================================== */
+const introCards = [
+  {icon:'🌀', h:{en:'What is it?',ta:'இது என்ன?'}, p:{en:'The energy stored in a spring when it is stretched or compressed from its natural length.',ta:'ஒரு சுருள்வில் அதன் இயல்பான நீளத்திலிருந்து நீட்டப்படும் அல்லது சுருக்கப்படும் போது சேமிக்கப்படும் ஆற்றல்.'}},
+  {icon:'⚙️', h:{en:'Why it matters',ta:'ஏன் முக்கியம்?'}, p:{en:'It explains how springs, bows and elastic materials store and release energy safely and predictably.',ta:'சுருள்வில், வில் மற்றும் நெகிழ் பொருட்கள் ஆற்றலை பாதுகாப்பாகவும் கணிக்கக்கூடிய வகையிலும் சேமித்து வெளியிடுவது எப்படி என்பதை இது விளக்குகிறது.'}},
+  {icon:'🏗️', h:{en:'Where it is used',ta:'எங்கு பயன்படுகிறது?'}, p:{en:'Vehicle suspensions, weighing scales, archery bows, trampolines, mattresses and wristwatches.',ta:'வாகன அமைப்புகள், எடைத்தராசுகள், அம்பு வில், டிராம்போலின், மெத்தைகள் மற்றும் கை கடிகாரங்கள்.'}},
+  {icon:'🎯', h:{en:'What you will learn',ta:'நீங்கள் என்ன கற்பீர்கள்?'}, p:{en:'Hooke\'s law, the formula U = ½kx², and how PE converts to KE during oscillation.',ta:'ஹூக் விதி, U = ½kx² சூத்திரம், மற்றும் அலைவின் போது PE எவ்வாறு KE ஆக மாறுகிறது என்பதை.'}},
+];
+function renderIntro(){
+  document.getElementById('introCards').innerHTML = introCards.map(c=>`
+    <div class="info-card"><span class="ic">${c.icon}</span><h3>${c.h[LANG]}</h3><p>${c.p[LANG]}</p></div>
+  `).join('');
+}
+
+/* OBJECTIVES */
+const objectives = [
+  {en:'Define elastic potential energy in your own words.',ta:'நெகிழ்திறன் நிலை ஆற்றலை உங்கள் சொந்த வார்த்தைகளில் வரையறுக்கவும்.'},
+  {en:'Identify the spring constant k and displacement x in a spring–mass system.',ta:'சுருள்வில்-நிறை அமைப்பில் மாறிலி k மற்றும் இடப்பெயர்ச்சி x ஐ அடையாளம் காணவும்.'},
+  {en:'Explain how the restoring force F = −kx develops.',ta:'மீட்பு விசை F = −kx எவ்வாறு உருவாகிறது என்பதை விளக்கவும்.'},
+  {en:'Describe the step-by-step process that leads to U = ½kx².',ta:'U = ½kx² க்கு வழிவகுக்கும் படிப்படியான செயல்முறையை விவரிக்கவும்.'},
+  {en:'Interact with the spring–mass simulator to see energy change.',ta:'ஆற்றல் மாற்றத்தைக் காண சுருள்வில்-நிறை உருவகப்படுத்தியுடன் ஊடாடவும்.'},
+  {en:'Apply the formula to calculate PE for given values of k and x.',ta:'கொடுக்கப்பட்ட k மற்றும் x மதிப்புகளுக்கு PE ஐக் கணக்கிட சூத்திரத்தைப் பயன்படுத்தவும்.'},
+  {en:'Match key terms with their correct definitions.',ta:'முக்கிய சொற்களை அவற்றின் சரியான விளக்கங்களுடன் பொருத்தவும்.'},
+  {en:'Solve application-based and scenario questions.',ta:'பயன்பாடு சார்ந்த மற்றும் சூழ்நிலை கேள்விகளைத் தீர்க்கவும்.'},
+  {en:'Recognise and avoid common misconceptions.',ta:'பொதுவான தவறான கருத்துகளை அடையாளம் கண்டு தவிர்க்கவும்.'},
+  {en:'Complete the final quiz with a good score.',ta:'இறுதி வினாடி வினாவை நல்ல மதிப்பெண்ணுடன் முடிக்கவும்.'},
+];
+function renderObjectives(){
+  document.getElementById('objList').innerHTML = objectives.map((o,i)=>`
+    <li><span class="num">${i+1}</span><span>${o[LANG]}</span></li>
+  `).join('');
+}
+
+/* =====================================================================
+   4. CONCEPT EXPLORER
+===================================================================== */
+const concepts = [
+  {icon:'🧲', h:{en:"Restoring Force — Hooke's Law",ta:'மீட்பு விசை — ஹூக் விதி'},
+   p:{en:'When a spring is stretched or compressed by x, it develops an internal force that opposes the change and tries to bring it back to equilibrium.',ta:'ஒரு சுருள்வில் x அளவு நீட்டப்படும் அல்லது சுருக்கப்படும் போது, மாற்றத்தை எதிர்க்கும் மற்றும் சமநிலைக்குத் திரும்ப முயலும் உள் விசையை உருவாக்குகிறது.'},
+   f:'F = −kx'},
+  {icon:'📏', h:{en:'Spring Constant, k',ta:'சுருள்வில் மாறிலி, k'},
+   p:{en:'k measures the stiffness of a spring — a large k means a stiff spring that needs more force to stretch by the same amount.',ta:'k சுருள்வில்லின் விறைப்புத்தன்மையை அளவிடுகிறது — பெரிய k என்பது அதே அளவு நீட்ட அதிக விசை தேவைப்படும் விறைப்பான சுருள்வில் என்று பொருள்.'},
+   f:'Unit: N/m'},
+  {icon:'∫', h:{en:'Work Done Stretching the Spring',ta:'சுருள்வில்லை நீட்ட செய்யப்படும் வேலை'},
+   p:{en:'Since the spring force changes with x, we sum up tiny bits of work, F·dx, from 0 to x using integration.',ta:'சுருள்வில் விசை x உடன் மாறுவதால், 0 முதல் x வரை தொகையீடு பயன்படுத்தி சிறு வேலை துகள்களான F·dx ஐக் கூட்டுகிறோம்.'},
+   f:'U = ∫₀ˣ kx dx'},
+  {icon:'⚡', h:{en:'Elastic Potential Energy',ta:'நெகிழ்திறன் நிலை ஆற்றல்'},
+   p:{en:'Carrying out the integration gives the stored energy. Notice this energy depends only on k and x — never on the mass attached.',ta:'தொகையீட்டைச் செய்யும்போது சேமிக்கப்பட்ட ஆற்றல் கிடைக்கிறது. இந்த ஆற்றல் k மற்றும் x ஐ மட்டுமே சார்ந்துள்ளது — இணைக்கப்பட்ட நிறையை ஒருபோதும் சாராது.'},
+   f:'U = ½kx²'},
+  {icon:'🔄', h:{en:'Energy Conservation in Oscillation',ta:'அலைவில் ஆற்றல் பாதுகாப்பு'},
+   p:{en:'As the mass oscillates, energy keeps converting between PE and KE. In a frictionless system, their sum stays constant.',ta:'நிறை அலைந்தாடும்போது, ஆற்றல் PE மற்றும் KE இடையே தொடர்ந்து மாறுகிறது. உராய்வு இல்லாத அமைப்பில், அவற்றின் கூட்டுத்தொகை மாறாமல் இருக்கும்.'},
+   f:'ΔKE = ΔU'},
+  {icon:'📈', h:{en:'Force–Displacement & PE–Displacement Graphs',ta:'விசை–இடப்பெயர்ச்சி & PE–இடப்பெயர்ச்சி வரைபடங்கள்'},
+   p:{en:'The F–x graph is a straight line through the origin (its area gives U). The U–x graph is a parabola, symmetric about x = 0.',ta:'F–x வரைபடம் தோற்றப்புள்ளி வழியாக செல்லும் நேர்கோடு (அதன் பரப்பளவு U ஐத் தரும்). U–x வரைபடம் x = 0 ஐப் பொறுத்து சமச்சீரான பரவளையமாகும்.'}},
+];
+function renderConcepts(){
+  document.getElementById('conceptGrid').innerHTML = concepts.map((c,i)=>`
+    <div class="concept-card" data-idx="${i}" tabindex="0" role="button" aria-expanded="false">
+      <div class="chead"><div class="cicon">${c.icon}</div><h3>${c.h[LANG]}</h3></div>
+      <div class="cbody">
+        <p>${c.p[LANG]}</p>
+        ${c.f?`<span class="formula-pill mono">${c.f}</span>`:''}
+      </div>
+      <div class="toggle-hint">${LANG==='ta'?'விவரங்களுக்கு தட்டவும்':'Tap for details'}</div>
+    </div>
+  `).join('');
+  document.querySelectorAll('.concept-card').forEach(card=>{
+    const openIt=()=>{
+      card.classList.toggle('open');
+      const idx = card.getAttribute('data-idx');
+      card.setAttribute('aria-expanded', card.classList.contains('open'));
+      if(card.classList.contains('open')){ state.conceptsOpened.add(idx); renderProgress(); }
+    };
+    card.addEventListener('click',openIt);
+    card.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openIt(); }});
+  });
+}
+
+/* =====================================================================
+   5. MAIN SIMULATOR
+===================================================================== */
+const xSlider=document.getElementById('xSlider'), kSlider=document.getElementById('kSlider'), mSlider=document.getElementById('mSlider');
+const simCoil=document.getElementById('simCoil'), simMass=document.getElementById('simMass'), simMassLabel=document.getElementById('simMassLabel');
+let oscillating=false, oscT=0, oscAmp=0.1, oscRAF=null;
+
+function coilPath(xPix){
+  // wall at x=16, equilibrium baseline at 260, mass leading edge at 260+xPix
+  const startX=16, baseLen=244, segs=8;
+  const endX = startX + baseLen + xPix;
+  let d = `M${startX},93`;
+  const step=(endX-startX)/segs;
+  for(let i=1;i<=segs;i++){
+    const x = startX + step*i;
+    const y = (i%2===0)?93-22:93+22;
+    d+= ` L${x.toFixed(1)},${i===segs? 93 : y}`;
+  }
+  return {d, endX};
+}
+function updateSim(playing){
+  const k=parseFloat(kSlider.value), m=parseFloat(mSlider.value);
+  let x;
+  if(playing){
+    const omega=Math.sqrt(k/m);
+    x = oscAmp*Math.cos(omega*oscT);
+  } else {
+    x = parseFloat(xSlider.value);
+  }
+  const F = -k*x;
+  const U = 0.5*k*x*x;
+  const Umax = 0.5*k*oscAmp*oscAmp;
+  const KE = playing? Math.max(0,Umax-U) : 0;
+
+  document.getElementById('xVal').textContent = x.toFixed(3)+' m';
+  document.getElementById('kVal').textContent = Math.round(k)+' N/m';
+  document.getElementById('mVal').textContent = m.toFixed(2)+' kg';
+  document.getElementById('flowX').textContent = x.toFixed(2)+' m';
+  document.getElementById('flowF').textContent = F.toFixed(1)+' N';
+  document.getElementById('flowU').textContent = U.toFixed(2)+' J';
+  document.getElementById('roForce').textContent = F.toFixed(1)+' N';
+  document.getElementById('roU').textContent = U.toFixed(2)+' J';
+  document.getElementById('roKE').textContent = KE.toFixed(2)+' J';
+  document.getElementById('roTotal').textContent = (playing? Umax : U).toFixed(2)+' J';
+
+  const maxRefU = Math.max(0.5*k*0.2*0.2, 0.01);
+  document.getElementById('peBar').style.height = Math.min(100,(U/maxRefU)*100)+'%';
+  document.getElementById('keBar').style.height = Math.min(100,(KE/maxRefU)*100)+'%';
+
+  const xPix = x*550;
+  const {d,endX} = coilPath(xPix);
+  simCoil.setAttribute('d', d);
+  simMass.setAttribute('x', endX);
+  simMassLabel.setAttribute('x', endX+28);
+}
+function oscStep(){
+  oscT += 0.045;
+  updateSim(true);
+  oscRAF = requestAnimationFrame(oscStep);
+}
+document.getElementById('oscBtn').addEventListener('click', function(){
+  state.simInteracted = true; renderProgress();
+  oscillating = !oscillating;
+  if(oscillating){
+    oscAmp = Math.abs(parseFloat(xSlider.value)) || 0.1;
+    oscT=0;
+    this.textContent = LANG==='ta' ? '❚❚ நிறுத்து' : '❚❚ Stop';
+    oscStep();
+  } else {
+    cancelAnimationFrame(oscRAF);
+    this.innerHTML = T('btnOscillate');
+    updateSim(false);
+  }
+});
+document.getElementById('simResetBtn').addEventListener('click', ()=>{
+  oscillating=false; cancelAnimationFrame(oscRAF);
+  xSlider.value=0.10; kSlider.value=200; mSlider.value=0.5;
+  document.getElementById('oscBtn').innerHTML = T('btnOscillate');
+  updateSim(false);
+});
+[xSlider,kSlider,mSlider].forEach(s=>s.addEventListener('input',()=>{ if(!oscillating) updateSim(false); state.simInteracted=true; }));
+
+/* =====================================================================
+   6. STEP-BY-STEP WORKING
+===================================================================== */
+const steps = [
+  {t:{en:'Spring at equilibrium',ta:'சமநிலையில் சுருள்வில்'}, x:{en:'The spring is at its natural length. Displacement x = 0, so no force acts and no energy is stored.',ta:'சுருள்வில் அதன் இயல்பான நீளத்தில் உள்ளது. இடப்பெயர்ச்சி x = 0, எனவே எந்த விசையும் செயல்படாது, ஆற்றலும் சேமிக்கப்படாது.'}, f:'U = 0', pos:0},
+  {t:{en:'External force is applied',ta:'வெளிப்புற விசை பயன்படுத்தப்படுகிறது'}, x:{en:'A force Fₐ pulls the mass, stretching the spring by a distance x from equilibrium.',ta:'ஒரு விசை Fₐ நிறையை இழுத்து, சுருள்வில்லை சமநிலையிலிருந்து x தூரம் நீட்டுகிறது.'}, f:'Fₐ = kx', pos:0.5},
+  {t:{en:'Restoring force develops',ta:'மீட்பு விசை உருவாகிறது'}, x:{en:"By Hooke's law, the spring pushes back with a restoring force equal and opposite to the applied force.",ta:'ஹூக் விதியின்படி, சுருள்வில் பயன்படுத்தப்பட்ட விசைக்கு சமமான, எதிரான மீட்பு விசையுடன் திரும்பத் தள்ளுகிறது.'}, f:'F_s = −kx', pos:1},
+  {t:{en:'Work is stored, bit by bit',ta:'வேலை படிப்படியாக சேமிக்கப்படுகிறது'}, x:{en:'As the spring stretches a tiny extra distance dx, a small amount of work dU = kx·dx is stored inside it.',ta:'சுருள்வில் இன்னும் சிறிது தூரம் dx நீளும்போது, dU = kx·dx என்ற சிறிய அளவு வேலை அதனுள் சேமிக்கப்படுகிறது.'}, f:'dU = kx dx', pos:1},
+  {t:{en:'Total energy stored',ta:'மொத்த சேமிக்கப்பட்ட ஆற்றல்'}, x:{en:'Adding up (integrating) every tiny bit of work from 0 to x gives the total elastic potential energy.',ta:'0 முதல் x வரை ஒவ்வொரு சிறிய வேலையையும் கூட்டி (தொகையீடு செய்து), மொத்த நெகிழ்திறன் நிலை ஆற்றலைப் பெறுகிறோம்.'}, f:'U = ½kx²', pos:1},
+];
+let curStep=0, stepPlaying=false, stepTimer=null;
+function renderStepProgress(){
+  document.getElementById('stepProgress').innerHTML = steps.map((_,i)=>
+    `<div class="dot ${i<curStep?'done':''} ${i===curStep?'current':''}"></div>`
+  ).join('');
+}
+function drawStepSVG(pos){
+  const svg=document.getElementById('stepSVG');
+  const startX=10, baseLen=150, extra=pos*70;
+  const endX=startX+baseLen+extra;
+  let coil=`M${startX},70`;
+  const segs=7; const step=(endX-startX)/segs;
+  for(let i=1;i<=segs;i++){ const x=startX+step*i; const y=(i%2===0)?70-16:70+16; coil+=` L${x.toFixed(1)},${i===segs?70:y}`; }
+  svg.innerHTML = `
+    <rect x="0" y="20" width="10" height="100" fill="#0a2a5e"/>
+    <path d="${coil}" stroke="#2f8fe0" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <rect x="${endX}" y="46" width="42" height="42" rx="8" fill="#e8a33d" stroke="#c97f14" stroke-width="2"/>
+    <line x1="0" y1="140" x2="260" y2="140" stroke="#c6d9f2" stroke-dasharray="4 4"/>
+    ${pos>0?`<line x1="${startX+baseLen}" y1="30" x2="${startX+baseLen}" y2="130" stroke="#c6d9f2" stroke-dasharray="3 3"/>
+    <text x="${(startX+baseLen+endX)/2}" y="150" text-anchor="middle" font-size="11" fill="#7f95b8">x</text>`:''}
+  `;
+}
+function renderStep(){
+  const s=steps[curStep];
+  document.getElementById('stepNum').textContent = (LANG==='ta'?'படி ':'STEP ')+(curStep+1)+' / '+steps.length;
+  document.getElementById('stepTitle').textContent = s.t[LANG];
+  document.getElementById('stepText').textContent = s.x[LANG];
+  document.getElementById('stepFormula').textContent = s.f;
+  drawStepSVG(s.pos);
+  renderStepProgress();
+  document.getElementById('stepPrev').disabled = curStep===0;
+  document.getElementById('stepNext').disabled = curStep===steps.length-1;
+}
+document.getElementById('stepPrev').addEventListener('click',()=>{ if(curStep>0){curStep--; renderStep();} });
+document.getElementById('stepNext').addEventListener('click',()=>{ if(curStep<steps.length-1){curStep++; renderStep();} });
+document.getElementById('stepReset').addEventListener('click',()=>{ stopStepPlay(); curStep=0; renderStep(); });
+function stopStepPlay(){ stepPlaying=false; clearInterval(stepTimer); document.getElementById('stepPlay').textContent=T('btnPlay'); }
+document.getElementById('stepPlay').addEventListener('click',function(){
+  stepPlaying=!stepPlaying;
+  if(stepPlaying){
+    this.textContent=T('btnPause');
+    stepTimer=setInterval(()=>{
+      if(curStep<steps.length-1){ curStep++; renderStep(); } else { stopStepPlay(); }
+    },1800);
+  } else { stopStepPlay(); }
+});
+
+/* =====================================================================
+   7. DRAG & DROP SEQUENCE CHALLENGE
+===================================================================== */
+const seqSteps = [
+  {id:0, correct:1, t:{en:'Spring stretched by external force, x from equilibrium',ta:'வெளிப்புற விசையால் சுருள்வில் சமநிலையிலிருந்து x நீட்டப்படுகிறது'}},
+  {id:1, correct:2, t:{en:'Restoring force F = −kx develops in the spring',ta:'சுருள்வில்லில் மீட்பு விசை F = −kx உருவாகிறது'}},
+  {id:2, correct:3, t:{en:'Tiny work dU = kx·dx is done for a small stretch dx',ta:'சிறு நீட்சி dx க்கு சிறிய வேலை dU = kx·dx செய்யப்படுகிறது'}},
+  {id:3, correct:4, t:{en:'Work is integrated from 0 to x: U = ∫kx dx',ta:'வேலை 0 முதல் x வரை தொகையிடப்படுகிறது: U = ∫kx dx'}},
+  {id:4, correct:5, t:{en:'Result: elastic potential energy U = ½kx² is stored',ta:'முடிவு: நெகிழ்திறன் நிலை ஆற்றல் U = ½kx² சேமிக்கப்படுகிறது'}},
+];
+let seqOrder = [0,1,2,3,4];
+function shuffle(arr){ const a=[...arr]; for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function renderSeq(){
+  const list=document.getElementById('seqList');
+  list.innerHTML='';
+  seqOrder.forEach((id,pos)=>{
+    const item=document.createElement('li');
+    item.className='seq-item';
+    item.draggable=true;
+    item.dataset.id=id;
+    item.innerHTML=`<span class="grip">⠿</span><span class="seqbadge">${pos+1}</span><span>${seqSteps[id].t[LANG]}</span>
+      <span class="arrows"><button type="button" data-dir="up" aria-label="move up">▲</button><button type="button" data-dir="down" aria-label="move down">▼</button></span>`;
+    list.appendChild(item);
+  });
+  attachSeqEvents();
+  document.getElementById('seqFeedback').textContent='';
+}
+function attachSeqEvents(){
+  const list=document.getElementById('seqList');
+  let dragEl=null;
+  list.querySelectorAll('.seq-item').forEach(item=>{
+    item.addEventListener('dragstart',()=>{ dragEl=item; item.classList.add('dragging'); });
+    item.addEventListener('dragend',()=>{ item.classList.remove('dragging'); syncSeqOrder(); });
+    item.addEventListener('dragover',e=>{
+      e.preventDefault();
+      const after = getSeqAfterElement(list, e.clientY);
+      if(after==null) list.appendChild(dragEl); else list.insertBefore(dragEl, after);
+    });
+    item.querySelector('[data-dir="up"]').addEventListener('click',()=>{
+      const idx=[...list.children].indexOf(item);
+      if(idx>0) list.insertBefore(item, list.children[idx-1]);
+      syncSeqOrder();
+    });
+    item.querySelector('[data-dir="down"]').addEventListener('click',()=>{
+      const idx=[...list.children].indexOf(item);
+      if(idx<list.children.length-1) list.insertBefore(list.children[idx+1], item);
+      syncSeqOrder();
+    });
+  });
+}
+function getSeqAfterElement(list,y){
+  const items=[...list.querySelectorAll('.seq-item:not(.dragging)')];
+  return items.reduce((closest,child)=>{
+    const box=child.getBoundingClientRect();
+    const offset=y-box.top-box.height/2;
+    if(offset<0 && offset>closest.offset){ return {offset,element:child}; } return closest;
+  },{offset:-Infinity}).element;
+}
+function syncSeqOrder(){
+  seqOrder = [...document.getElementById('seqList').children].map(li=>parseInt(li.dataset.id));
+  [...document.getElementById('seqList').children].forEach((li,i)=>{ li.querySelector('.seqbadge').textContent=i+1; });
+}
+document.getElementById('seqCheck').addEventListener('click',()=>{
+  syncSeqOrder();
+  const ok = seqOrder.every((id,i)=> seqSteps[id].correct === i+1);
+  const fb=document.getElementById('seqFeedback');
+  document.querySelectorAll('#seqList .seq-item').forEach((li,i)=>{
+    li.classList.toggle('correct', seqSteps[parseInt(li.dataset.id)].correct===i+1);
+  });
+  if(ok){ fb.style.color='var(--good)'; fb.textContent = LANG==='ta'?'✓ சிறப்பாக! சரியான வரிசை.':'✓ Excellent! That\'s the correct order.'; state.seqCorrectOnce=true; renderProgress(); }
+  else{ fb.style.color='var(--bad)'; fb.textContent = LANG==='ta'?'✗ மீண்டும் முயற்சிக்கவும்.':'✗ Not quite — try rearranging again.'; }
+});
+document.getElementById('seqReset').addEventListener('click',()=>{ seqOrder=shuffle([0,1,2,3,4]); renderSeq(); });
+
+/* =====================================================================
+   8. MATCHING GAME
+===================================================================== */
+const matchPairs = [
+  {id:0, term:{en:"Hooke's Law",ta:'ஹூக் விதி'}, def:{en:'F = −kx',ta:'F = −kx'}},
+  {id:1, term:{en:'Spring constant (k)',ta:'சுருள்வில் மாறிலி (k)'}, def:{en:'Stiffness of the spring, measured in N/m',ta:'சுருள்வில்லின் விறைப்பு, N/m இல் அளவிடப்படுகிறது'}},
+  {id:2, term:{en:'Elastic Potential Energy',ta:'நெகிழ்திறன் நிலை ஆற்றல்'}, def:{en:'U = ½kx²',ta:'U = ½kx²'}},
+  {id:3, term:{en:'Restoring force',ta:'மீட்பு விசை'}, def:{en:'Force that always acts to bring the spring back to equilibrium',ta:'சுருள்வில்லை எப்போதும் சமநிலைக்குத் திருப்பும் விசை'}},
+  {id:4, term:{en:'Equilibrium position',ta:'சமநிலை நிலை'}, def:{en:'Natural length position where x = 0',ta:'x = 0 எனும் இயல்பான நீள நிலை'}},
+  {id:5, term:{en:'Amplitude',ta:'அலைவீச்சு'}, def:{en:'Maximum displacement from the equilibrium position',ta:'சமநிலை நிலையிலிருந்து அதிகபட்ச இடப்பெயர்ச்சி'}},
+];
+let matchSelLeft=null, matchSelRight=null, matchedIds=new Set();
+function renderMatching(){
+  matchedIds.clear(); matchSelLeft=null; matchSelRight=null; state.matched=0;
+  const left = shuffle(matchPairs);
+  const right = shuffle(matchPairs);
+  document.getElementById('matchLeft').innerHTML = left.map(p=>`<div class="match-item" data-id="${p.id}" data-side="L">${p.term[LANG]}</div>`).join('');
+  document.getElementById('matchRight').innerHTML = right.map(p=>`<div class="match-item" data-id="${p.id}" data-side="R">${p.def[LANG]}</div>`).join('');
+  attachMatchEvents();
+  updateMatchScore();
+}
+function attachMatchEvents(){
+  document.querySelectorAll('.match-item').forEach(el=>{
+    el.addEventListener('click',()=>{
+      if(el.classList.contains('matched')) return;
+      const side=el.dataset.side;
+      if(side==='L'){ document.querySelectorAll('[data-side="L"]').forEach(x=>x.classList.remove('selected')); el.classList.add('selected'); matchSelLeft=el; }
+      else{ document.querySelectorAll('[data-side="R"]').forEach(x=>x.classList.remove('selected')); el.classList.add('selected'); matchSelRight=el; }
+      if(matchSelLeft && matchSelRight){
+        if(matchSelLeft.dataset.id===matchSelRight.dataset.id){
+          matchSelLeft.classList.remove('selected'); matchSelRight.classList.remove('selected');
+          matchSelLeft.classList.add('matched'); matchSelRight.classList.add('matched');
+          matchedIds.add(matchSelLeft.dataset.id);
+          state.matched = matchedIds.size;
+          renderProgress();
+        } else {
+          matchSelLeft.classList.add('wrong-flash'); matchSelRight.classList.add('wrong-flash');
+          setTimeout(()=>{ matchSelLeft&&matchSelLeft.classList.remove('selected','wrong-flash'); matchSelRight&&matchSelRight.classList.remove('selected','wrong-flash'); },600);
+        }
+        matchSelLeft=null; matchSelRight=null;
+        updateMatchScore();
+      }
+    });
+  });
+}
+function updateMatchScore(){
+  document.getElementById('matchScore').textContent = (LANG==='ta'?'பொருத்தப்பட்டவை: ':'Matched: ')+matchedIds.size+' / '+matchPairs.length;
+}
+
+/* =====================================================================
+   9. WORKED EXAMPLES
+===================================================================== */
+function renderExamples(){
+  const wrap=document.getElementById('examplesWrap');
+  wrap.innerHTML=`
+  <div class="example-card">
+    <h3>${LANG==='ta'?'உதாரணம் 1 — PE ஐக் கண்டறிதல்':'Example 1 — Find the stored energy'}</h3>
+    <p class="scenario">${LANG==='ta'?'ஒரு சுருள்வில் மாறிலி k = 200 N/m கொண்ட சுருள்வில் 0.10 m தூரம் நீட்டப்படுகிறது. சேமிக்கப்பட்ட நெகிழ்திறன் ஆற்றலைக் கணக்கிடவும்.':'A spring of constant k = 200 N/m is stretched by 0.10 m. Calculate the elastic potential energy stored.'}</p>
+    <div class="example-inputs">
+      <div class="fld"><label>k (N/m)</label><input type="number" id="ex1k" value="200" step="10"></div>
+      <div class="fld"><label>x (m)</label><input type="number" id="ex1x" value="0.10" step="0.01"></div>
+    </div>
+    <div class="example-work" id="ex1work"></div>
+  </div>
+  <div class="example-card">
+    <h3>${LANG==='ta'?'உதாரணம் 2 — x ஐக் கண்டறிதல்':'Example 2 — Find the displacement'}</h3>
+    <p class="scenario">${LANG==='ta'?'ஒரு சுருள்வில் (k = 150 N/m) 3 J ஆற்றலைச் சேமிக்கிறது. அது எவ்வளவு நீட்டப்பட்டுள்ளது?':'A spring (k = 150 N/m) stores 3 J of energy. How far has it been stretched?'}</p>
+    <div class="example-inputs">
+      <div class="fld"><label>k (N/m)</label><input type="number" id="ex2k" value="150" step="10"></div>
+      <div class="fld"><label>U (J)</label><input type="number" id="ex2u" value="3" step="0.1"></div>
+    </div>
+    <div class="example-work" id="ex2work"></div>
+  </div>
+  <div class="example-card">
+    <h3>${LANG==='ta'?'உதாரணம் 3 — அதிகபட்ச வேகம்':'Example 3 — Maximum speed'}</h3>
+    <p class="scenario">${LANG==='ta'?'நிறை m = 0.4 kg கொண்ட பொருள் k = 300 N/m கொண்ட சுருள்வில்லுடன் இணைக்கப்பட்டு x₀ = 0.08 m வரை இழுக்கப்பட்டு விடப்படுகிறது. சமநிலை நிலையில் அதிகபட்ச வேகத்தைக் கண்டறியவும்.':'A mass m = 0.4 kg on a spring with k = 300 N/m is pulled to x₀ = 0.08 m and released. Find its maximum speed at the equilibrium position.'}</p>
+    <div class="example-inputs">
+      <div class="fld"><label>k (N/m)</label><input type="number" id="ex3k" value="300" step="10"></div>
+      <div class="fld"><label>x₀ (m)</label><input type="number" id="ex3x" value="0.08" step="0.01"></div>
+      <div class="fld"><label>m (kg)</label><input type="number" id="ex3m" value="0.4" step="0.05"></div>
+    </div>
+    <div class="example-work" id="ex3work"></div>
+  </div>`;
+  ['ex1k','ex1x'].forEach(id=>document.getElementById(id).addEventListener('input',calcEx1));
+  ['ex2k','ex2u'].forEach(id=>document.getElementById(id).addEventListener('input',calcEx2));
+  ['ex3k','ex3x','ex3m'].forEach(id=>document.getElementById(id).addEventListener('input',calcEx3));
+  calcEx1(); calcEx2(); calcEx3();
+}
+function safeNum(id){ const v=parseFloat(document.getElementById(id).value); return isNaN(v)? null : v; }
+function calcEx1(){
+  const k=safeNum('ex1k'), x=safeNum('ex1x');
+  const el=document.getElementById('ex1work');
+  if(k===null||x===null){ el.innerHTML=`<div>${T('errBadNumber')}</div>`; return; }
+  const U=0.5*k*x*x;
+  el.innerHTML = `<div class="line">U = ½ × k × x² = ½ × ${k} × (${x})²</div><div class="line">U = ${U.toFixed(3)} J</div>`;
+}
+function calcEx2(){
+  const k=safeNum('ex2k'), U=safeNum('ex2u');
+  const el=document.getElementById('ex2work');
+  if(k===null||U===null||k<=0||U<0){ el.innerHTML=`<div>${T('errBadNumber')}</div>`; return; }
+  const x=Math.sqrt(2*U/k);
+  el.innerHTML = `<div class="line">x = √(2U / k) = √(2 × ${U} / ${k})</div><div class="line">x = ${x.toFixed(4)} m</div>`;
+}
+function calcEx3(){
+  const k=safeNum('ex3k'), x0=safeNum('ex3x'), m=safeNum('ex3m');
+  const el=document.getElementById('ex3work');
+  if(k===null||x0===null||m===null||m<=0){ el.innerHTML=`<div>${T('errBadNumber')}</div>`; return; }
+  const Umax=0.5*k*x0*x0;
+  const v=Math.sqrt(k/m)*x0;
+  el.innerHTML = `<div class="line">U_max = ½k x₀² = ${Umax.toFixed(3)} J  (all converts to KE)</div><div class="line">v_max = x₀√(k/m) = ${v.toFixed(3)} m/s</div>`;
+}
+
+/* =====================================================================
+   10. FREE EXPERIMENT MODE
+===================================================================== */
+const freeXSlider=document.getElementById('freeXSlider'), freeKSlider=document.getElementById('freeKSlider'), freeMSlider=document.getElementById('freeMSlider');
+function updateFree(){
+  const x0=parseFloat(freeXSlider.value), k=parseFloat(freeKSlider.value), m=parseFloat(freeMSlider.value);
+  document.getElementById('freeXVal').textContent = x0.toFixed(2)+' m';
+  document.getElementById('freeKVal').textContent = Math.round(k)+' N/m';
+  document.getElementById('freeMVal').textContent = m.toFixed(2)+' kg';
+  const Umax=0.5*k*x0*x0;
+  const vmax=Math.sqrt(k/m)*x0;
+  const T_period = 2*Math.PI*Math.sqrt(m/k);
+  document.getElementById('freeMaxU').textContent = Umax.toFixed(2)+' J';
+  document.getElementById('freeMaxKE').textContent = Umax.toFixed(2)+' J';
+  document.getElementById('freeMaxSpeed').textContent = vmax.toFixed(2)+' m/s';
+  document.getElementById('freePeriod').textContent = T_period.toFixed(2)+' s';
+}
+[freeXSlider,freeKSlider,freeMSlider].forEach(s=>s.addEventListener('input',updateFree));
+document.getElementById('freeResetBtn').addEventListener('click',()=>{
+  freeXSlider.value=0.15; freeKSlider.value=250; freeMSlider.value=0.6; updateFree();
+});
+
+/* =====================================================================
+   11. DISCOVERY QUESTIONS
+===================================================================== */
+const discovery = [
+  {q:{en:'If you double the displacement x, what happens to the stored energy U?',ta:'இடப்பெயர்ச்சி x ஐ இரட்டிப்பாக்கினால், சேமிக்கப்பட்ட ஆற்றல் U க்கு என்ன நடக்கும்?'},
+   opts:[{en:'Doubles',ta:'இரட்டிப்பாகும்'},{en:'Quadruples',ta:'நான்கு மடங்காகும்'},{en:'Stays the same',ta:'மாறாமல் இருக்கும்'}], ans:1,
+   exp:{en:'Because U = ½kx², energy depends on x². Doubling x makes U four times larger.',ta:'U = ½kx² என்பதால், ஆற்றல் x² ஐ சார்ந்துள்ளது. x ஐ இரட்டிப்பாக்கினால் U நான்கு மடங்காகும்.'}},
+  {q:{en:'What happens to the maximum speed if the spring constant k increases (mass and amplitude fixed)?',ta:'நிறை மற்றும் அலைவீச்சு மாறாமல் இருக்கும் போது, சுருள்வில் மாறிலி k அதிகரித்தால் அதிகபட்ச வேகத்திற்கு என்ன நடக்கும்?'},
+   opts:[{en:'It increases',ta:'அதிகரிக்கும்'},{en:'It decreases',ta:'குறையும்'},{en:'No change',ta:'மாற்றம் இல்லை'}], ans:0,
+   exp:{en:'v_max = x₀√(k/m). A larger k means a stiffer spring pushing the mass faster through equilibrium.',ta:'v_max = x₀√(k/m). பெரிய k என்பது விறைப்பான சுருள்வில் நிறையை சமநிலை வழியாக வேகமாகத் தள்ளும் என்று பொருள்.'}},
+  {q:{en:'At the extreme stretched position, what is the kinetic energy of the oscillating mass?',ta:'அதிக நீட்டப்பட்ட முனை நிலையில், அலைந்தாடும் நிறையின் இயக்க ஆற்றல் என்ன?'},
+   opts:[{en:'Maximum',ta:'அதிகபட்சம்'},{en:'Zero',ta:'பூஜ்ஜியம்'},{en:'Equal to PE',ta:'PE க்கு சமம்'}], ans:1,
+   exp:{en:'At maximum displacement, the mass momentarily stops (v = 0) before reversing direction, so KE = 0 and all energy is PE.',ta:'அதிகபட்ச இடப்பெயர்ச்சியில், திசை மாறும் முன் நிறை தற்காலிகமாக நிற்கும் (v = 0), எனவே KE = 0, மொத்த ஆற்றலும் PE ஆகும்.'}},
+];
+function renderDiscovery(){
+  const wrap=document.getElementById('discWrap');
+  wrap.innerHTML = discovery.map((d,i)=>`
+    <div class="disc-card">
+      <div class="disc-q">${i+1}. ${d.q[LANG]}</div>
+      <div class="disc-opts" id="discOpts${i}">
+        ${d.opts.map((o,j)=>`<button data-i="${i}" data-j="${j}">${o[LANG]}</button>`).join('')}
+      </div>
+      <div class="disc-reveal" id="discReveal${i}">${d.exp[LANG]}</div>
+    </div>
+  `).join('');
+  wrap.querySelectorAll('button[data-i]').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const i=btn.dataset.i;
+      document.querySelectorAll(`#discOpts${i} button`).forEach(b=>b.classList.remove('chosen'));
+      btn.classList.add('chosen');
+      document.getElementById('discReveal'+i).classList.add('show');
+    });
+  });
+}
+
+/* =====================================================================
+   12. COMMON MISTAKES
+===================================================================== */
+const mistakes = [
+  {wrong:{en:'The potential energy stored depends on the mass attached to the spring.',ta:'சேமிக்கப்பட்ட நிலை ஆற்றல் சுருள்வில்லில் இணைக்கப்பட்ட நிறையைச் சார்ந்துள்ளது.'},
+   right:{en:'U = ½kx² depends only on the spring constant k and displacement x — never on mass.',ta:'U = ½kx² சுருள்வில் மாறிலி k மற்றும் இடப்பெயர்ச்சி x ஐ மட்டுமே சார்ந்துள்ளது — நிறையை ஒருபோதும் சாராது.'}},
+  {wrong:{en:'Doubling the displacement doubles the stored energy.',ta:'இடப்பெயர்ச்சியை இரட்டிப்பாக்கினால் சேமிக்கப்பட்ட ஆற்றலும் இரட்டிப்பாகும்.'},
+   right:{en:'Since U ∝ x², doubling x actually quadruples the stored energy.',ta:'U ∝ x² என்பதால், x ஐ இரட்டிப்பாக்கினால் ஆற்றல் நான்கு மடங்காகும்.'}},
+  {wrong:{en:'The force–displacement graph for a spring is a horizontal line.',ta:'சுருள்வில்லுக்கான விசை–இடப்பெயர்ச்சி வரைபடம் ஒரு கிடைமட்டக் கோடு.'},
+   right:{en:'Since F = −kx, the graph is a straight line through the origin with a negative slope.',ta:'F = −kx என்பதால், வரைபடம் தோற்றப்புள்ளி வழியாக செல்லும், எதிர்மறை சாய்வுள்ள நேர்கோடு.'}},
+  {wrong:{en:'Potential energy is maximum at the equilibrium (mean) position.',ta:'சமநிலை (நடு) நிலையில் நிலை ஆற்றல் அதிகபட்சமாக இருக்கும்.'},
+   right:{en:'PE is zero at the equilibrium position (x = 0) and maximum at the extreme positions.',ta:'சமநிலை நிலையில் (x = 0) PE பூஜ்ஜியமாக இருக்கும், முனை நிலைகளில் அதிகபட்சமாக இருக்கும்.'}},
+  {wrong:{en:'Elastic PE is calculated the same way as gravitational PE (mgh).',ta:'நெகிழ்திறன் ஆற்றல் புவியீர்ப்பு நிலை ஆற்றல் (mgh) போலவே கணக்கிடப்படுகிறது.'},
+   right:{en:'Elastic PE uses U = ½kx², a completely different formula based on the spring constant, not gravity.',ta:'நெகிழ்திறன் PE, புவியீர்ப்பை அல்ல, சுருள்வில் மாறிலியை அடிப்படையாகக் கொண்ட U = ½kx² எனும் முற்றிலும் வேறுபட்ட சூத்திரத்தைப் பயன்படுத்துகிறது.'}},
+];
+function renderMistakes(){
+  document.getElementById('mistakeWrap').innerHTML = mistakes.map(m=>`
+    <div class="mistake-card">
+      <div class="mistake-row no"><b>✗</b><span>${m.wrong[LANG]}</span></div>
+      <div class="mistake-row yes"><b>✓</b><span>${m.right[LANG]}</span></div>
+    </div>
+  `).join('');
+}
+
+/* =====================================================================
+   13. REAL-WORLD APPLICATIONS
+===================================================================== */
+const apps = [
+  {icon:'🪀', h:{en:'Bungee Jumping Cords',ta:'பன்ஜி ஜம்பிங் கயிறுகள்'}, p:{en:'The elastic cord stretches to store energy, then pulls the jumper back up safely.',ta:'நெகிழ் கயிறு நீண்டு ஆற்றலைச் சேமித்து, குதிப்பவரை பாதுகாப்பாக மீண்டும் மேலே இழுக்கிறது.'}},
+  {icon:'🚗', h:{en:'Vehicle Suspension Springs',ta:'வாகன அமைப்பு சுருள்வில்கள்'}, p:{en:'Suspension springs compress over bumps, storing energy and giving passengers a smoother ride.',ta:'மேடுகளின் மீது அமைப்பு சுருள்வில்கள் சுருங்கி ஆற்றலைச் சேமித்து பயணிகளுக்கு மென்மையான பயணத்தைத் தருகின்றன.'}},
+  {icon:'🏹', h:{en:"Archer's Bow",ta:'அம்பு வில்'}, p:{en:'Drawing the bowstring stores elastic PE, which converts to the kinetic energy of the arrow on release.',ta:'வில் நாணை இழுப்பது நெகிழ்திறன் PE ஐ சேமிக்கிறது, விடும்போது அது அம்பின் இயக்க ஆற்றலாக மாறுகிறது.'}},
+  {icon:'⚖️', h:{en:'Spring Balance',ta:'சுருள்வில் தராசு'}, p:{en:'A spring stretches in proportion to the weight hung on it, allowing mass to be read off a scale.',ta:'தொங்கவிடப்பட்ட எடைக்கு விகிதாசாரமாக சுருள்வில் நீளும், இதனால் அளவுகோலில் நிறையை படிக்க முடிகிறது.'}},
+  {icon:'🤸', h:{en:'Trampoline',ta:'டிராம்போலின்'}, p:{en:'The stretched springs/fabric store energy from the jumper\'s fall and release it to launch them upward.',ta:'குதிப்பவரின் விழுச்சியிலிருந்து நீட்டப்பட்ட சுருள்வில்/துணி ஆற்றலைச் சேமித்து, அவர்களை மேலே தூக்கி வெளியிடுகிறது.'}},
+  {icon:'✒️', h:{en:'Retractable Pen',ta:'இழுத்து மடிக்கும் பேனா'}, p:{en:'A small spring inside stores energy when pressed, pushing the tip out or retracting it.',ta:'உள்ளே உள்ள ஒரு சிறிய சுருள்வில் அழுத்தும்போது ஆற்றலைச் சேமித்து, முனையை வெளியே தள்ளுகிறது அல்லது உள்ளே இழுக்கிறது.'}},
+];
+function renderApps(){
+  document.getElementById('appGrid').innerHTML = apps.map(a=>`
+    <div class="app-card"><div class="aic">${a.icon}</div><h3>${a.h[LANG]}</h3><p>${a.p[LANG]}</p></div>
+  `).join('');
+}
+
+/* =====================================================================
+   14. CHALLENGE MODE
+===================================================================== */
+const challenges = {
+  easy:[
+    {q:{en:'A spring with k = 100 N/m is stretched by 0.2 m. Find the elastic PE (in J).',ta:'k = 100 N/m கொண்ட சுருள்வில் 0.2 m நீட்டப்படுகிறது. நெகிழ்திறன் PE ஐ (J இல்) கண்டறியவும்.'}, ans:2, tol:0.05, unit:'J'},
+    {q:{en:'A spring stores 4.5 J when stretched 0.3 m. Find its spring constant k (in N/m).',ta:'ஒரு சுருள்வில் 0.3 m நீட்டப்படும்போது 4.5 J சேமிக்கிறது. அதன் மாறிலி k ஐ (N/m இல்) கண்டறியவும்.'}, ans:100, tol:2, unit:'N/m'},
+  ],
+  medium:[
+    {q:{en:'k = 250 N/m, x = 0.12 m. Find the restoring force magnitude (in N).',ta:'k = 250 N/m, x = 0.12 m. மீட்பு விசையின் எண் மதிப்பைக் கண்டறியவும் (N இல்).'}, ans:30, tol:0.5, unit:'N'},
+    {q:{en:'A spring (k = 180 N/m) stores 2.5 J. Find the displacement x (in m).',ta:'ஒரு சுருள்வில் (k = 180 N/m) 2.5 J சேமிக்கிறது. இடப்பெயர்ச்சி x ஐ (m இல்) கண்டறியவும்.'}, ans:0.167, tol:0.01, unit:'m'},
+  ],
+  hard:[
+    {q:{en:'m = 0.5 kg, k = 200 N/m, x₀ = 0.1 m. Find the maximum speed v_max (in m/s).',ta:'m = 0.5 kg, k = 200 N/m, x₀ = 0.1 m. அதிகபட்ச வேகம் v_max ஐ (m/s இல்) கண்டறியவும்.'}, ans:1.414, tol:0.05, unit:'m/s'},
+    {q:{en:'A spring goes from x₁ = 0.05 m to x₂ = 0.15 m with k = 120 N/m. Find the increase in elastic PE (in J).',ta:'k = 120 N/m கொண்ட சுருள்வில் x₁ = 0.05 m லிருந்து x₂ = 0.15 m வரை செல்கிறது. நெகிழ்திறன் PE இன் அதிகரிப்பைக் (J இல்) கண்டறியவும்.'}, ans:1.2, tol:0.05, unit:'J'},
+  ],
+};
+let curChalLvl='easy';
+function renderChallenge(){
+  const wrap=document.getElementById('chalWrap');
+  const badgeClass = {easy:'diff-easy',medium:'diff-medium',hard:'diff-hard'}[curChalLvl];
+  wrap.innerHTML = challenges[curChalLvl].map((c,i)=>`
+    <div class="challenge-card">
+      <span class="diff-badge ${badgeClass}">${T('lvl'+curChalLvl.charAt(0).toUpperCase()+curChalLvl.slice(1))}</span>
+      <div>${c.q[LANG]}</div>
+      <div class="challenge-answer-row">
+        <input type="number" step="any" id="chal_${curChalLvl}_${i}" placeholder="${c.unit}">
+        <button class="btn btn-primary" data-lvl="${curChalLvl}" data-i="${i}">${T('btnCheck')}</button>
+      </div>
+      <div class="challenge-feedback" id="chalfb_${curChalLvl}_${i}"></div>
+    </div>
+  `).join('');
+  wrap.querySelectorAll('button[data-lvl]').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const lvl=btn.dataset.lvl, i=btn.dataset.i;
+      const c=challenges[lvl][i];
+      const val=parseFloat(document.getElementById(`chal_${lvl}_${i}`).value);
+      const fb=document.getElementById(`chalfb_${lvl}_${i}`);
+      if(isNaN(val)){ fb.className='challenge-feedback bad'; fb.textContent=T('errBadNumber'); return; }
+      if(Math.abs(val-c.ans)<=c.tol){
+        fb.className='challenge-feedback ok'; fb.textContent=T('quizCorrect');
+        state.challengeCorrect++; renderProgress();
+      } else {
+        fb.className='challenge-feedback bad'; fb.textContent=(LANG==='ta'?'✗ மீண்டும் முயற்சிக்கவும். சரியான விடை ≈ ':'✗ Not quite. Correct answer ≈ ')+c.ans+' '+c.unit;
+      }
+    });
+  });
+}
+document.querySelectorAll('#chalTabs button').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('#chalTabs button').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    curChalLvl = btn.dataset.lvl;
+    renderChallenge();
+  });
+});
+
+/* =====================================================================
+   15. QUIZ
+===================================================================== */
+const quizData = [
+  {type:'mcq', q:{en:'What is the formula for elastic potential energy?',ta:'நெகிழ்திறன் நிலை ஆற்றலுக்கான சூத்திரம் என்ன?'},
+   opts:[{en:'U = mgh',ta:'U = mgh'},{en:'U = ½kx²',ta:'U = ½kx²'},{en:'U = kx',ta:'U = kx'},{en:'U = ½mv²',ta:'U = ½mv²'}], ans:1,
+   exp:{en:'Elastic potential energy stored in a spring is U = ½kx².',ta:'சுருள்வில்லில் சேமிக்கப்படும் நெகிழ்திறன் நிலை ஆற்றல் U = ½kx².'}},
+  {type:'tf', q:{en:'True or False: The restoring force in a spring is F = −kx.',ta:'சரியா தவறா: சுருள்வில்லில் மீட்பு விசை F = −kx.'},
+   opts:[{en:'True',ta:'சரி'},{en:'False',ta:'தவறு'}], ans:0,
+   exp:{en:"This is Hooke's law — the negative sign shows the force opposes the displacement.",ta:'இது ஹூக் விதி — எதிர்மறை குறியீடு விசை இடப்பெயர்ச்சிக்கு எதிராக உள்ளது எனக் காட்டுகிறது.'}},
+  {type:'mcq', q:{en:'What does the negative sign in F = −kx represent?',ta:'F = −kx இல் உள்ள எதிர்மறை குறி எதைக் குறிக்கிறது?'},
+   opts:[{en:'The force is zero',ta:'விசை பூஜ்ஜியம்'},{en:'The force is very small',ta:'விசை மிகச் சிறியது'},{en:'The force opposes the displacement',ta:'விசை இடப்பெயர்ச்சிக்கு எதிராக உள்ளது'},{en:'The spring is broken',ta:'சுருள்வில் உடைந்துவிட்டது'}], ans:2,
+   exp:{en:'The restoring force always acts opposite to the direction of displacement.',ta:'மீட்பு விசை எப்போதும் இடப்பெயர்ச்சியின் திசைக்கு எதிராகச் செயல்படுகிறது.'}},
+  {type:'predict', q:{en:'If x is doubled, what happens to the stored elastic PE?',ta:'x இரட்டிப்பானால், சேமிக்கப்பட்ட நெகிழ்திறன் PE க்கு என்ன நடக்கும்?'},
+   opts:[{en:'Doubles',ta:'இரட்டிப்பாகும்'},{en:'Quadruples',ta:'நான்கு மடங்காகும்'},{en:'Halves',ta:'பாதியாகும்'},{en:'Stays same',ta:'மாறாமல் இருக்கும்'}], ans:1,
+   exp:{en:'Since U ∝ x², doubling x quadruples U.',ta:'U ∝ x² என்பதால், x ஐ இரட்டிப்பாக்கினால் U நான்கு மடங்காகும்.'}},
+  {type:'mcq', q:{en:'The SI unit of spring constant k is:',ta:'சுருள்வில் மாறிலி k இன் SI அலகு:'},
+   opts:[{en:'N/m',ta:'N/m'},{en:'J',ta:'J'},{en:'kg/m',ta:'kg/m'},{en:'m/s²',ta:'m/s²'}], ans:0,
+   exp:{en:'k is measured in newtons per metre (N/m).',ta:'k நியூட்டன் ஒரு மீட்டருக்கு (N/m) அளவிடப்படுகிறது.'}},
+  {type:'scenario', q:{en:'A mass on a spring is released from the extreme (stretched) position. At the equilibrium position, the energy is:',ta:'ஒரு சுருள்வில்லில் உள்ள நிறை முனை (நீட்டப்பட்ட) நிலையிலிருந்து விடப்படுகிறது. சமநிலை நிலையில், ஆற்றல்:'},
+   opts:[{en:'All potential energy',ta:'முழுவதும் நிலை ஆற்றல்'},{en:'All kinetic energy',ta:'முழுவதும் இயக்க ஆற்றல்'},{en:'Half PE, half KE',ta:'பாதி PE, பாதி KE'},{en:'Zero total energy',ta:'மொத்த ஆற்றல் பூஜ்ஜியம்'}], ans:1,
+   exp:{en:'At equilibrium (x = 0), U = 0, so all the stored energy has become kinetic energy.',ta:'சமநிலையில் (x = 0), U = 0, எனவே சேமிக்கப்பட்ட ஆற்றல் அனைத்தும் இயக்க ஆற்றலாக மாறிவிட்டது.'}},
+  {type:'match', q:{en:'The potential energy stored in a spring depends on:',ta:'சுருள்வில்லில் சேமிக்கப்படும் நிலை ஆற்றல் எதைச் சார்ந்துள்ளது:'},
+   opts:[{en:'k and x only',ta:'k மற்றும் x மட்டும்'},{en:'mass only',ta:'நிறை மட்டும்'},{en:'k, x and mass',ta:'k, x மற்றும் நிறை'},{en:'gravity only',ta:'ஈர்ப்பு மட்டும்'}], ans:0,
+   exp:{en:'U = ½kx² does not include mass at all.',ta:'U = ½kx² இல் நிறை சேர்க்கப்படவில்லை.'}},
+  {type:'tf', q:{en:'True or False: On a Force–displacement (F–x) graph for a spring, the area under the graph equals the elastic PE.',ta:'சரியா தவறா: சுருள்வில்லுக்கான விசை–இடப்பெயர்ச்சி (F–x) வரைபடத்தில், வரைபடத்தின் கீழ் உள்ள பரப்பளவு நெகிழ்திறன் PE க்கு சமம்.'},
+   opts:[{en:'True',ta:'சரி'},{en:'False',ta:'தவறு'}], ans:0,
+   exp:{en:'The shaded triangular area under the F–x graph equals ½kx², the elastic PE.',ta:'F–x வரைபடத்தின் கீழ் நிழலிடப்பட்ட முக்கோண பரப்பளவு ½kx² க்கு சமம், அதுவே நெகிழ்திறன் PE.'}},
+  {type:'mcq', q:{en:'Which quantity is conserved in a frictionless spring–mass oscillation?',ta:'உராய்வு இல்லாத சுருள்வில்-நிறை அலைவில் எந்த அளவு மாறாமல் இருக்கும்?'},
+   opts:[{en:'Only PE',ta:'PE மட்டும்'},{en:'Only KE',ta:'KE மட்டும்'},{en:'Total mechanical energy (PE + KE)',ta:'மொத்த இயந்திர ஆற்றல் (PE + KE)'},{en:'Only displacement',ta:'இடப்பெயர்ச்சி மட்டும்'}], ans:2,
+   exp:{en:'Total mechanical energy (PE + KE) stays constant when there is no friction.',ta:'உராய்வு இல்லாதபோது மொத்த இயந்திர ஆற்றல் (PE + KE) மாறாமல் இருக்கும்.'}},
+  {type:'mcq', q:{en:'A spring with k = 400 N/m stretched by 0.05 m stores how much energy?',ta:'k = 400 N/m கொண்ட சுருள்வில் 0.05 m நீட்டப்படும்போது எவ்வளவு ஆற்றலைச் சேமிக்கிறது?'},
+   opts:[{en:'0.5 J',ta:'0.5 J'},{en:'1.0 J',ta:'1.0 J'},{en:'2.0 J',ta:'2.0 J'},{en:'20 J',ta:'20 J'}], ans:0,
+   exp:{en:'U = ½ × 400 × (0.05)² = 0.5 J.',ta:'U = ½ × 400 × (0.05)² = 0.5 J.'}},
+];
+let quizIdx=0, quizScore=0, quizAnswered=false;
+function renderQuiz(){
+  const shell=document.getElementById('quizShell');
+  if(quizIdx>=quizData.length){ renderQuizResult(); return; }
+  const q=quizData[quizIdx];
+  quizAnswered=false;
+  shell.innerHTML = `
+    <div class="quiz-top"><span>${T('quizOf')} ${quizIdx+1} / ${quizData.length}</span><span>${T('quizScoreLbl')}: ${quizScore}</span></div>
+    <div class="quiz-bar"><div class="quiz-bar-fill" style="width:${(quizIdx/quizData.length)*100}%"></div></div>
+    <div class="quiz-q">${q.q[LANG]}</div>
+    <div class="quiz-opts" id="quizOpts">
+      ${q.opts.map((o,i)=>`<button class="quiz-opt" data-i="${i}">${o[LANG]}</button>`).join('')}
+    </div>
+    <div class="quiz-feedback" id="quizFeedback"></div>
+    <div class="quiz-nextbtn"><button class="btn btn-primary hidden" id="quizNextBtn">${quizIdx===quizData.length-1?T('btnFinish'):T('btnNext')}</button></div>
+  `;
+  document.querySelectorAll('#quizOpts .quiz-opt').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      if(quizAnswered) return;
+      quizAnswered=true;
+      const chosen=parseInt(btn.dataset.i);
+      document.querySelectorAll('#quizOpts .quiz-opt').forEach((b,i)=>{
+        if(i===q.ans) b.classList.add('correct');
+        else if(i===chosen) b.classList.add('incorrect');
+      });
+      const fb=document.getElementById('quizFeedback');
+      const correct = chosen===q.ans;
+      if(correct) quizScore++;
+      fb.className='quiz-feedback show';
+      fb.innerHTML = `<b style="color:${correct?'var(--good)':'var(--bad)'}">${correct?T('quizCorrect'):T('quizIncorrect')}</b><br>${q.exp[LANG]}`;
+      document.getElementById('quizNextBtn').classList.remove('hidden');
+    });
+  });
+  document.getElementById('quizNextBtn').addEventListener('click',()=>{ quizIdx++; renderQuiz(); });
+}
+function perfMsg(pct){
+  if(pct>=90) return {en:'Excellent! You have mastered this topic.',ta:'சிறப்பு! இந்தத் தலைப்பில் தேர்ச்சி பெற்றுவிட்டீர்கள்.'};
+  if(pct>=70) return {en:'Very Good! Keep practising.',ta:'மிகவும் நல்லது! தொடர்ந்து பயிற்சி செய்யுங்கள்.'};
+  if(pct>=50) return {en:'Good effort. Review the concepts once more.',ta:'நல்ல முயற்சி. கருத்துகளை மீண்டும் ஒருமுறை மதிப்பாய்வு செய்யுங்கள்.'};
+  return {en:"Let's practise the simulator again and try once more.",ta:'உருவகப்படுத்தியை மீண்டும் பயிற்சி செய்து மீண்டும் முயற்சிப்போம்.'};
+}
+function renderQuizResult(){
+  const shell=document.getElementById('quizShell');
+  const pct=Math.round((quizScore/quizData.length)*100);
+  state.quizDone=true; state.quizScore=quizScore; renderProgress();
+  shell.innerHTML = `
+    <div class="quiz-result">
+      <div style="color:var(--ink-soft);font-weight:700;">${T('quizScoreLbl')}</div>
+      <div class="bigscore">${quizScore}/${quizData.length}</div>
+      <div style="color:var(--ink-soft);margin-bottom:6px;">${pct}%</div>
+      <div class="perf" style="color:var(--navy)">${perfMsg(pct)[LANG]}</div>
+      <button class="btn btn-primary" id="quizRetryBtn">${T('btnRetryQuiz')}</button>
+    </div>
+  `;
+  document.getElementById('quizRetryBtn').addEventListener('click',()=>{ quizIdx=0; quizScore=0; renderQuiz(); });
+}
+
+/* =====================================================================
+   16. QUICK REFERENCE TABLE
+===================================================================== */
+const refRows = [
+  {q:{en:'Displacement',ta:'இடப்பெயர்ச்சி'}, s:'x', u:'m', n:{en:'Distance stretched/compressed from equilibrium',ta:'சமநிலையிலிருந்து நீட்டப்பட்ட/சுருக்கப்பட்ட தூரம்'}},
+  {q:{en:'Spring constant',ta:'சுருள்வில் மாறிலி'}, s:'k', u:'N/m', n:{en:'Stiffness of the spring',ta:'சுருள்வில்லின் விறைப்பு'}},
+  {q:{en:'Restoring force',ta:'மீட்பு விசை'}, s:'F', u:'N', n:{en:'F = −kx',ta:'F = −kx'}},
+  {q:{en:'Elastic potential energy',ta:'நெகிழ்திறன் நிலை ஆற்றல்'}, s:'U', u:'J', n:{en:'U = ½kx²',ta:'U = ½kx²'}},
+  {q:{en:'Kinetic energy',ta:'இயக்க ஆற்றல்'}, s:'KE', u:'J', n:{en:'KE = ½mv²',ta:'KE = ½mv²'}},
+  {q:{en:'Oscillation period',ta:'அலைவு காலம்'}, s:'T', u:'s', n:{en:'T = 2π√(m/k)',ta:'T = 2π√(m/k)'}},
+];
+function renderRefTable(){
+  document.getElementById('refTbody').innerHTML = refRows.map(r=>`
+    <tr><td>${r.q[LANG]}</td><td class="mono">${r.s}</td><td>${r.u}</td><td>${r.n[LANG]}</td></tr>
+  `).join('');
+}
+
+/* =====================================================================
+   17. LANGUAGE SWITCH MASTER FUNCTION
+===================================================================== */
+function setLang(lang){
+  LANG=lang;
+  document.getElementById('btnEN').classList.toggle('active', lang==='en');
+  document.getElementById('btnTA').classList.toggle('active', lang==='ta');
+  applyStaticLang();
+  renderIntro(); renderObjectives(); renderConcepts();
+  renderStep(); renderSeq(); renderMatching(); renderExamples();
+  renderDiscovery(); renderMistakes(); renderApps(); renderChallenge();
+  renderQuiz(); renderProgress(); renderRefTable();
+  updateSim(oscillating); updateFree();
+  document.getElementById('oscBtn').innerHTML = oscillating ? (LANG==='ta'?'❚❚ நிறுத்து':'❚❚ Stop') : T('btnOscillate');
+}
+
+/* =====================================================================
+   18. INIT
+===================================================================== */
+function init(){
+  applyStaticLang();
+  renderIntro();
+  renderObjectives();
+  renderConcepts();
+  renderStep();
+  seqOrder = shuffle([0,1,2,3,4]);
+  renderSeq();
+  renderMatching();
+  renderExamples();
+  updateFree();
+  renderDiscovery();
+  renderMistakes();
+  renderApps();
+  renderChallenge();
+  renderQuiz();
+  renderRefTable();
+  updateSim(false);
+  renderProgress();
+}
+init();
+</script>
+</body>
+</html>
