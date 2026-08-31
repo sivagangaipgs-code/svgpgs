@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sivagangai PG Teachers' Resource Portal — IUPAC Nomenclature Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Tamil:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0B2E5C;
+  --blue:#1D5FD6;
+  --blue-light:#EAF1FE;
+  --blue-mid:#CFE0FB;
+  --ink:#122036;
+  --ink-soft:#4B5A72;
+  --paper:#FFFFFF;
+  --bg:#F3F7FE;
+  --line:#D9E4F7;
+  --good:#127A4F;
+  --good-bg:#E5F7EE;
+  --bad:#B3261E;
+  --bad-bg:#FDECEA;
+  --gold:#B8860B;
+  --radius:14px;
+  --shadow:0 4px 18px rgba(11,46,92,0.08);
+  --mono:'JetBrains Mono', monospace;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:'Inter',sans-serif; line-height:1.55;
+}
+body.lang-ta{font-family:'Noto Sans Tamil','Inter',sans-serif;}
+h1,h2,h3,h4{font-family:inherit; color:var(--navy); margin:0 0 .4em;}
+p{margin:0 0 .8em;}
+button{font-family:inherit; cursor:pointer;}
+img{max-width:100%;}
+.wrap{max-width:1180px; margin:0 auto; padding:0 20px;}
+:focus-visible{outline:3px solid var(--gold); outline-offset:2px;}
+
+/* ---------- NAV ---------- */
+.navbar{
+  position:sticky; top:0; z-index:50; background:rgba(255,255,255,.96);
+  backdrop-filter:blur(6px); border-bottom:1px solid var(--line);
+}
+.nav-inner{display:flex; align-items:center; justify-content:space-between; padding:10px 20px; max-width:1180px; margin:0 auto;}
+.brand{display:flex; align-items:center; gap:10px; font-weight:800; color:var(--navy); font-size:15px;}
+.brand-badge{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--navy),var(--blue));display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;flex-shrink:0;}
+.navlinks{display:flex; gap:4px; flex-wrap:wrap;}
+.navlinks a{color:var(--ink-soft); text-decoration:none; font-size:13.5px; font-weight:600; padding:8px 10px; border-radius:8px;}
+.navlinks a:hover{background:var(--blue-light); color:var(--navy);}
+.navtoggle{display:none; background:none; border:2px solid var(--blue); border-radius:8px; padding:6px 10px; color:var(--navy); font-weight:700;}
+.langbtn{
+  display:flex; border:2px solid var(--blue); border-radius:999px; overflow:hidden; font-weight:700; font-size:13px;
+  flex-shrink:0;
+}
+.langbtn button{border:none; background:#fff; color:var(--navy); padding:7px 14px;}
+.langbtn button.active{background:var(--blue); color:#fff;}
+@media (max-width:900px){
+  .navlinks{display:none; flex-direction:column; width:100%; padding-top:10px;}
+  .navlinks.open{display:flex;}
+  .navtoggle{display:block;}
+  .nav-inner{flex-wrap:wrap;}
+}
+
+/* ---------- HEADER ---------- */
+.hero{
+  background:linear-gradient(160deg,var(--navy) 0%, #123a78 55%, var(--blue) 100%);
+  color:#fff; padding:52px 20px 60px; position:relative; overflow:hidden;
+}
+.hero::before{
+  content:""; position:absolute; inset:0;
+  background-image:radial-gradient(circle at 85% 20%, rgba(255,255,255,.08), transparent 45%),
+                    radial-gradient(circle at 10% 90%, rgba(255,255,255,.06), transparent 40%);
+}
+.hero-inner{position:relative; max-width:1180px; margin:0 auto;}
+.portal-name{font-size:13px; letter-spacing:.02em; opacity:.85; font-weight:600; margin-bottom:14px;}
+.hero h1{color:#fff; font-size:clamp(26px,4vw,42px); font-weight:800; max-width:820px;}
+.hero .subject{color:#CFE0FB; font-size:17px; font-weight:600; margin-bottom:18px;}
+.hero .tagline{font-size:15px; color:#DCE9FF; font-weight:500;}
+.hero-dev{
+  margin-top:26px; display:inline-flex; gap:10px; align-items:center;
+  background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.25);
+  padding:10px 16px; border-radius:999px; font-size:13px;
+}
+.hero-dev .dot{width:8px;height:8px;border-radius:50%;background:#7FD8A6;}
+
+/* ---------- SECTION SHELL ---------- */
+section{padding:56px 0;}
+.section-head{margin-bottom:28px; max-width:760px;}
+.eyebrow-num{
+  display:inline-flex; align-items:center; gap:8px; font-weight:700; color:var(--blue); font-size:13.5px; margin-bottom:8px;
+}
+.section-head h2{font-size:clamp(21px,2.6vw,29px);}
+.section-head .desc{color:var(--ink-soft); font-size:15px;}
+.card{
+  background:var(--paper); border:1px solid var(--line); border-radius:var(--radius);
+  box-shadow:var(--shadow);
+}
+
+/* ---------- INTRO ---------- */
+.intro-grid{display:grid; grid-template-columns:1.1fr .9fr; gap:26px; align-items:stretch;}
+@media(max-width:820px){.intro-grid{grid-template-columns:1fr;}}
+.intro-text{padding:26px;}
+.intro-points{list-style:none; margin:14px 0 0; padding:0; display:grid; gap:10px;}
+.intro-points li{display:flex; gap:10px; font-size:14.5px; align-items:flex-start;}
+.intro-points .ic{width:26px;height:26px;border-radius:7px;background:var(--blue-light);color:var(--blue);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;flex-shrink:0;}
+.intro-visual{padding:22px; display:flex; flex-direction:column; justify-content:center; gap:10px; background:var(--blue-light); border:1px solid var(--blue-mid);}
+.mini-mol{font-family:var(--mono); font-size:15px; text-align:center; color:var(--navy); background:#fff; border:1px dashed var(--blue-mid); border-radius:10px; padding:14px; letter-spacing:.5px;}
+.mini-name{text-align:center; font-weight:700; color:var(--blue); font-size:14px;}
+
+/* ---------- OBJECTIVES ---------- */
+.obj-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:14px;}
+.obj-card{padding:16px; display:flex; gap:12px; align-items:flex-start;}
+.obj-num{font-family:var(--mono); font-weight:700; color:#fff; background:var(--blue); width:28px; height:28px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:13px; flex-shrink:0;}
+.obj-card p{margin:0; font-size:14px; color:var(--ink);}
+
+/* ---------- CONCEPT CARDS ---------- */
+.concept-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px;}
+.concept-card{padding:0; overflow:hidden; cursor:pointer; transition:box-shadow .15s;}
+.concept-card:hover{box-shadow:0 8px 26px rgba(11,46,92,.14);}
+.concept-top{padding:18px 18px 14px; border-bottom:1px solid var(--line); display:flex; align-items:center; gap:10px;}
+.concept-icon{width:38px;height:38px;border-radius:10px;background:var(--blue-light);display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;}
+.concept-top h3{font-size:15.5px; margin:0;}
+.concept-body{padding:14px 18px 18px; font-size:13.8px; color:var(--ink-soft);}
+.concept-example{margin-top:10px; font-family:var(--mono); background:var(--blue-light); border-radius:8px; padding:8px 10px; font-size:12.8px; color:var(--navy); display:none;}
+.concept-card.open .concept-example{display:block;}
+.concept-card.open .concept-body{color:var(--ink);}
+.chev{margin-left:auto; color:var(--blue); transition:transform .2s; font-size:13px;}
+.concept-card.open .chev{transform:rotate(90deg);}
+
+/* ---------- SIMULATOR ---------- */
+.sim-shell{display:grid; grid-template-columns:340px 1fr; gap:20px;}
+@media(max-width:920px){.sim-shell{grid-template-columns:1fr;}}
+.sim-controls{padding:20px; display:flex; flex-direction:column; gap:16px;}
+.ctrl-block label{display:block; font-weight:700; font-size:13px; color:var(--navy); margin-bottom:6px;}
+.ctrl-block select, .ctrl-block input[type=number]{
+  width:100%; padding:9px 10px; border:1.5px solid var(--line); border-radius:9px; font-size:14px; background:#fff; color:var(--ink);
+}
+.chip-row{display:flex; flex-wrap:wrap; gap:8px;}
+.sub-item{
+  display:flex; align-items:center; gap:8px; background:var(--blue-light); border:1px solid var(--blue-mid);
+  border-radius:9px; padding:6px 8px; font-size:13px;
+}
+.sub-item button{background:none;border:none;color:var(--bad);font-weight:800;font-size:14px;}
+.btn{
+  border:none; border-radius:10px; padding:10px 16px; font-weight:700; font-size:13.5px;
+  background:var(--blue); color:#fff; display:inline-flex; align-items:center; gap:6px; justify-content:center;
+}
+.btn:hover{background:var(--navy);}
+.btn.secondary{background:#fff; color:var(--blue); border:1.5px solid var(--blue);}
+.btn.secondary:hover{background:var(--blue-light);}
+.btn.small{padding:7px 11px; font-size:12.5px;}
+.btn:disabled{opacity:.45; cursor:not-allowed;}
+
+.sim-display{padding:22px; display:flex; flex-direction:column; gap:18px;}
+.chain-visual{
+  display:flex; align-items:center; gap:6px; overflow-x:auto; padding:18px 6px; background:var(--blue-light);
+  border-radius:12px; border:1px solid var(--blue-mid); min-height:96px;
+}
+.carbon{
+  position:relative; display:flex; flex-direction:column; align-items:center; gap:4px; flex-shrink:0; padding-top:14px;
+}
+.c-atom{
+  width:44px;height:44px;border-radius:50%;background:#fff;border:2.5px solid var(--blue); display:flex;align-items:center;
+  justify-content:center; font-family:var(--mono); font-weight:700; color:var(--navy); font-size:13px; cursor:pointer;
+  transition:transform .1s;
+}
+.c-atom:hover{transform:scale(1.08);}
+.c-atom.func{border-color:var(--bad); background:#FFF1F0; color:var(--bad);}
+.bond{width:20px;height:3px;background:var(--blue); flex-shrink:0;}
+.bond.double{height:0; border-top:3px double var(--blue);}
+.c-label{font-size:10.5px; color:var(--ink-soft); font-weight:600;}
+.c-sub-tag{
+  position:absolute; top:-16px; font-size:10px; background:var(--gold); color:#fff; padding:1px 6px; border-radius:6px; font-weight:700; white-space:nowrap;
+}
+.flow-row{display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
+.flow-box{
+  flex:1; min-width:150px; background:var(--blue-light); border:1px solid var(--blue-mid); border-radius:10px; padding:12px 14px;
+}
+.flow-box .k{font-size:11px; text-transform:uppercase; letter-spacing:.05em; color:var(--blue); font-weight:700;}
+.flow-box .v{font-family:var(--mono); font-size:14px; color:var(--navy); font-weight:700; margin-top:4px;}
+.flow-arrow{color:var(--blue); font-size:20px; font-weight:900;}
+.name-result{
+  background:linear-gradient(135deg,var(--navy),var(--blue)); color:#fff; border-radius:12px; padding:18px 20px; text-align:center;
+}
+.name-result .lbl{font-size:12px; opacity:.85; font-weight:600; text-transform:uppercase; letter-spacing:.06em;}
+.name-result .val{font-family:var(--mono); font-size:clamp(18px,3vw,24px); font-weight:700; margin-top:6px; word-break:break-word;}
+
+/* ---------- STEPS ---------- */
+.steps-list{display:flex; flex-direction:column; gap:0;}
+.step-item{
+  display:grid; grid-template-columns:44px 1fr; gap:14px; padding:16px 0; border-bottom:1px solid var(--line); opacity:.45;
+  transition:opacity .2s;
+}
+.step-item.active{opacity:1;}
+.step-item:last-child{border-bottom:none;}
+.step-dot{width:44px;height:44px;border-radius:50%;background:var(--blue-light); color:var(--blue); display:flex;align-items:center;justify-content:center;font-weight:800;font-family:var(--mono);}
+.step-item.active .step-dot{background:var(--blue); color:#fff;}
+.step-item h4{font-size:14.5px; margin-bottom:4px;}
+.step-item p{font-size:13.5px; color:var(--ink-soft); margin:0; font-family:var(--mono);}
+
+/* ---------- DRAG & DROP SEQUENCE ---------- */
+.dnd-wrap{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+@media(max-width:800px){.dnd-wrap{grid-template-columns:1fr;}}
+.dnd-pool, .dnd-target{padding:16px; min-height:280px; display:flex; flex-direction:column; gap:10px;}
+.dnd-target .slot{
+  border:2px dashed var(--blue-mid); border-radius:10px; padding:10px 12px; min-height:52px; display:flex; align-items:center;
+  gap:10px; font-size:13.5px; color:var(--ink-soft); background:var(--blue-light);
+}
+.dnd-target .slot.filled{border-style:solid; background:#fff; color:var(--ink); border-color:var(--blue);}
+.slot-num{font-family:var(--mono); font-weight:800; color:var(--blue); width:20px;}
+.drag-card{
+  background:#fff; border:1.5px solid var(--blue); border-radius:10px; padding:11px 14px; font-size:13.5px; font-weight:600;
+  color:var(--navy); cursor:grab; user-select:none;
+}
+.drag-card.selected{outline:3px solid var(--gold);}
+.drag-card.used{opacity:.35; pointer-events:none;}
+.feedback-banner{
+  border-radius:10px; padding:12px 14px; font-size:14px; font-weight:600; display:none; margin-top:14px;
+}
+.feedback-banner.good{display:block; background:var(--good-bg); color:var(--good);}
+.feedback-banner.bad{display:block; background:var(--bad-bg); color:var(--bad);}
+
+/* ---------- MATCHING GAME ---------- */
+.match-wrap{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+@media(max-width:700px){.match-wrap{grid-template-columns:1fr;}}
+.match-col{display:flex; flex-direction:column; gap:10px;}
+.match-card{
+  background:#fff; border:1.5px solid var(--line); border-radius:10px; padding:12px 14px; font-size:14px; font-weight:600;
+  color:var(--ink); cursor:pointer; font-family:var(--mono);
+}
+.match-card.picked{border-color:var(--gold); background:#FFF8E8;}
+.match-card.matched{border-color:var(--good); background:var(--good-bg); color:var(--good); cursor:default;}
+.match-card.wrong{animation:shake .3s;}
+@keyframes shake{25%{transform:translateX(-4px);}75%{transform:translateX(4px);}}
+.score-pill{display:inline-flex; align-items:center; gap:6px; background:var(--blue-light); border:1px solid var(--blue-mid); border-radius:999px; padding:6px 14px; font-weight:700; font-size:13px; color:var(--navy);}
+
+/* ---------- MISTAKES ---------- */
+.mistake-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16px;}
+.mistake-card{padding:16px;}
+.mrow{display:flex; gap:8px; font-size:13.8px; padding:6px 0; align-items:flex-start;}
+.mrow.x span.tag{color:var(--bad); font-weight:800;}
+.mrow.ok span.tag{color:var(--good); font-weight:800;}
+
+/* ---------- REFERENCE TABLE ---------- */
+table.reftable{width:100%; border-collapse:collapse; font-size:13.5px;}
+table.reftable th{background:var(--navy); color:#fff; padding:10px 12px; text-align:left; font-size:12.5px;}
+table.reftable td{padding:9px 12px; border-bottom:1px solid var(--line);}
+table.reftable tr:nth-child(even) td{background:var(--blue-light);}
+.ref-note{padding:14px 18px; font-size:13.5px; color:var(--ink-soft); background:var(--blue-light); border-radius:10px; margin-top:14px; border-left:4px solid var(--blue);}
+
+/* ---------- QUIZ ---------- */
+.quiz-card{padding:22px; max-width:760px; margin:0 auto;}
+.quiz-progress{display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; font-size:13px; color:var(--ink-soft); font-weight:600;}
+.quiz-bar{height:6px; background:var(--blue-light); border-radius:99px; overflow:hidden; margin-bottom:20px;}
+.quiz-bar-fill{height:100%; background:var(--blue); width:0%; transition:width .3s;}
+.q-text{font-size:16.5px; font-weight:700; margin-bottom:16px;}
+.q-options{display:grid; gap:10px;}
+.q-opt{
+  text-align:left; border:1.5px solid var(--line); background:#fff; border-radius:10px; padding:12px 14px; font-size:14px;
+  color:var(--ink);
+}
+.q-opt:hover{border-color:var(--blue);}
+.q-opt.correct{border-color:var(--good); background:var(--good-bg); color:var(--good); font-weight:700;}
+.q-opt.incorrect{border-color:var(--bad); background:var(--bad-bg); color:var(--bad); font-weight:700;}
+.q-explain{margin-top:14px; padding:12px 14px; background:var(--blue-light); border-radius:10px; font-size:13.5px; display:none;}
+.quiz-result{text-align:center; padding:10px;}
+.quiz-result .big{font-size:44px; font-weight:800; color:var(--blue); font-family:var(--mono);}
+
+/* ---------- PROGRESS / BADGES ---------- */
+.progress-shell{display:flex; align-items:center; gap:18px; flex-wrap:wrap; padding:18px 22px;}
+.ring{width:64px;height:64px;border-radius:50%; background:conic-gradient(var(--blue) calc(var(--pct,0)*1%), var(--blue-light) 0); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+.ring::after{content:attr(data-pct)"%"; width:50px;height:50px;background:#fff;border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px; color:var(--navy);}
+.badge-row{display:flex; gap:10px; flex-wrap:wrap;}
+.badge{
+  display:flex; align-items:center; gap:6px; background:var(--blue-light); border:1px solid var(--blue-mid); border-radius:999px;
+  padding:7px 12px; font-size:12.5px; font-weight:700; color:var(--ink-soft); opacity:.5;
+}
+.badge.earned{opacity:1; background:#FFF6E0; border-color:var(--gold); color:var(--navy);}
+
+/* ---------- FOOTER ---------- */
+footer{background:var(--navy); color:#DCE9FF; padding:34px 20px; text-align:center; font-size:13.5px; margin-top:20px;}
+footer strong{color:#fff;}
+.foot-tags{margin-top:8px; opacity:.75; font-size:12.5px;}
+
+.sr-only{position:absolute; width:1px;height:1px;overflow:hidden; clip:rect(0,0,0,0);}
+@media(prefers-reduced-motion:reduce){*{animation:none !important; transition:none !important;}}
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-inner">
+    <div class="brand"><span class="brand-badge">⚗</span><span data-i18n="brandShort">IUPAC Nomenclature Lab</span></div>
+    <button class="navtoggle" id="navToggle" aria-label="Toggle menu">☰</button>
+    <div class="navlinks" id="navLinks">
+      <a href="#intro" data-i18n="navHome">Home</a>
+      <a href="#objectives" data-i18n="navLearn">Learn</a>
+      <a href="#concepts" data-i18n="navConcepts">Rules</a>
+      <a href="#simulator" data-i18n="navSim">Simulator</a>
+      <a href="#dnd" data-i18n="navDnd">Sequence</a>
+      <a href="#matching" data-i18n="navMatch">Matching</a>
+      <a href="#reference" data-i18n="navRef">Reference</a>
+      <a href="#quiz" data-i18n="navQuiz">Quiz</a>
+    </div>
+    <div class="langbtn" role="group" aria-label="Language">
+      <button id="btnEN" class="active" onclick="setLang('en')">English</button>
+      <button id="btnTA" onclick="setLang('ta')">தமிழ்</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="portal-name">Sivagangai PG Teachers' Resource Portal</div>
+    <h1 data-i18n="heroTitle">IUPAC Rules for Nomenclature of Organic Compounds</h1>
+    <div class="subject" data-i18n="heroSubject">Chemistry — Fundamentals of Organic Chemistry</div>
+    <div class="tagline" data-i18n="heroTagline">Learn • Visualize • Interact • Practise • Master</div>
+    <div class="hero-dev"><span class="dot"></span><span data-i18n="heroDev">Developed by B. Nirmal Singh, Computer Instructor Grade 1, GHSS Keeladi, Sivagangai Dt.</span></div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- INTRO -->
+<section id="intro">
+  <div class="section-head">
+    <div class="eyebrow-num">1</div>
+    <h2 data-i18n="introHead">What is IUPAC Nomenclature?</h2>
+    <p class="desc" data-i18n="introDesc">A single systematic way to name every organic compound, so a chemist anywhere in the world understands the same structure from the same name.</p>
+  </div>
+  <div class="intro-grid">
+    <div class="card intro-text">
+      <p data-i18n="introP1">IUPAC (International Union of Pure and Applied Chemistry) nomenclature gives every organic molecule one correct, unambiguous name built from its carbon skeleton, its functional group, and the substituents attached to it.</p>
+      <ul class="intro-points">
+        <li><span class="ic">?</span><span data-i18n="introWhy">Without it, the same molecule could be called by dozens of local or trade names — IUPAC names remove that confusion.</span></li>
+        <li><span class="ic">⚙</span><span data-i18n="introWhere">Used in textbooks, research papers, drug labels, industry, and every chemistry examination.</span></li>
+        <li><span class="ic">🎯</span><span data-i18n="introLearn">In this lab you will learn to choose the parent chain, number it correctly, name substituents, and assemble the final IUPAC name — by building molecules yourself.</span></li>
+      </ul>
+    </div>
+    <div class="card intro-visual">
+      <div class="mini-mol">CH₃–CH(CH₃)–CH₂–CH₂–COOH</div>
+      <div class="mini-name">4-Methylpentanoic acid</div>
+      <p style="text-align:center; font-size:12.5px; color:var(--ink-soft); margin:0;" data-i18n="introCaption">Structure in → systematic name out. That is the whole game of this lab.</p>
+    </div>
+  </div>
+</section>
+
+<!-- OBJECTIVES -->
+<section id="objectives">
+  <div class="section-head">
+    <div class="eyebrow-num">2</div>
+    <h2 data-i18n="objHead">Learning Objectives</h2>
+    <p class="desc" data-i18n="objDesc">By the end of this lab, you will be able to:</p>
+  </div>
+  <div class="obj-grid" id="objGrid"></div>
+</section>
+
+<!-- CONCEPT EXPLORER -->
+<section id="concepts">
+  <div class="section-head">
+    <div class="eyebrow-num">3</div>
+    <h2 data-i18n="conceptHead">The Five Governing Rules</h2>
+    <p class="desc" data-i18n="conceptDesc">Tap a card to open it and see a worked example from the textbook.</p>
+  </div>
+  <div class="concept-grid" id="conceptGrid"></div>
+</section>
+
+<!-- SIMULATOR -->
+<section id="simulator">
+  <div class="section-head">
+    <div class="eyebrow-num">4</div>
+    <h2 data-i18n="simHead">Molecule Name Builder — Main Simulator</h2>
+    <p class="desc" data-i18n="simDesc">Choose a chain length, a functional group, and add substituents. Watch the IUPAC name build itself, step by step, following the real rules.</p>
+  </div>
+  <div class="sim-shell card" style="box-shadow:none;border:none;background:transparent;">
+    <div class="card sim-controls">
+      <div class="ctrl-block">
+        <label data-i18n="ctrlChain">Main chain length (carbons)</label>
+        <select id="chainLen"></select>
+      </div>
+      <div class="ctrl-block">
+        <label data-i18n="ctrlFunc">Principal functional group</label>
+        <select id="funcGroup"></select>
+      </div>
+      <div class="ctrl-block" id="posBlock">
+        <label data-i18n="ctrlPos">Position on chain (as drawn, left→right)</label>
+        <input type="number" id="funcPos" min="1" value="2">
+      </div>
+      <div class="ctrl-block">
+        <label data-i18n="ctrlSub">Add a substituent</label>
+        <div class="chip-row" style="margin-bottom:8px;">
+          <select id="subType" style="flex:1;">
+            <option value="Methyl" data-en="Methyl (–CH₃)" data-ta="மெத்தில் (–CH₃)">Methyl (–CH₃)</option>
+            <option value="Ethyl" data-en="Ethyl (–C₂H₅)" data-ta="எத்தில் (–C₂H₅)">Ethyl (–C₂H₅)</option>
+          </select>
+          <input type="number" id="subPos" min="1" value="2" style="width:70px;">
+        </div>
+        <button class="btn secondary small" onclick="addSubstituent()" data-i18n="btnAdd">+ Add substituent</button>
+      </div>
+      <div class="ctrl-block">
+        <label data-i18n="ctrlList">Substituents on chain</label>
+        <div class="chip-row" id="subList"></div>
+      </div>
+      <button class="btn small" onclick="resetSimulator()" data-i18n="btnReset">↺ Reset Experiment</button>
+    </div>
+
+    <div class="card sim-display">
+      <div>
+        <div class="c-label" style="margin-bottom:8px;" data-i18n="visualLabel">VISUAL CHAIN (click a carbon for its position number)</div>
+        <div class="chain-visual" id="chainVisual"></div>
+      </div>
+
+      <div class="flow-row">
+        <div class="flow-box"><div class="k" data-i18n="flowInput">INPUT</div><div class="v" id="flowInput">—</div></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-box"><div class="k" data-i18n="flowProcess">PROCESS</div><div class="v" id="flowProcess">—</div></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-box"><div class="k" data-i18n="flowOutput">OUTPUT</div><div class="v" id="flowOutput">—</div></div>
+      </div>
+
+      <div class="name-result">
+        <div class="lbl" data-i18n="finalNameLbl">Final IUPAC Name</div>
+        <div class="val" id="finalName">—</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:22px; padding:22px;">
+    <h3 style="margin-bottom:14px;" data-i18n="stepsHead">How It Works — Step by Step</h3>
+    <div class="steps-list" id="stepsList"></div>
+  </div>
+</section>
+
+<!-- DRAG & DROP SEQUENCE -->
+<section id="dnd">
+  <div class="section-head">
+    <div class="eyebrow-num">5</div>
+    <h2 data-i18n="dndHead">Sequence Challenge — Order the IUPAC Procedure</h2>
+    <p class="desc" data-i18n="dndDesc">Click a step on the left, then click the numbered slot where it belongs. Arrange all five steps in the correct order.</p>
+  </div>
+  <div class="dnd-wrap">
+    <div class="card dnd-pool" id="dndPool"></div>
+    <div class="card dnd-target" id="dndTarget"></div>
+  </div>
+  <div style="display:flex; gap:10px; margin-top:16px; flex-wrap:wrap; align-items:center;">
+    <button class="btn" onclick="checkSequence()" data-i18n="btnCheck">Check Order</button>
+    <button class="btn secondary" onclick="resetSequence()" data-i18n="btnReset2">Reset</button>
+    <div id="dndFeedback" class="feedback-banner"></div>
+  </div>
+</section>
+
+<!-- MATCHING GAME -->
+<section id="matching">
+  <div class="section-head">
+    <div class="eyebrow-num">6</div>
+    <h2 data-i18n="matchHead">Matching Game — Functional Group ↔ Suffix</h2>
+    <p class="desc" data-i18n="matchDesc">Click one card from each column to match a functional group with its IUPAC suffix.</p>
+  </div>
+  <div style="margin-bottom:14px;"><span class="score-pill" id="matchScore" data-i18n="matchScoreLbl">Matched: 0 / 6</span></div>
+  <div class="match-wrap">
+    <div class="match-col" id="matchLeft"></div>
+    <div class="match-col" id="matchRight"></div>
+  </div>
+</section>
+
+<!-- COMMON MISTAKES -->
+<section id="mistakes">
+  <div class="section-head">
+    <div class="eyebrow-num">7</div>
+    <h2 data-i18n="mistakeHead">Common Mistakes</h2>
+  </div>
+  <div class="mistake-grid" id="mistakeGrid"></div>
+</section>
+
+<!-- QUICK REFERENCE -->
+<section id="reference">
+  <div class="section-head">
+    <div class="eyebrow-num">8</div>
+    <h2 data-i18n="refHead">Quick Reference</h2>
+    <p class="desc" data-i18n="refDesc">Order of precedence of functional groups (highest first), used to choose the parent chain, the principal suffix, and the numbering direction.</p>
+  </div>
+  <div class="card" style="padding:18px; overflow-x:auto;">
+    <table class="reftable">
+      <thead><tr>
+        <th data-i18n="refCol1">Functional Group</th>
+        <th data-i18n="refCol2">Suffix</th>
+        <th data-i18n="refCol3">Example</th>
+      </tr></thead>
+      <tbody id="refBody"></tbody>
+    </table>
+    <div class="ref-note" data-i18n="refNote1">IUPAC names are written as a single word (except salts, acids and derivatives). Commas separate adjacent numbers; hyphens separate numbers from letters. Example: 2,2-Dimethyl-3-hexene.</div>
+    <div class="ref-note" data-i18n="refNote2">Italicised structural prefixes such as sec-, tert-, cis-, trans- are joined by a hyphen and are ignored when alphabetising. Multiplying prefixes di-, tri-, tetra- are part of the name but are also ignored when alphabetising substituents.</div>
+  </div>
+</section>
+
+<!-- PROGRESS -->
+<section id="progress">
+  <div class="card progress-shell">
+    <div class="ring" id="progRing" data-pct="0" style="--pct:0;"></div>
+    <div style="flex:1; min-width:200px;">
+      <h3 style="margin-bottom:6px;" data-i18n="progHead">Your Progress</h3>
+      <p style="margin:0; font-size:13.5px; color:var(--ink-soft);" data-i18n="progDesc">Complete the sequence challenge, matching game and quiz to unlock badges.</p>
+    </div>
+    <div class="badge-row" id="badgeRow"></div>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section id="quiz">
+  <div class="section-head">
+    <div class="eyebrow-num">9</div>
+    <h2 data-i18n="quizHead">Final Quiz</h2>
+    <p class="desc" data-i18n="quizDesc">Ten questions. Answer each to test your mastery of IUPAC nomenclature.</p>
+  </div>
+  <div class="card quiz-card" id="quizCard"></div>
+</section>
+
+</main>
+
+<footer>
+  <div data-i18n="footDev"><strong>Developed by B. Nirmal Singh</strong> — Computer Instructor Grade 1, GHSS Keeladi, Sivagangai Dt.</div>
+  <div class="foot-tags" data-i18n="footTag">Sivagangai PG Teachers' Resource Portal · Chemistry — Fundamentals of Organic Chemistry</div>
+</footer>
+
+<script>
+/* ============================================================
+   TRANSLATION DICTIONARY (static markup)
+   ============================================================ */
+const UI = {
+brandShort:{en:"IUPAC Nomenclature Lab", ta:"IUPAC பெயரிடும் ஆய்வகம்"},
+navHome:{en:"Home", ta:"முகப்பு"},
+navLearn:{en:"Learn", ta:"கற்றல்"},
+navConcepts:{en:"Rules", ta:"விதிகள்"},
+navSim:{en:"Simulator", ta:"சிமுலேட்டர்"},
+navDnd:{en:"Sequence", ta:"வரிசைமுறை"},
+navMatch:{en:"Matching", ta:"பொருத்துக"},
+navRef:{en:"Reference", ta:"குறிப்பு"},
+navQuiz:{en:"Quiz", ta:"வினாடி வினா"},
+heroTitle:{en:"IUPAC Rules for Nomenclature of Organic Compounds", ta:"கரிமச் சேர்மங்களுக்கு பெயரிடுதலுக்கான IUPAC விதிமுறைகள்"},
+heroSubject:{en:"Chemistry — Fundamentals of Organic Chemistry", ta:"வேதியியல் — கரிம வேதியியலின் அடிப்படைகள்"},
+heroTagline:{en:"Learn • Visualize • Interact • Practise • Master", ta:"கற்று • காட்சிப்படுத்து • ஊடாடு • பயிற்சி செய் • தேர்ச்சி பெறு"},
+heroDev:{en:"Developed by B. Nirmal Singh, Computer Instructor Grade 1, GHSS Keeladi, Sivagangai Dt.", ta:"உருவாக்கியவர்: B. நிர்மல் சிங், கணினி பயிற்றுனர் நிலை I, அரசு மேல்நிலைப் பள்ளி கீழடி, சிவகங்கை மாவட்டம்."},
+introHead:{en:"What is IUPAC Nomenclature?", ta:"IUPAC பெயரிடுதல் என்றால் என்ன?"},
+introDesc:{en:"A single systematic way to name every organic compound, so a chemist anywhere in the world understands the same structure from the same name.", ta:"ஒவ்வொரு கரிமச் சேர்மத்திற்கும் பெயரிடும் ஒரே ஒழுங்கான முறை, இதனால் உலகில் எங்கிருந்தாலும் ஒரு வேதியியலாளர் அதே பெயரிலிருந்து அதே கட்டமைப்பைப் புரிந்துகொள்ள முடியும்."},
+introP1:{en:"IUPAC (International Union of Pure and Applied Chemistry) nomenclature gives every organic molecule one correct, unambiguous name built from its carbon skeleton, its functional group, and the substituents attached to it.", ta:"IUPAC (International Union of Pure and Applied Chemistry) பெயரிடுதல் முறை, ஒவ்வொரு கரிம மூலக்கூறுக்கும் அதன் கார்பன் சங்கிலி, செயல்பாட்டுத் தொகுதி மற்றும் இணைந்துள்ள பதிலீட்டுத் தொகுதிகளின் அடிப்படையில் ஒரே சரியான, தெளிவான பெயரை வழங்குகிறது."},
+introWhy:{en:"Without it, the same molecule could be called by dozens of local or trade names — IUPAC names remove that confusion.", ta:"இது இல்லாவிட்டால், ஒரே மூலக்கூறு பல்வேறு உள்ளூர் அல்லது வர்த்தகப் பெயர்களால் அழைக்கப்படலாம் — IUPAC பெயர்கள் இந்த குழப்பத்தை நீக்குகின்றன."},
+introWhere:{en:"Used in textbooks, research papers, drug labels, industry, and every chemistry examination.", ta:"பாடப்புத்தகங்கள், ஆய்வுக் கட்டுரைகள், மருந்து லேபிள்கள், தொழில்துறை மற்றும் ஒவ்வொரு வேதியியல் தேர்வுகளிலும் பயன்படுத்தப்படுகிறது."},
+introLearn:{en:"In this lab you will learn to choose the parent chain, number it correctly, name substituents, and assemble the final IUPAC name — by building molecules yourself.", ta:"இந்த ஆய்வகத்தில், முதன்மைச் சங்கிலியைத் தேர்ந்தெடுத்தல், சரியாக எண்ணிடுதல், பதிலீட்டுத் தொகுதிகளுக்குப் பெயரிடுதல், இறுதி IUPAC பெயரை உருவாக்குதல் ஆகியவற்றை நீங்களே மூலக்கூறுகளை உருவாக்கிக் கற்றுக்கொள்வீர்கள்."},
+introCaption:{en:"Structure in → systematic name out. That is the whole game of this lab.", ta:"கட்டமைப்பை உள்ளிடவும் → ஒழுங்கான பெயரைப் பெறவும். இதுவே இந்த ஆய்வகத்தின் முழுமையான நோக்கம்."},
+objHead:{en:"Learning Objectives", ta:"கற்றல் நோக்கங்கள்"},
+objDesc:{en:"By the end of this lab, you will be able to:", ta:"இந்த ஆய்வகத்தின் முடிவில், நீங்கள் பின்வருவனவற்றைச் செய்ய இயலும்:"},
+conceptHead:{en:"The Five Governing Rules", ta:"ஐந்து முதன்மை விதிகள்"},
+conceptDesc:{en:"Tap a card to open it and see a worked example from the textbook.", ta:"ஒரு அட்டையைத் தட்டி திறந்து, பாடப்புத்தகத்திலிருந்து ஒரு உதாரணத்தைக் காணுங்கள்."},
+simHead:{en:"Molecule Name Builder — Main Simulator", ta:"மூலக்கூறு பெயர் உருவாக்கி — முதன்மை சிமுலேட்டர்"},
+simDesc:{en:"Choose a chain length, a functional group, and add substituents. Watch the IUPAC name build itself, step by step, following the real rules.", ta:"சங்கிலியின் நீளத்தையும், செயல்பாட்டுத் தொகுதியையும் தேர்ந்தெடுத்து, பதிலீட்டுத் தொகுதிகளைச் சேர்க்கவும். IUPAC பெயர் உண்மையான விதிகளின்படி படிப்படியாக உருவாவதைக் காணுங்கள்."},
+ctrlChain:{en:"Main chain length (carbons)", ta:"முதன்மைச் சங்கிலியின் நீளம் (கார்பன்கள்)"},
+ctrlFunc:{en:"Principal functional group", ta:"முதன்மை செயல்பாட்டுத் தொகுதி"},
+ctrlPos:{en:"Position on chain (as drawn, left→right)", ta:"சங்கிலியில் இடம் (இடமிருந்து வலமாக)"},
+ctrlSub:{en:"Add a substituent", ta:"பதிலீட்டுத் தொகுதியைச் சேர்க்கவும்"},
+ctrlList:{en:"Substituents on chain", ta:"சங்கிலியில் உள்ள பதிலீட்டுத் தொகுதிகள்"},
+btnAdd:{en:"+ Add substituent", ta:"+ பதிலீடு சேர்"},
+btnReset:{en:"↺ Reset Experiment", ta:"↺ சோதனையை மீட்டமை"},
+visualLabel:{en:"VISUAL CHAIN (click a carbon for its position number)", ta:"காட்சி சங்கிலி (இட எண்ணுக்கு ஒரு கார்பனைக் கிளிக் செய்யவும்)"},
+flowInput:{en:"INPUT", ta:"உள்ளீடு"},
+flowProcess:{en:"PROCESS", ta:"செயல்முறை"},
+flowOutput:{en:"OUTPUT", ta:"வெளியீடு"},
+finalNameLbl:{en:"Final IUPAC Name", ta:"இறுதி IUPAC பெயர்"},
+stepsHead:{en:"How It Works — Step by Step", ta:"இது எவ்வாறு செயல்படுகிறது — படிப்படியாக"},
+dndHead:{en:"Sequence Challenge — Order the IUPAC Procedure", ta:"வரிசைமுறை சவால் — IUPAC முறையை வரிசைப்படுத்துக"},
+dndDesc:{en:"Click a step on the left, then click the numbered slot where it belongs. Arrange all five steps in the correct order.", ta:"இடதுபுறத்தில் ஒரு படியைக் கிளிக் செய்து, அது சேரவேண்டிய எண் இட்ட இடத்தைக் கிளிக் செய்யவும். ஐந்து படிகளையும் சரியான வரிசையில் அமைக்கவும்."},
+btnCheck:{en:"Check Order", ta:"வரிசையைச் சரிபார்"},
+btnReset2:{en:"Reset", ta:"மீட்டமை"},
+matchHead:{en:"Matching Game — Functional Group ↔ Suffix", ta:"பொருத்தும் விளையாட்டு — செயல்பாட்டுத் தொகுதி ↔ பின்னொட்டு"},
+matchDesc:{en:"Click one card from each column to match a functional group with its IUPAC suffix.", ta:"ஒவ்வொரு நெடுவரிசையிலிருந்தும் ஒரு அட்டையைக் கிளிக் செய்து, செயல்பாட்டுத் தொகுதியை அதன் IUPAC பின்னொட்டுடன் பொருத்துங்கள்."},
+matchScoreLbl:{en:"Matched: 0 / 6", ta:"பொருத்தப்பட்டவை: 0 / 6"},
+mistakeHead:{en:"Common Mistakes", ta:"பொதுவான தவறுகள்"},
+refHead:{en:"Quick Reference", ta:"விரைவு குறிப்பு"},
+refDesc:{en:"Order of precedence of functional groups (highest first), used to choose the parent chain, the principal suffix, and the numbering direction.", ta:"செயல்பாட்டுத் தொகுதிகளின் முன்னுரிமை வரிசை (உயர்ந்தது முதலில்), இது முதன்மைச் சங்கிலி, முதன்மைப் பின்னொட்டு மற்றும் எண்ணிடும் திசையைத் தேர்ந்தெடுக்கப் பயன்படுகிறது."},
+refCol1:{en:"Functional Group", ta:"செயல்பாட்டுத் தொகுதி"},
+refCol2:{en:"Suffix", ta:"பின்னொட்டு"},
+refCol3:{en:"Example", ta:"உதாரணம்"},
+refNote1:{en:"IUPAC names are written as a single word (except salts, acids and derivatives). Commas separate adjacent numbers; hyphens separate numbers from letters. Example: 2,2-Dimethyl-3-hexene.", ta:"IUPAC பெயர்கள் ஒரே சொல்லாக எழுதப்படுகின்றன (உப்புகள், அமிலங்கள் மற்றும் வழிப்பொருள்கள் தவிர). அருகிலுள்ள எண்களை காற்புள்ளி பிரிக்கும்; எண்களையும் எழுத்துக்களையும் இணைப்புக்கோடு பிரிக்கும். உதாரணம்: 2,2-Dimethyl-3-hexene."},
+refNote2:{en:"Italicised structural prefixes such as sec-, tert-, cis-, trans- are joined by a hyphen and are ignored when alphabetising. Multiplying prefixes di-, tri-, tetra- are part of the name but are also ignored when alphabetising substituents.", ta:"sec-, tert-, cis-, trans- போன்ற சாய்வெழுத்து முன்னொட்டுகள் இணைப்புக்கோட்டால் இணைக்கப்பட்டு, அகரவரிசைப்படுத்தும்போது கருதப்படாது. di-, tri-, tetra- போன்ற பெருக்கல் முன்னொட்டுகள் பெயரின் ஒரு பகுதியாக இருந்தாலும், பதிலீடுகளை அகரவரிசைப்படுத்தும்போது கருதப்படாது."},
+progHead:{en:"Your Progress", ta:"உங்கள் முன்னேற்றம்"},
+progDesc:{en:"Complete the sequence challenge, matching game and quiz to unlock badges.", ta:"பேட்ஜ்களைத் திறக்க வரிசைமுறை சவால், பொருத்தும் விளையாட்டு மற்றும் வினாடி வினாவை முடிக்கவும்."},
+quizHead:{en:"Final Quiz", ta:"இறுதி வினாடி வினா"},
+quizDesc:{en:"Ten questions. Answer each to test your mastery of IUPAC nomenclature.", ta:"பத்து வினாக்கள். IUPAC பெயரிடுதலில் உங்கள் தேர்ச்சியைச் சோதிக்க ஒவ்வொன்றுக்கும் பதிலளிக்கவும்."},
+footDev:{en:"Developed by B. Nirmal Singh — Computer Instructor Grade 1, GHSS Keeladi, Sivagangai Dt.", ta:"உருவாக்கியவர்: B. நிர்மல் சிங் — கணினி பயிற்றுனர் நிலை I, அரசு மேல்நிலைப் பள்ளி கீழடி, சிவகங்கை மாவட்டம்."},
+footTag:{en:"Sivagangai PG Teachers' Resource Portal · Chemistry — Fundamentals of Organic Chemistry", ta:"சிவகங்கை PG ஆசிரியர்கள் வள போர்ட்டல் · வேதியியல் — கரிம வேதியியலின் அடிப்படைகள்"}
+};
+
+let lang = 'en';
+function applyStatic(){
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key = el.getAttribute('data-i18n');
+    if(UI[key]) el.textContent = UI[key][lang];
+  });
+  document.querySelectorAll('option[data-en]').forEach(el=>{
+    el.textContent = el.getAttribute('data-'+lang);
+  });
+  document.documentElement.lang = lang;
+  document.body.classList.toggle('lang-ta', lang==='ta');
+}
+function setLang(l){
+  lang = l;
+  document.getElementById('btnEN').classList.toggle('active', l==='en');
+  document.getElementById('btnTA').classList.toggle('active', l==='ta');
+  applyStatic();
+  renderObjectives(); renderConcepts(); renderMistakes(); renderReference();
+  renderChainControls(); updateSimulator();
+  renderSequencePool(); renderSequenceTarget();
+  renderMatching();
+  renderQuizQuestion();
+  renderBadges();
+}
+
+document.getElementById('navToggle').addEventListener('click',()=>{
+  document.getElementById('navLinks').classList.toggle('open');
+});
+
+/* ============================================================
+   OBJECTIVES
+   ============================================================ */
+const OBJECTIVES = [
+{en:"Identify the longest continuous carbon chain that contains the principal functional group.", ta:"முதன்மை செயல்பாட்டுத் தொகுதியைக் கொண்ட மிக நீளமான தொடர்ச்சியான கார்பன் சங்கிலியைக் கண்டறிதல்."},
+{en:"Rank functional groups by their order of precedence.", ta:"செயல்பாட்டுத் தொகுதிகளை அவற்றின் முன்னுரிமை வரிசையின்படி வரிசைப்படுத்துதல்."},
+{en:"Number the parent chain to give the lowest possible locant to the principal group.", ta:"முதன்மைத் தொகுதிக்கு மிகக் குறைந்த இட எண்ணைக் கொடுக்கும்படி முதன்மைச் சங்கிலிக்கு எண்ணிடுதல்."},
+{en:"Name and locate every substituent correctly on the numbered chain.", ta:"எண்ணிடப்பட்ட சங்கிலியில் ஒவ்வொரு பதிலீட்டுத் தொகுதியையும் சரியாகப் பெயரிட்டு இடம் காணுதல்."},
+{en:"Arrange substituent names in correct alphabetical order.", ta:"பதிலீட்டுத் தொகுதிப் பெயர்களை சரியான அகரவரிசையில் அமைத்தல்."},
+{en:"Apply comma and hyphen punctuation rules correctly in a name.", ta:"ஒரு பெயரில் காற்புள்ளி மற்றும் இணைப்புக்கோடு விதிகளை சரியாகப் பயன்படுத்துதல்."},
+{en:"Build a complete IUPAC name using the simulator.", ta:"சிமுலேட்டரைப் பயன்படுத்தி முழுமையான IUPAC பெயரை உருவாக்குதல்."},
+{en:"Match functional groups with their correct suffixes.", ta:"செயல்பாட்டுத் தொகுதிகளை அவற்றின் சரியான பின்னொட்டுகளுடன் பொருத்துதல்."},
+{en:"Recognise and avoid common naming mistakes.", ta:"பொதுவான பெயரிடும் தவறுகளை அடையாளம் கண்டு தவிர்த்தல்."},
+{en:"Successfully complete the final quiz on IUPAC nomenclature.", ta:"IUPAC பெயரிடுதல் குறித்த இறுதி வினாடி வினாவை வெற்றிகரமாக முடித்தல்."}
+];
+function renderObjectives(){
+  const grid = document.getElementById('objGrid'); grid.innerHTML='';
+  OBJECTIVES.forEach((o,i)=>{
+    const d = document.createElement('div'); d.className='card obj-card';
+    d.innerHTML = `<div class="obj-num">${i+1}</div><p>${o[lang]}</p>`;
+    grid.appendChild(d);
+  });
+}
+
+/* ============================================================
+   CONCEPT CARDS (5 governing rules, from the textbook pages)
+   ============================================================ */
+const CONCEPTS = [
+{icon:"🔗",
+ title:{en:"1. Choose the Longest Chain", ta:"1. மிக நீளமான சங்கிலியைத் தேர்ந்தெடு"},
+ body:{en:"Find the longest continuous carbon chain that contains the maximum number of skeletal atoms of the principal characteristic group (e.g. –COOH, –CHO). If two chains are equally long, pick the one with more substituents.", ta:"முதன்மைச் செயல்பாட்டுத் தொகுதியின் (எ.கா. –COOH, –CHO) அதிகபட்ச எண்ணிக்கையிலான அணுக்களைக் கொண்ட மிக நீளமான தொடர்ச்சியான கார்பன் சங்கிலியைக் கண்டறியவும். இரண்டு சங்கிலிகள் சம நீளமாக இருந்தால், அதிக பதிலீடுகளைக் கொண்டதைத் தேர்ந்தெடுக்கவும்."},
+ example:"CH₃-CH(C₂H₅)-CH₂-CH₂-COOH → 5C chain with COOH (correct), not the 4C chain that excludes it."},
+{icon:"🔢",
+ title:{en:"2. Number the Chain", ta:"2. சங்கிலிக்கு எண்ணிடு"},
+ body:{en:"Number from the end that gives the lowest locant to the principal functional group first, then to unsaturation, then to substituents.", ta:"முதலில் முதன்மைச் செயல்பாட்டுத் தொகுதிக்கும், பின்னர் அசாதுரிதத்திற்கும், பின்னர் பதிலீடுகளுக்கும் மிகக் குறைந்த இட எண்ணைக் கொடுக்கும் முனையிலிருந்து எண்ணிடவும்."},
+ example:"CH₃-CH₂-CH(CH₃)-CH₂-CH₂-CH₃ numbered from left → 3-Methylhexane (correct), from right → 4-Methylhexane (incorrect)."},
+{icon:"🏷",
+ title:{en:"3. Priority of Functional Groups", ta:"3. செயல்பாட்டுத் தொகுதிகளின் முன்னுரிமை"},
+ body:{en:"When more than one functional group is present, the group highest in the precedence order becomes the suffix; all others are named as prefixes.", ta:"ஒன்றுக்கு மேற்பட்ட செயல்பாட்டுத் தொகுதிகள் இருந்தால், முன்னுரிமை வரிசையில் உயர்ந்த தொகுதி பின்னொட்டாக மாறும்; மற்றவை முன்னொட்டுகளாகப் பெயரிடப்படும்."},
+ example:"–COOH > –SO₃H > –COOR > –CONH₂ > –CN > –CHO > –CO– > –OH > –SH > –NH₂ > C=C > C≡C"},
+{icon:"🔤",
+ title:{en:"4. Alphabetical Order of Substituents", ta:"4. பதிலீடுகளின் அகரவரிசை"},
+ body:{en:"Two or more substituents are cited in alphabetical order of their names, not by position number, and not by the multiplying prefix (di-, tri-, tetra-).", ta:"இரண்டு அல்லது அதற்கு மேற்பட்ட பதிலீடுகள் இட எண் அல்லது பெருக்கல் முன்னொட்டு (di-, tri-, tetra-) அடிப்படையில் அல்லாமல், அவற்றின் பெயர்களின் அகரவரிசையில் குறிப்பிடப்படும்."},
+ example:"3-Ethyl-2,2-dimethylpentane — 'Ethyl' before 'Methyl', ignoring the 'di' in dimethyl."},
+{icon:"✒",
+ title:{en:"5. Punctuation & Italics", ta:"5. நிறுத்தற்குறிகள் மற்றும் சாய்வெழுத்து"},
+ body:{en:"IUPAC names are one word. Commas separate adjacent numbers; hyphens separate numbers from letters. sec-, tert-, cis-, trans- are italicised and hyphen-joined.", ta:"IUPAC பெயர்கள் ஒரே சொல். அருகிலுள்ள எண்களை காற்புள்ளி பிரிக்கும்; எண் மற்றும் எழுத்தை இணைப்புக்கோடு பிரிக்கும். sec-, tert-, cis-, trans- சாய்வெழுத்தில் இணைப்புக்கோட்டுடன் இணைக்கப்படும்."},
+ example:"2,2-Dimethyl-3-hexene · N,N-Dimethylmethanamide · trans-2-Butene"}
+];
+function renderConcepts(){
+  const grid = document.getElementById('conceptGrid'); grid.innerHTML='';
+  CONCEPTS.forEach((c,i)=>{
+    const d = document.createElement('div'); d.className='card concept-card';
+    d.innerHTML = `<div class="concept-top"><div class="concept-icon">${c.icon}</div><h3>${c.title[lang]}</h3><span class="chev">▶</span></div>
+    <div class="concept-body">${c.body[lang]}<div class="concept-example">${c.example}</div></div>`;
+    d.addEventListener('click',()=>d.classList.toggle('open'));
+    grid.appendChild(d);
+  });
+}
+
+/* ============================================================
+   MAIN SIMULATOR — Name Builder Engine
+   ============================================================ */
+const ROOTS = ["","meth","eth","prop","but","pent","hex","hept","oct"];
+const FUNC_GROUPS = [
+  {id:"none", en:"None (Alkane)", ta:"எதுவுமில்லை (ஆல்கேன்)", suffix:"ane", fixedEnd:false, priority:99},
+  {id:"cooh", en:"–COOH (Carboxylic acid)", ta:"–COOH (கார்பாக்சிலிக் அமிலம்)", suffix:"oic acid", fixedEnd:true, priority:1},
+  {id:"cho", en:"–CHO (Aldehyde)", ta:"–CHO (ஆல்டிஹைடு)", suffix:"al", fixedEnd:true, priority:2},
+  {id:"oh", en:"–OH (Alcohol)", ta:"–OH (ஆல்கஹால்)", suffix:"ol", fixedEnd:false, priority:3},
+  {id:"nh2", en:"–NH₂ (Amine)", ta:"–NH₂ (அமீன்)", suffix:"amine", fixedEnd:false, priority:4},
+  {id:"ene", en:"C=C (Alkene)", ta:"C=C (ஆல்கீன்)", suffix:"ene", fixedEnd:false, priority:5}
+];
+let chainLength = 5;
+let funcGroupId = "cooh";
+let funcPos = 1;
+let substituents = []; // {type, pos}
+
+function renderChainControls(){
+  const cl = document.getElementById('chainLen');
+  cl.innerHTML = '';
+  for(let i=3;i<=8;i++){
+    const o=document.createElement('option'); o.value=i;
+    o.textContent = (lang==='en'?i+" carbons":i+" கார்பன்கள்");
+    if(i===chainLength) o.selected=true;
+    cl.appendChild(o);
+  }
+  cl.onchange = ()=>{ chainLength = parseInt(cl.value); clampPositions(); updateSimulator(); };
+
+  const fg = document.getElementById('funcGroup');
+  fg.innerHTML='';
+  FUNC_GROUPS.forEach(g=>{
+    const o=document.createElement('option'); o.value=g.id; o.textContent = g[lang];
+    if(g.id===funcGroupId) o.selected=true;
+    fg.appendChild(o);
+  });
+  fg.onchange = ()=>{ funcGroupId = fg.value; updatePosVisibility(); clampPositions(); updateSimulator(); };
+  updatePosVisibility();
+
+  document.getElementById('funcPos').value = funcPos;
+  document.getElementById('funcPos').onchange = (e)=>{ funcPos = parseInt(e.target.value)||1; clampPositions(); updateSimulator(); };
+  document.getElementById('subPos').max = chainLength;
+  document.getElementById('funcPos').max = chainLength;
+}
+function updatePosVisibility(){
+  const g = FUNC_GROUPS.find(x=>x.id===funcGroupId);
+  document.getElementById('posBlock').style.display = (g.fixedEnd || g.id==='none') ? 'none' : 'block';
+}
+function clampPositions(){
+  const g = FUNC_GROUPS.find(x=>x.id===funcGroupId);
+  const maxPos = g.id==='ene' ? Math.max(1,chainLength-1) : chainLength;
+  if(funcPos>maxPos) funcPos = maxPos;
+  if(funcPos<1) funcPos = 1;
+  substituents = substituents.filter(s=>s.pos>=1 && s.pos<=chainLength);
+}
+function addSubstituent(){
+  const type = document.getElementById('subType').value;
+  let pos = parseInt(document.getElementById('subPos').value)||1;
+  if(pos<1) pos=1; if(pos>chainLength) pos=chainLength;
+  if(substituents.length>=4){ return; }
+  substituents.push({type, pos});
+  renderSubList();
+  updateSimulator();
+}
+function removeSubstituent(idx){
+  substituents.splice(idx,1);
+  renderSubList();
+  updateSimulator();
+}
+function renderSubList(){
+  const box = document.getElementById('subList'); box.innerHTML='';
+  substituents.forEach((s,i)=>{
+    const el = document.createElement('div'); el.className='sub-item';
+    const label = lang==='en' ? `${s.type} @ C${s.pos}` : `${s.type==='Methyl'?'மெத்தில்':'எத்தில்'} @ C${s.pos}`;
+    el.innerHTML = `<span>${label}</span><button aria-label="remove" onclick="removeSubstituent(${i})">×</button>`;
+    box.appendChild(el);
+  });
+}
+function resetSimulator(){
+  chainLength=5; funcGroupId="cooh"; funcPos=1; substituents=[];
+  renderChainControls(); renderSubList(); updateSimulator();
+}
+
+function computeName(){
+  const g = FUNC_GROUPS.find(x=>x.id===funcGroupId);
+  const n = chainLength;
+  // Determine numbering direction
+  let dirLeftToRight;
+  let funcLocantL, funcLocantR;
+  if(g.id==='none'){
+    funcLocantL = null; funcLocantR = null;
+  } else if(g.fixedEnd){
+    // fixed end groups are always drawn/considered at C1 (left) by convention in this simulator
+    funcLocantL = 1; funcLocantR = n;
+  } else if(g.id==='ene'){
+    funcLocantL = funcPos;               // locant of first carbon of double bond, left-numbering
+    funcLocantR = n - funcPos;           // from the right end
+  } else {
+    funcLocantL = funcPos;
+    funcLocantR = n + 1 - funcPos;
+  }
+
+  function subLocants(direction){
+    return substituents.map(s=> direction==='L' ? s.pos : (n+1-s.pos)).sort((a,b)=>a-b);
+  }
+  function firstPointOfDifference(a,b){
+    for(let i=0;i<Math.max(a.length,b.length);i++){
+      const av=a[i]===undefined?Infinity:a[i], bv=b[i]===undefined?Infinity:b[i];
+      if(av!==bv) return av<bv? -1:1;
+    }
+    return 0;
+  }
+
+  if(g.fixedEnd){
+    dirLeftToRight = true; // forced, group anchors chain at C1 from the left by construction
+  } else if(g.id==='none'){
+    const cmp = firstPointOfDifference(subLocants('L'), subLocants('R'));
+    dirLeftToRight = cmp<=0;
+  } else {
+    if(funcLocantL !== funcLocantR){
+      dirLeftToRight = funcLocantL < funcLocantR;
+    } else {
+      const cmp = firstPointOfDifference(subLocants('L'), subLocants('R'));
+      dirLeftToRight = cmp<=0;
+    }
+  }
+
+  const direction = dirLeftToRight ? 'L' : 'R';
+  const finalFuncLocant = g.id==='none' ? null : (dirLeftToRight? funcLocantL: funcLocantR);
+  const finalSubs = substituents.map(s=>({type:s.type, locant: dirLeftToRight? s.pos : (n+1-s.pos)}))
+                                 .sort((a,b)=>a.locant-b.locant);
+
+  // group by type for di/tri prefixes, but keep alphabetical order by base name
+  const grouped = {};
+  finalSubs.forEach(s=>{ (grouped[s.type] = grouped[s.type]||[]).push(s.locant); });
+  const typesSorted = Object.keys(grouped).sort((a,b)=>a.localeCompare(b));
+  const multi = {1:"", 2:"di", 3:"tri", 4:"tetra"};
+  let prefixParts = typesSorted.map(t=>{
+    const locs = grouped[t].sort((a,b)=>a-b);
+    const mult = multi[locs.length] || "";
+    return `${locs.join(',')}-${mult}${t.toLowerCase()}`;
+  });
+  const prefixStr = prefixParts.join('-');
+
+  const root = ROOTS[n];
+  let nameCore, suffixDisplay;
+  if(g.id==='none'){
+    nameCore = root+"ane"; suffixDisplay="ane";
+  } else if(g.id==='ene'){
+    nameCore = `${root}-${finalFuncLocant}-ene`; suffixDisplay="ene";
+  } else if(g.fixedEnd){
+    nameCore = g.id==='cooh' ? root+"anoic acid" : root+"anal";
+    suffixDisplay = g.suffix;
+  } else {
+    // drop trailing 'e' of root+ane before vowel suffix ol/amine
+    nameCore = `${root}an-${finalFuncLocant}-${g.suffix}`;
+    suffixDisplay = g.suffix;
+  }
+
+  let fullName = prefixStr ? `${prefixStr}-${nameCore}` : nameCore;
+  // capitalise first letter
+  fullName = fullName.charAt(0).toUpperCase()+fullName.slice(1);
+
+  return {g, n, root, direction, finalFuncLocant, finalSubs, prefixStr, nameCore, fullName};
+}
+
+function updateSimulator(){
+  const r = computeName();
+  renderChainVisual(r);
+  renderFlow(r);
+  document.getElementById('finalName').textContent = r.fullName;
+  renderSteps(r);
+}
+
+function renderChainVisual(r){
+  const cv = document.getElementById('chainVisual'); cv.innerHTML='';
+  const n = r.n;
+  const funcAtomIdx = r.g.id==='none' ? null : (r.direction==='L' ? (r.g.fixedEnd?1:funcPos) : (r.g.fixedEnd? n : (n+1- (r.g.id==='ene'? funcPos : funcPos))));
+  for(let physPos=1; physPos<=n; physPos++){
+    // displayed number depends on direction
+    const displayNum = r.direction==='L' ? physPos : (n+1-physPos);
+    const isFuncCarbon = r.g.id!=='none' && !r.g.fixedEnd && displayNum===r.finalFuncLocant;
+    const isFuncFixed = r.g.fixedEnd && ((r.direction==='L'&&physPos===1)||(r.direction==='R'&&physPos===n));
+    const wrap = document.createElement('div'); wrap.className='carbon';
+    const subsHere = substituents.filter(s=>s.pos===physPos);
+    let tag='';
+    if(subsHere.length){ tag = `<span class="c-sub-tag">${subsHere.map(s=>s.type[0]).join(',')}</span>`; }
+    const atomClass = (isFuncCarbon||isFuncFixed) ? 'c-atom func' : 'c-atom';
+    wrap.innerHTML = `${tag}<div class="${atomClass}" title="Click for locant" onclick="alert('${lang==='en'?'This carbon is numbered':'இந்த கார்பனுக்கு இட எண்'} C${displayNum}')">C</div><div class="c-label">C${displayNum}</div>`;
+    cv.appendChild(wrap);
+    if(physPos<n){
+      const b = document.createElement('div');
+      const isDouble = r.g.id==='ene' && ( (r.direction==='L' && physPos===funcPos) || (r.direction==='R' && (n+1-physPos-1)===funcPos) );
+      b.className = 'bond'+(isDoubleBondHere(physPos,r)?' double':'');
+      cv.appendChild(b);
+    }
+  }
+}
+function isDoubleBondHere(physPos, r){
+  if(r.g.id!=='ene') return false;
+  // double bond sits between physical positions funcPos and funcPos+1 (as originally placed by the user, left-drawn)
+  return physPos===funcPos;
+}
+
+function renderFlow(r){
+  const inputTxt = lang==='en'
+    ? `${r.n}-C chain, ${r.g.en}${substituents.length? ', '+substituents.length+' substituent(s)':''}`
+    : `${r.n}-C சங்கிலி, ${r.g.ta}${substituents.length? ', '+substituents.length+' பதிலீடு(கள்)':''}`;
+  document.getElementById('flowInput').textContent = inputTxt;
+  const dirTxt = r.direction==='L' ? (lang==='en'?'Number left→right':'இடமிருந்து வலமாக எண்ணிடு') : (lang==='en'?'Number right→left':'வலமிருந்து இடமாக எண்ணிடு');
+  document.getElementById('flowProcess').textContent = dirTxt;
+  document.getElementById('flowOutput').textContent = r.fullName;
+}
+
+function renderSteps(r){
+  const stepsEn = [
+    {h:"Step 1 — Choose parent chain", p:`Longest chain = ${r.n} carbons → root "${r.root}"`},
+    {h:"Step 2 — Identify principal group", p: r.g.id==='none' ? "No functional group — plain alkane" : `Principal group = ${r.g.en}, suffix "-${r.g.suffix}"`},
+    {h:"Step 3 — Number the chain", p: r.g.id==='none' ? `Lowest locants to substituents → numbered ${r.direction==='L'?'left→right':'right→left'}` : `Lowest locant to ${r.g.en} → numbered ${r.direction==='L'?'left→right':'right→left'}, locant = ${r.finalFuncLocant??'—'}`},
+    {h:"Step 4 — Name substituents alphabetically", p: r.finalSubs.length ? r.prefixStr : "No substituents present"},
+    {h:"Step 5 — Assemble the final name", p: r.fullName}
+  ];
+  const stepsTa = [
+    {h:"படி 1 — முதன்மைச் சங்கிலியைத் தேர்ந்தெடு", p:`மிக நீளமான சங்கிலி = ${r.n} கார்பன்கள் → வேர்ச்சொல் "${r.root}"`},
+    {h:"படி 2 — முதன்மைத் தொகுதியைக் கண்டறி", p: r.g.id==='none' ? "செயல்பாட்டுத் தொகுதி இல்லை — வெறும் ஆல்கேன்" : `முதன்மைத் தொகுதி = ${r.g.ta}, பின்னொட்டு "-${r.g.suffix}"`},
+    {h:"படி 3 — சங்கிலிக்கு எண்ணிடு", p: r.g.id==='none' ? `பதிலீடுகளுக்கு குறைந்த இட எண் → ${r.direction==='L'?'இடமிருந்து வலமாக':'வலமிருந்து இடமாக'} எண்ணிடப்பட்டது` : `${r.g.ta} க்கு குறைந்த இட எண் → ${r.direction==='L'?'இடமிருந்து வலமாக':'வலமிருந்து இடமாக'} எண்ணிடப்பட்டது, இட எண் = ${r.finalFuncLocant??'—'}`},
+    {h:"படி 4 — பதிலீடுகளை அகரவரிசையில் பெயரிடு", p: r.finalSubs.length ? r.prefixStr : "பதிலீடுகள் இல்லை"},
+    {h:"படி 5 — இறுதிப் பெயரை உருவாக்கு", p: r.fullName}
+  ];
+  const steps = lang==='en'?stepsEn:stepsTa;
+  const list = document.getElementById('stepsList'); list.innerHTML='';
+  steps.forEach((s,i)=>{
+    const d = document.createElement('div'); d.className='step-item active';
+    d.innerHTML = `<div class="step-dot">${i+1}</div><div><h4>${s.h}</h4><p>${s.p}</p></div>`;
+    list.appendChild(d);
+  });
+}
+
+/* ============================================================
+   DRAG & DROP SEQUENCE CHALLENGE
+   ============================================================ */
+const SEQUENCE = [
+{id:1, en:"Choose the longest carbon chain (root word)", ta:"மிக நீளமான கார்பன் சங்கிலியைத் தேர்ந்தெடு (வேர்ச்சொல்)"},
+{id:2, en:"Number the longest carbon chain", ta:"மிக நீளமான கார்பன் சங்கிலிக்கு எண்ணிடு"},
+{id:3, en:"Name the substituents (prefixes or suffixes)", ta:"பதிலீடுகளுக்குப் பெயரிடு (முன்னொட்டு அல்லது பின்னொட்டு)"},
+{id:4, en:"Arrange the substituents in alphabetical order", ta:"பதிலீடுகளை அகரவரிசையில் அமை"},
+{id:5, en:"Write the full name: prefix + root + suffix", ta:"முழுப் பெயரை எழுது: முன்னொட்டு + வேர்ச்சொல் + பின்னொட்டு"}
+];
+let seqPool = [];       // shuffled ids remaining in pool
+let seqSlots = [null,null,null,null,null];
+let seqSelected = null;
+
+function shuffledIds(){
+  const ids = SEQUENCE.map(s=>s.id);
+  for(let i=ids.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [ids[i],ids[j]]=[ids[j],ids[i]]; }
+  return ids;
+}
+seqPool = shuffledIds();
+
+function renderSequencePool(){
+  const pool = document.getElementById('dndPool'); pool.innerHTML='';
+  const title = document.createElement('h4'); title.style.marginBottom='4px';
+  title.textContent = lang==='en'? "Steps (click to select)" : "படிகள் (தேர்ந்தெடுக்க கிளிக் செய்யவும்)";
+  pool.appendChild(title);
+  seqPool.forEach(id=>{
+    const s = SEQUENCE.find(x=>x.id===id);
+    const used = seqSlots.includes(id);
+    const card = document.createElement('div');
+    card.className = 'drag-card'+(used?' used':'')+(seqSelected===id?' selected':'');
+    card.textContent = s[lang];
+    card.draggable = true;
+    card.addEventListener('click', ()=>{ if(used) return; seqSelected = (seqSelected===id? null : id); renderSequencePool(); });
+    card.addEventListener('dragstart', e=> e.dataTransfer.setData('text/plain', id));
+    pool.appendChild(card);
+  });
+}
+function renderSequenceTarget(){
+  const target = document.getElementById('dndTarget'); target.innerHTML='';
+  const title = document.createElement('h4'); title.style.marginBottom='4px';
+  title.textContent = lang==='en'? "Correct order (1 → 5)" : "சரியான வரிசை (1 → 5)";
+  target.appendChild(title);
+  seqSlots.forEach((id,i)=>{
+    const slot = document.createElement('div');
+    slot.className = 'slot'+(id?' filled':'');
+    const s = id? SEQUENCE.find(x=>x.id===id) : null;
+    slot.innerHTML = `<span class="slot-num">${i+1}</span><span>${s? s[lang] : (lang==='en'?'Drop / click here':'இங்கே கிளிக் செய்யவும்')}</span>`;
+    slot.addEventListener('click', ()=>{
+      if(id){ seqSlots[i]=null; renderSequencePool(); renderSequenceTarget(); return; }
+      if(seqSelected!==null){ seqSlots[i]=seqSelected; seqSelected=null; renderSequencePool(); renderSequenceTarget(); }
+    });
+    slot.addEventListener('dragover', e=> e.preventDefault());
+    slot.addEventListener('drop', e=>{
+      e.preventDefault();
+      const dragId = parseInt(e.dataTransfer.getData('text/plain'));
+      if(seqSlots.includes(dragId)) return;
+      seqSlots[i]=dragId; renderSequencePool(); renderSequenceTarget();
+    });
+    target.appendChild(slot);
+  });
+}
+function checkSequence(){
+  const fb = document.getElementById('dndFeedback');
+  if(seqSlots.includes(null)){
+    fb.className='feedback-banner bad';
+    fb.textContent = lang==='en'? "Fill all five slots first." : "முதலில் ஐந்து இடங்களையும் நிரப்பவும்.";
+    return;
+  }
+  const correct = seqSlots.every((id,i)=> id===SEQUENCE[i].id);
+  if(correct){
+    fb.className='feedback-banner good';
+    fb.textContent = lang==='en'? "✓ Excellent! That is the correct IUPAC naming procedure." : "✓ மிகச் சிறப்பு! இதுவே சரியான IUPAC பெயரிடும் முறை.";
+    markComplete('dnd');
+  } else {
+    fb.className='feedback-banner bad';
+    fb.textContent = lang==='en'? "✗ Not quite the right order. Try again — think about what must happen before numbering." : "✗ சரியான வரிசை இல்லை. மீண்டும் முயற்சிக்கவும் — எண்ணிடுவதற்கு முன் என்ன நடக்க வேண்டும் என்று சிந்தியுங்கள்.";
+  }
+}
+function resetSequence(){
+  seqPool = shuffledIds(); seqSlots=[null,null,null,null,null]; seqSelected=null;
+  document.getElementById('dndFeedback').className='feedback-banner';
+  renderSequencePool(); renderSequenceTarget();
+}
+
+/* ============================================================
+   MATCHING GAME
+   ============================================================ */
+const MATCH_PAIRS = [
+  {g:"–COOH", s:{en:"–oic acid", ta:"–oic acid (அமிலம்)"}},
+  {g:"–CHO", s:{en:"–al", ta:"–al (ஆல்)"}},
+  {g:"–OH", s:{en:"–ol", ta:"–ol (ஆல்)"}},
+  {g:"–NH₂", s:{en:"–amine", ta:"–amine (அமீன்)"}},
+  {g:"C=C", s:{en:"–ene", ta:"–ene (ஈன்)"}},
+  {g:"C≡C", s:{en:"–yne", ta:"–yne (யீன்)"}}
+];
+let matchLeftOrder=[], matchRightOrder=[], matchPickedLeft=null, matchPickedRight=null, matchCount=0;
+function shuffleArr(arr){ arr=[...arr]; for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]];} return arr; }
+function initMatching(){
+  matchLeftOrder = shuffleArr(MATCH_PAIRS.map((p,i)=>i));
+  matchRightOrder = shuffleArr(MATCH_PAIRS.map((p,i)=>i));
+  matchPickedLeft=null; matchPickedRight=null; matchCount=0;
+}
+initMatching();
+function renderMatching(){
+  const left = document.getElementById('matchLeft'); left.innerHTML='';
+  const right = document.getElementById('matchRight'); right.innerHTML='';
+  matchLeftOrder.forEach(idx=>{
+    const p = MATCH_PAIRS[idx];
+    const el = document.createElement('div'); el.className='match-card';
+    el.textContent = p.g;
+    el.dataset.idx = idx;
+    el.addEventListener('click', ()=>pickMatch('left', idx, el));
+    left.appendChild(el);
+  });
+  matchRightOrder.forEach(idx=>{
+    const p = MATCH_PAIRS[idx];
+    const el = document.createElement('div'); el.className='match-card';
+    el.textContent = p.s[lang];
+    el.dataset.idx = idx;
+    el.addEventListener('click', ()=>pickMatch('right', idx, el));
+    right.appendChild(el);
+  });
+  document.getElementById('matchScore').textContent = (lang==='en'?"Matched: ":"பொருத்தப்பட்டவை: ")+matchCount+" / "+MATCH_PAIRS.length;
+}
+function pickMatch(side, idx, el){
+  if(el.classList.contains('matched')) return;
+  if(side==='left'){
+    document.querySelectorAll('#matchLeft .match-card').forEach(c=>c.classList.remove('picked'));
+    el.classList.add('picked'); matchPickedLeft = {idx, el};
+  } else {
+    document.querySelectorAll('#matchRight .match-card').forEach(c=>c.classList.remove('picked'));
+    el.classList.add('picked'); matchPickedRight = {idx, el};
+  }
+  if(matchPickedLeft && matchPickedRight){
+    if(matchPickedLeft.idx === matchPickedRight.idx){
+      matchPickedLeft.el.classList.add('matched'); matchPickedLeft.el.classList.remove('picked');
+      matchPickedRight.el.classList.add('matched'); matchPickedRight.el.classList.remove('picked');
+      matchCount++;
+      document.getElementById('matchScore').textContent = (lang==='en'?"Matched: ":"பொருத்தப்பட்டவை: ")+matchCount+" / "+MATCH_PAIRS.length;
+      matchPickedLeft=null; matchPickedRight=null;
+      if(matchCount===MATCH_PAIRS.length) markComplete('match');
+    } else {
+      matchPickedLeft.el.classList.add('wrong'); matchPickedRight.el.classList.add('wrong');
+      setTimeout(()=>{
+        matchPickedLeft.el.classList.remove('wrong','picked');
+        matchPickedRight.el.classList.remove('wrong','picked');
+        matchPickedLeft=null; matchPickedRight=null;
+      },450);
+    }
+  }
+}
+
+/* ============================================================
+   COMMON MISTAKES
+   ============================================================ */
+const MISTAKES = [
+{x:{en:"Numbering the chain from the end nearest a substituent instead of the principal functional group.", ta:"முதன்மைத் தொகுதிக்குப் பதிலாக பதிலீட்டுக்கு அருகிலுள்ள முனையிலிருந்து எண்ணிடுதல்."},
+ ok:{en:"Always give the lowest locant to the principal functional group first — substituents are considered only after that.", ta:"முதலில் முதன்மைச் செயல்பாட்டுத் தொகுதிக்கு எப்போதும் குறைந்த இட எண்ணைக் கொடுக்கவும் — பதிலீடுகள் அதற்குப் பிறகே கருதப்படும்."}},
+{x:{en:"Listing substituents by locant number instead of alphabetical order (e.g. writing 2-Methyl-3-ethyl...).", ta:"அகரவரிசைக்குப் பதிலாக இட எண் வரிசையில் பதிலீடுகளை பட்டியலிடுதல் (எ.கா. 2-Methyl-3-ethyl... என எழுதுதல்)."},
+ ok:{en:"Cite substituents alphabetically: 3-Ethyl-2-methyl... ('E' before 'M').", ta:"பதிலீடுகளை அகரவரிசையில் குறிப்பிடவும்: 3-Ethyl-2-methyl... ('E' 'M' க்கு முன்)."}},
+{x:{en:"Counting 'di' or 'tri' when alphabetising (treating 'dimethyl' as starting with 'd').", ta:"அகரவரிசைப்படுத்தும்போது 'di' அல்லது 'tri' ஐக் கணக்கிடுதல் ('dimethyl' ஐ 'd' என தொடங்குவதாகக் கருதுதல்)."},
+ ok:{en:"Ignore multiplying prefixes (di-, tri-, tetra-) when alphabetising — sort by the substituent's base name.", ta:"அகரவரிசைப்படுத்தும்போது பெருக்கல் முன்னொட்டுகளை (di-, tri-, tetra-) புறக்கணிக்கவும் — பதிலீட்டின் அடிப்படைப் பெயரின்படி வரிசைப்படுத்தவும்."}},
+{x:{en:"Choosing a shorter chain that misses part of the principal functional group.", ta:"முதன்மைச் செயல்பாட்டுத் தொகுதியின் ஒரு பகுதியைத் தவறவிடும் குறுகிய சங்கிலியைத் தேர்ந்தெடுத்தல்."},
+ ok:{en:"The parent chain must contain the maximum number of atoms of the principal functional group, even if a longer alternate chain exists elsewhere.", ta:"வேறு எங்காவது நீளமான சங்கிலி இருந்தாலும், முதன்மைச் சங்கிலி முதன்மைச் செயல்பாட்டுத் தொகுதியின் அதிகபட்ச அணுக்களைக் கொண்டிருக்க வேண்டும்."}}
+];
+function renderMistakes(){
+  const grid = document.getElementById('mistakeGrid'); grid.innerHTML='';
+  MISTAKES.forEach(m=>{
+    const d = document.createElement('div'); d.className='card mistake-card';
+    d.innerHTML = `<div class="mrow x"><span class="tag">✗</span><span>${m.x[lang]}</span></div>
+                   <div class="mrow ok"><span class="tag">✓</span><span>${m.ok[lang]}</span></div>`;
+    grid.appendChild(d);
+  });
+}
+
+/* ============================================================
+   REFERENCE TABLE
+   ============================================================ */
+const REF_ROWS = [
+  {g:"–COOH", s:{en:"–oic acid", ta:"–oic acid"}, ex:"Ethanoic acid"},
+  {g:"–SO₃H", s:{en:"–sulfonic acid", ta:"–sulfonic acid"}, ex:"Benzenesulfonic acid"},
+  {g:"–COOR", s:{en:"–oate (ester)", ta:"–oate (எஸ்டர்)"}, ex:"Methyl ethanoate"},
+  {g:"–CONH₂", s:{en:"–amide", ta:"–amide"}, ex:"Ethanamide"},
+  {g:"–CN", s:{en:"–nitrile", ta:"–nitrile"}, ex:"Ethanenitrile"},
+  {g:"–CHO", s:{en:"–al", ta:"–al"}, ex:"Propanal"},
+  {g:"–CO– (ketone)", s:{en:"–one", ta:"–one"}, ex:"Propan-2-one"},
+  {g:"–OH", s:{en:"–ol", ta:"–ol"}, ex:"Ethanol"},
+  {g:"–SH", s:{en:"–thiol", ta:"–thiol"}, ex:"Ethanethiol"},
+  {g:"–NH₂", s:{en:"–amine", ta:"–amine"}, ex:"Ethanamine"},
+  {g:"C=C", s:{en:"–ene", ta:"–ene"}, ex:"But-2-ene"},
+  {g:"C≡C", s:{en:"–yne", ta:"–yne"}, ex:"Propyne"}
+];
+function renderReference(){
+  const body = document.getElementById('refBody'); body.innerHTML='';
+  REF_ROWS.forEach(r=>{
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td style="font-family:var(--mono);">${r.g}</td><td>${r.s[lang]}</td><td style="font-family:var(--mono);">${r.ex}</td>`;
+    body.appendChild(tr);
+  });
+}
+
+/* ============================================================
+   PROGRESS + BADGES
+   ============================================================ */
+const completion = {dnd:false, match:false, quiz:false};
+function markComplete(key){
+  completion[key]=true;
+  updateProgress();
+}
+function updateProgress(){
+  const done = Object.values(completion).filter(Boolean).length;
+  const pct = Math.round(done/3*100);
+  const ring = document.getElementById('progRing');
+  ring.style.setProperty('--pct', pct);
+  ring.setAttribute('data-pct', pct);
+  renderBadges();
+}
+const BADGES = [
+  {key:'dnd', en:"Sequence Master", ta:"வரிசை மாஸ்டர்", icon:"🧩"},
+  {key:'match', en:"Matching Master", ta:"பொருத்தல் மாஸ்டர்", icon:"🔗"},
+  {key:'quiz', en:"Quiz Master", ta:"வினாடி வினா மாஸ்டர்", icon:"🏆"}
+];
+function renderBadges(){
+  const row = document.getElementById('badgeRow'); row.innerHTML='';
+  BADGES.forEach(b=>{
+    const el = document.createElement('div');
+    el.className = 'badge'+(completion[b.key]?' earned':'');
+    el.innerHTML = `<span>${b.icon}</span><span>${b[lang]}</span>`;
+    row.appendChild(el);
+  });
+}
+
+/* ============================================================
+   QUIZ
+   ============================================================ */
+const QUIZ = [
+{q:{en:"Which chain must be chosen as the parent chain?", ta:"எந்த சங்கிலி முதன்மைச் சங்கிலியாகத் தேர்ந்தெடுக்கப்பட வேண்டும்?"},
+ opts:{en:["The shortest chain","The longest chain containing the maximum number of the principal functional group","Any chain with substituents","The chain drawn on the left"],
+       ta:["மிகக் குறுகிய சங்கிலி","முதன்மைச் செயல்பாட்டுத் தொகுதியின் அதிகபட்ச அணுக்களைக் கொண்ட மிக நீளமான சங்கிலி","பதிலீடுகளுடன் கூடிய எந்த சங்கிலியும்","இடதுபுறம் வரையப்பட்ட சங்கிலி"]},
+ correct:1, exp:{en:"The parent (longest) chain must contain the maximum number of skeletal atoms of the principal functional group.", ta:"முதன்மை (நீளமான) சங்கிலி, முதன்மைச் செயல்பாட்டுத் தொகுதியின் அதிகபட்ச அணுக்களைக் கொண்டிருக்க வேண்டும்."}},
+{q:{en:"Numbering of the parent chain should give the lowest locant first to:", ta:"முதன்மைச் சங்கிலிக்கு எண்ணிடும்போது முதலில் குறைந்த இட எண் யாருக்குக் கொடுக்கப்பட வேண்டும்:"},
+ opts:{en:["Any substituent","The principal characteristic group / functional suffix","The last carbon atom","The methyl group only"],
+       ta:["ஏதேனும் ஒரு பதிலீடு","முதன்மைச் செயல்பாட்டுத் தொகுதி / பின்னொட்டு","கடைசி கார்பன் அணு","மெத்தில் தொகுதி மட்டும்"]},
+ correct:1, exp:{en:"The principal functional group always gets the lowest possible locant before substituents are considered.", ta:"பதிலீடுகளைக் கருதுவதற்கு முன், முதன்மைச் செயல்பாட்டுத் தொகுதிக்கு எப்போதும் மிகக் குறைந்த இட எண் கொடுக்கப்படும்."}},
+{q:{en:"True or False: IUPAC names are written as more than one word.", ta:"சரியா தவறா: IUPAC பெயர்கள் ஒன்றுக்கு மேற்பட்ட சொற்களாக எழுதப்படும்."},
+ opts:{en:["True","False"], ta:["சரி","தவறு"]},
+ correct:1, exp:{en:"False — IUPAC names are written as a single word, except for salts, acids and their derivatives.", ta:"தவறு — உப்புகள், அமிலங்கள் மற்றும் அவற்றின் வழிப்பொருள்கள் தவிர, IUPAC பெயர்கள் ஒரே சொல்லாக எழுதப்படும்."}},
+{q:{en:"In 2,2-Dimethyl-3-hexene, what does the comma between the two 2's represent?", ta:"2,2-Dimethyl-3-hexene இல், இரண்டு '2' களுக்கு இடையேயுள்ள காற்புள்ளி எதைக் குறிக்கிறது?"},
+ opts:{en:["A separator between two adjacent numbers","A separator between a number and a letter","A multiplying prefix","An error"], ta:["இரண்டு அருகிலுள்ள எண்களுக்கு இடையேயான பிரிப்பான்","எண்ணுக்கும் எழுத்துக்கும் இடையேயான பிரிப்பான்","ஒரு பெருக்கல் முன்னொட்டு","ஒரு பிழை"]},
+ correct:0, exp:{en:"Commas are used between two adjacent numbers; hyphens separate numbers from letters.", ta:"அருகிலுள்ள இரண்டு எண்களுக்கு இடையே காற்புள்ளி பயன்படுத்தப்படும்; எண்களையும் எழுத்துக்களையும் இணைப்புக்கோடு பிரிக்கும்."}},
+{q:{en:"Which functional group has the highest priority for choosing the principal suffix?", ta:"முதன்மைப் பின்னொட்டைத் தேர்ந்தெடுப்பதற்கு எந்த செயல்பாட்டுத் தொகுதிக்கு அதிக முன்னுரிமை உண்டு?"},
+ opts:{en:["–OH","–NH₂","–COOH","C=C"], ta:["–OH","–NH₂","–COOH","C=C"]},
+ correct:2, exp:{en:"–COOH (carboxylic acid) stands at the top of the precedence order among these.", ta:"இவற்றுள் –COOH (கார்பாக்சிலிக் அமிலம்) முன்னுரிமை வரிசையில் முதலிடத்தில் உள்ளது."}},
+{q:{en:"When two substituents are equally close to alphabetical order, which is named first: 3-Ethyl-2-methylpentane or 2-Methyl-3-ethylpentane?", ta:"3-Ethyl-2-methylpentane அல்லது 2-Methyl-3-ethylpentane — எது சரியான பெயர்?"},
+ opts:{en:["3-Ethyl-2-methylpentane","2-Methyl-3-ethylpentane","Both are equally correct","Neither is correct"], ta:["3-Ethyl-2-methylpentane","2-Methyl-3-ethylpentane","இரண்டும் சரியானவை","இரண்டும் தவறானவை"]},
+ correct:0, exp:{en:"Substituents are cited alphabetically ('Ethyl' before 'Methyl'), regardless of their locant numbers.", ta:"பதிலீடுகள் இட எண்ணைப் பொருட்படுத்தாமல் அகரவரிசையில் ('Ethyl' 'Methyl' க்கு முன்) குறிப்பிடப்படும்."}},
+{q:{en:"Is the 'di' in 'dimethyl' considered when alphabetising substituents?", ta:"பதிலீடுகளை அகரவரிசைப்படுத்தும்போது 'dimethyl' இல் உள்ள 'di' கருதப்படுமா?"},
+ opts:{en:["Yes, always","No, multiplying prefixes are ignored","Only for 'tri'","Only in Tamil names"], ta:["ஆம், எப்போதும்","இல்லை, பெருக்கல் முன்னொட்டுகள் புறக்கணிக்கப்படும்","'tri' க்கு மட்டும்","தமிழ் பெயர்களில் மட்டும்"]},
+ correct:1, exp:{en:"Multiplying prefixes (di-, tri-, tetra-) are ignored when alphabetising and when capitalising at the start of a sentence.", ta:"அகரவரிசைப்படுத்தும்போதும், வாக்கியத்தின் தொடக்கத்தில் பெரிய எழுத்துப் போடும்போதும், பெருக்கல் முன்னொட்டுகள் புறக்கணிக்கப்படும்."}},
+{q:{en:"Structural prefixes such as sec-, tert-, cis-, trans- are:", ta:"sec-, tert-, cis-, trans- போன்ற கட்டமைப்பு முன்னொட்டுகள்:"},
+ opts:{en:["Written in capital letters","Italicised and joined by a hyphen","Ignored completely","Written as separate words"], ta:["பெரிய எழுத்துக்களில் எழுதப்படும்","சாய்வெழுத்தில் இணைப்புக்கோட்டுடன் இணைக்கப்படும்","முழுவதுமாக புறக்கணிக்கப்படும்","தனித்தனி சொற்களாக எழுதப்படும்"]},
+ correct:1, exp:{en:"They are italicised and joined to the rest of the name with a hyphen, e.g. trans-2-Butene.", ta:"அவை சாய்வெழுத்தில் இணைப்புக்கோட்டுடன் பெயரின் மற்ற பகுதியுடன் இணைக்கப்படும், எ.கா. trans-2-Butene."}},
+{q:{en:"For CH₃-CH₂-CH(CH₃)-CH₂-CH₂-COOH, from which end should the chain be numbered?", ta:"CH₃-CH₂-CH(CH₃)-CH₂-CH₂-COOH இல், சங்கிலி எந்த முனையிலிருந்து எண்ணிடப்பட வேண்டும்?"},
+ opts:{en:["From the COOH end, so COOH carbon is C1","From the CH₃ end, so COOH carbon is C6","It does not matter","From whichever end has the methyl substituent"], ta:["COOH முனையிலிருந்து, COOH கார்பன் C1 ஆக இருக்கும்","CH₃ முனையிலிருந்து, COOH கார்பன் C6 ஆக இருக்கும்","இது முக்கியமல்ல","மெத்தில் பதிலீடு உள்ள முனையிலிருந்து"]},
+ correct:0, exp:{en:"The principal functional group (–COOH) must always receive the lowest possible locant, C1.", ta:"முதன்மைச் செயல்பாட்டுத் தொகுதி (–COOH) எப்போதும் மிகக் குறைந்த இட எண்ணான C1 ஐப் பெற வேண்டும்."}},
+{q:{en:"Which is the correctly punctuated IUPAC name?", ta:"எது சரியாக நிறுத்தற்குறியிடப்பட்ட IUPAC பெயர்?"},
+ opts:{en:["2 2-Dimethyl 3-hexene","2,2 Dimethyl,3 hexene","2,2-Dimethyl-3-hexene","2-2-Dimethyl-3-hexene"], ta:["2 2-Dimethyl 3-hexene","2,2 Dimethyl,3 hexene","2,2-Dimethyl-3-hexene","2-2-Dimethyl-3-hexene"]},
+ correct:2, exp:{en:"Commas separate adjacent numbers (2,2); hyphens separate numbers from letters (2-Dimethyl, 3-hexene).", ta:"அருகிலுள்ள எண்களை (2,2) காற்புள்ளி பிரிக்கும்; எண்களையும் எழுத்துக்களையும் (2-Dimethyl, 3-hexene) இணைப்புக்கோடு பிரிக்கும்."}}
+];
+let quizIdx=0, quizScore=0, quizAnswered=false;
+function renderQuizQuestion(){
+  const card = document.getElementById('quizCard');
+  if(quizIdx>=QUIZ.length){ renderQuizResult(); return; }
+  const q = QUIZ[quizIdx];
+  quizAnswered=false;
+  const pct = Math.round((quizIdx)/QUIZ.length*100);
+  card.innerHTML = `
+    <div class="quiz-progress"><span>${lang==='en'?'Question':'வினா'} ${quizIdx+1} / ${QUIZ.length}</span><span>${lang==='en'?'Score':'மதிப்பெண்'}: ${quizScore}</span></div>
+    <div class="quiz-bar"><div class="quiz-bar-fill" style="width:${pct}%"></div></div>
+    <div class="q-text">${q.q[lang]}</div>
+    <div class="q-options" id="qOpts"></div>
+    <div class="q-explain" id="qExplain"></div>
+    <div style="margin-top:16px; text-align:right;"><button class="btn" id="qNextBtn" style="display:none;" onclick="nextQuizQ()">${lang==='en'?'Next':'அடுத்து'} →</button></div>
+  `;
+  const optsBox = document.getElementById('qOpts');
+  q.opts[lang].forEach((optTxt,i)=>{
+    const b = document.createElement('button'); b.className='q-opt'; b.textContent = optTxt;
+    b.onclick = ()=>answerQuiz(i);
+    optsBox.appendChild(b);
+  });
+}
+function answerQuiz(i){
+  if(quizAnswered) return;
+  quizAnswered = true;
+  const q = QUIZ[quizIdx];
+  const opts = document.querySelectorAll('#qOpts .q-opt');
+  opts.forEach((el,idx)=>{
+    el.disabled = true;
+    if(idx===q.correct) el.classList.add('correct');
+    else if(idx===i) el.classList.add('incorrect');
+  });
+  if(i===q.correct) quizScore++;
+  const exp = document.getElementById('qExplain');
+  exp.style.display='block';
+  exp.innerHTML = `<strong>${i===q.correct? (lang==='en'?'✓ Correct!':'✓ சரி!') : (lang==='en'?'✗ Incorrect.':'✗ தவறு.')}</strong> ${q.exp[lang]}`;
+  document.getElementById('qNextBtn').style.display='inline-flex';
+}
+function nextQuizQ(){ quizIdx++; renderQuizQuestion(); }
+function renderQuizResult(){
+  const card = document.getElementById('quizCard');
+  const pct = Math.round(quizScore/QUIZ.length*100);
+  let msg;
+  if(pct>=90) msg = {en:"Excellent! You have mastered this topic.", ta:"மிகச் சிறப்பு! இந்தத் தலைப்பில் தேர்ச்சி பெற்றுவிட்டீர்கள்."};
+  else if(pct>=70) msg = {en:"Very Good! Keep practising.", ta:"மிக நன்று! தொடர்ந்து பயிற்சி செய்யுங்கள்."};
+  else if(pct>=50) msg = {en:"Good effort. Review the concepts once more.", ta:"நல்ல முயற்சி. கருத்துகளை மீண்டும் ஒருமுறை பார்வையிடுங்கள்."};
+  else msg = {en:"Let's practise the simulator again and try once more.", ta:"சிமுலேட்டரை மீண்டும் பயிற்சி செய்து மீண்டும் முயற்சிக்கலாம்."};
+  card.innerHTML = `
+    <div class="quiz-result">
+      <div class="big">${quizScore}/${QUIZ.length}</div>
+      <p style="font-size:16px; font-weight:700; color:var(--navy);">${pct}%</p>
+      <p style="font-size:15px;">${msg[lang]}</p>
+      <button class="btn" onclick="retryQuiz()">${lang==='en'?'Retry Quiz':'மீண்டும் முயற்சி'}</button>
+    </div>`;
+  markComplete('quiz');
+}
+function retryQuiz(){ quizIdx=0; quizScore=0; renderQuizQuestion(); }
+
+/* ============================================================
+   INIT
+   ============================================================ */
+function init(){
+  applyStatic();
+  renderObjectives();
+  renderConcepts();
+  renderMistakes();
+  renderReference();
+  renderChainControls();
+  renderSubList();
+  updateSimulator();
+  renderSequencePool();
+  renderSequenceTarget();
+  renderMatching();
+  renderQuizQuestion();
+  updateProgress();
+}
+init();
+</script>
+</body>
+</html>
