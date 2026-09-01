@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -1185,7 +1184,7 @@ const translations = {
       "Interactive learning resources",
 
     search:
-      "Search subject, class, volume, unit, topic, type, teacher, school...",
+      "Search subject, class, volume, unit, topic, teacher, school...",
 
     clear:
       "Clear",
@@ -1223,9 +1222,6 @@ const translations = {
     unitName:
       "Chapter Name",
 
-    type:
-      "Type",
-
     topic:
       "Topic",
 
@@ -1253,7 +1249,7 @@ const translations = {
       "ஊடாடும் கற்றல் வளங்கள்",
 
     search:
-      "பாடம், வகுப்பு, தொகுதி, அலகு, தலைப்பு, வகை, ஆசிரியர், பள்ளி ஆகியவற்றைத் தேடுக...",
+      "பாடம், வகுப்பு, தொகுதி, அலகு, தலைப்பு, ஆசிரியர், பள்ளி ஆகியவற்றைத் தேடுக...",
 
     clear:
       "அழி",
@@ -1290,9 +1286,6 @@ const translations = {
 
     unitName:
       "பாடத்தலைப்பு",
-
-    type:
-      "வகை",
 
     topic:
       "தலைப்பு",
@@ -1333,13 +1326,7 @@ const subjectTamil = {
     "கணினி அறிவியல்",
 
   "Computer Applications":
-    "கணினி பயன்பாடுகள்",
-
-  "Botany":
-    "தாவரவியல்",
-
-  "Zoology":
-    "விலங்கியல்"
+    "கணினி பயன்பாடுகள்"
 
 };
 
@@ -1405,13 +1392,7 @@ const valueTamil = {
     "அலகு",
 
   "Topic":
-    "தலைப்பு",
-
-  "Botany":
-    "தாவரவியல்",
-
-  "Zoology":
-    "விலங்கியல்"
+    "தலைப்பு"
 
 };
 
@@ -1644,52 +1625,54 @@ function applyLanguage() {
    LOAD PORTAL
    ===================================================== */
 
-async function loadPortal() {
+const API_URL =
+  "https://script.google.com/macros/s/AKfycbyfPkBwbe6JwRojDOjOmCjju8W_E80fKKfZ8NIDXX30nFaw6ttY9tmc1zJzSw1oF_GzSg/exec?action=data";
 
-  const loading = document.getElementById("loading");
+async function loadPortal() {
 
   try {
 
-    if (loading) {
-      loading.style.display = "block";
-      loading.textContent =
-        currentLanguage === "ta"
-          ? "வளங்கள் ஏற்றப்படுகின்றன..."
-          : "Loading resources...";
-    }
-
-    const response = await fetch(
-      "https://script.google.com/macros/s/AKfycbvfPkBwbe6JwRojDOjOmCjju8W_E80fKKfZ8NIDXX30nFaw6tY9tmc1zJzSw1oF_GzSg/exec"
-    );
+    const response =
+      await fetch(API_URL);
 
     if (!response.ok) {
+
       throw new Error(
-        "Server returned " + response.status
+        "Unable to connect to the portal."
       );
+
     }
 
-    const data = await response.json();
-
-    console.log("Portal data received:", data);
+    const data =
+      await response.json();
 
     portalData = data;
 
     if (!data) {
+
       showError(
         "Unable to load portal data."
       );
+
       return;
+
     }
 
     if (!data.authorized) {
+
       showError(
         data.message ||
-        translations[currentLanguage].accessDenied
+        translations[
+          currentLanguage
+        ].accessDenied
       );
+
       return;
+
     }
 
-    resources = data.resources || [];
+    resources =
+      data.resources || [];
 
     subjects =
       data.subjects ||
@@ -1698,19 +1681,19 @@ async function loadPortal() {
         "Chemistry",
         "Mathematics",
         "Computer Science",
-        "Computer Applications",
-        "Botany",
-        "Zoology"
+        "Computer Applications"
       ];
 
-    /*
-     * Make sure selected subject exists.
-     */
     if (
       subjects.length > 0 &&
-      !subjects.includes(selectedSubject)
+      !subjects.includes(
+        selectedSubject
+      )
     ) {
-      selectedSubject = subjects[0];
+
+      selectedSubject =
+        subjects[0];
+
     }
 
     applyLanguage();
@@ -1721,25 +1704,19 @@ async function loadPortal() {
 
     positionStickyControls();
 
-  } catch (error) {
+  }
 
-    console.error(
-      "Portal loading error:",
-      error
-    );
+  catch (error) {
+
+    console.error(error);
 
     showError(
       error.message ||
       "Unable to connect to the portal."
     );
 
-  } finally {
-
-    if (loading) {
-      loading.style.display = "none";
-    }
-
   }
+
 }
 
 
@@ -1877,29 +1854,27 @@ function renderResources() {
 
         const searchable = [
 
-  resource.subject,
+          resource.subject,
 
-  resource.className,
+          resource.className,
 
-  resource.volume,
+          resource.volume,
 
-  resource.unit,
+          resource.unit,
 
-  resource.unitName,
+          resource.unitName,
 
-  resource.topic,
+          resource.topic,
 
-  resource.type,
+          resource.medium,
 
-  resource.medium,
+          resource.teacher,
 
-  resource.teacher,
+          resource.school
 
-  resource.school
-
-]
-  .join(" ")
-  .toLowerCase();
+        ]
+          .join(" ")
+          .toLowerCase();
 
 
         return searchable.includes(
@@ -2185,19 +2160,12 @@ function createResourceCard(
           )
         )}
 
+
         ${detailBox(
           t.unitName,
           translateField(
             resource,
             "unitName"
-          )
-        )}
-
-        ${detailBox(
-          t.type,
-          translateField(
-            resource,
-            "type"
           )
         )}
 
