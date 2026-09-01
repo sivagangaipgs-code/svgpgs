@@ -8,7 +8,9 @@ const CONFIG = {
     'Chemistry',
     'Mathematics',
     'Computer Science',
-    'Computer Applications'
+    'Computer Applications',
+    "Botany",
+    "Zoology"
   ]
 };
 
@@ -24,28 +26,9 @@ function getSpreadsheet_() {
     );
   }
 }
+
 function doGet(e) {
 
-  const action =
-    (e && e.parameter && e.parameter.action)
-      ? e.parameter.action
-      : "";
-
-  // API for Netlify website
-  if (action === "data") {
-
-    const data = getPortalData();
-
-    return ContentService
-      .createTextOutput(
-        JSON.stringify(data)
-      )
-      .setMimeType(
-        ContentService.MimeType.JSON
-      );
-  }
-
-  // Normal Apps Script website
   const page =
     (e && e.parameter && e.parameter.page)
       ? e.parameter.page
@@ -53,9 +36,7 @@ function doGet(e) {
 
   return HtmlService
     .createHtmlOutputFromFile(page)
-    .setTitle(
-      "SVG PG Teachers' Resource Portal"
-    )
+    .setTitle("SVG PG Teachers' Resource Portal")
     .setXFrameOptionsMode(
       HtmlService.XFrameOptionsMode.ALLOWALL
     );
@@ -385,6 +366,12 @@ function readResources_() {
       'topic in english'
     ]),
 
+  // TYPE
+    type: findColumn([
+    'type',
+    'resource type',
+    'வகை'
+    ]),
     // CHAPTER NAME IN TAMIL
     unitNameTa: findColumn([
       'chapter name (தமிழில்)',
@@ -484,6 +471,9 @@ function readResources_() {
 
       topic:
         get(row, c.topic),
+
+      type:
+        get(row, c.type),
 
       unitName_ta:
         get(row, c.unitNameTa),

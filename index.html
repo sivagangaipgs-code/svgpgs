@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -1184,7 +1185,7 @@ const translations = {
       "Interactive learning resources",
 
     search:
-      "Search subject, class, volume, unit, topic, teacher, school...",
+      "Search subject, class, volume, unit, topic, type, teacher, school...",
 
     clear:
       "Clear",
@@ -1222,6 +1223,9 @@ const translations = {
     unitName:
       "Chapter Name",
 
+    type:
+      "Type",
+
     topic:
       "Topic",
 
@@ -1249,7 +1253,7 @@ const translations = {
       "ஊடாடும் கற்றல் வளங்கள்",
 
     search:
-      "பாடம், வகுப்பு, தொகுதி, அலகு, தலைப்பு, ஆசிரியர், பள்ளி ஆகியவற்றைத் தேடுக...",
+      "பாடம், வகுப்பு, தொகுதி, அலகு, தலைப்பு, வகை, ஆசிரியர், பள்ளி ஆகியவற்றைத் தேடுக...",
 
     clear:
       "அழி",
@@ -1286,6 +1290,9 @@ const translations = {
 
     unitName:
       "பாடத்தலைப்பு",
+
+    type:
+      "வகை",
 
     topic:
       "தலைப்பு",
@@ -1326,7 +1333,13 @@ const subjectTamil = {
     "கணினி அறிவியல்",
 
   "Computer Applications":
-    "கணினி பயன்பாடுகள்"
+    "கணினி பயன்பாடுகள்",
+
+  "Botany":
+    "தாவரவியல்",
+
+  "Zoology":
+    "விலங்கியல்"
 
 };
 
@@ -1392,7 +1405,13 @@ const valueTamil = {
     "அலகு",
 
   "Topic":
-    "தலைப்பு"
+    "தலைப்பு",
+
+  "Botany":
+    "தாவரவியல்",
+
+  "Zoology":
+    "விலங்கியல்"
 
 };
 
@@ -1625,97 +1644,101 @@ function applyLanguage() {
    LOAD PORTAL
    ===================================================== */
 
-const API_URL =
-  "https://script.google.com/macros/s/AKfycbyfPkBwbe6JwRojDOjOmCjju8W_E80fKKfZ8NIDXX30nFaw6ttY9tmc1zJzSw1oF_GzSg/exec?action=data";
+function loadPortal() {
 
-async function loadPortal() {
+  google.script.run
 
-  try {
+    .withSuccessHandler(
+      function(data) {
 
-    const response =
-      await fetch(API_URL);
+        portalData = data;
 
-    if (!response.ok) {
 
-      throw new Error(
-        "Unable to connect to the portal."
-      );
+        if (!data) {
 
-    }
+          showError(
+            "Unable to load portal data."
+          );
 
-    const data =
-      await response.json();
+          return;
 
-    portalData = data;
+        }
 
-    if (!data) {
 
-      showError(
-        "Unable to load portal data."
-      );
+        if (!data.authorized) {
 
-      return;
+          showError(
+            data.message ||
+            translations[
+              currentLanguage
+            ].accessDenied
+          );
 
-    }
+          return;
 
-    if (!data.authorized) {
+        }
 
-      showError(
-        data.message ||
-        translations[
-          currentLanguage
-        ].accessDenied
-      );
 
-      return;
+        resources =
+          data.resources || [];
 
-    }
 
-    resources =
-      data.resources || [];
+        subjects =
+          data.subjects ||
+          [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Computer Science",
+            "Computer Applications",
+            "Botany",
+            "Zoology"
+          ];
 
-    subjects =
-      data.subjects ||
-      [
-        "Physics",
-        "Chemistry",
-        "Mathematics",
-        "Computer Science",
-        "Computer Applications"
-      ];
 
-    if (
-      subjects.length > 0 &&
-      !subjects.includes(
-        selectedSubject
-      )
-    ) {
+        
 
-      selectedSubject =
-        subjects[0];
 
-    }
+        /*
+           Make sure selected subject exists.
+        */
 
-    applyLanguage();
+        if (
+          subjects.length > 0 &&
+          !subjects.includes(
+            selectedSubject
+          )
+        ) {
 
-    renderSubjectTabs();
+          selectedSubject =
+            subjects[0];
 
-    renderResources();
+        }
 
-    positionStickyControls();
 
-  }
+        applyLanguage();
 
-  catch (error) {
+        renderSubjectTabs();
 
-    console.error(error);
+        renderResources();
 
-    showError(
-      error.message ||
-      "Unable to connect to the portal."
-    );
+        positionStickyControls();
 
-  }
+      }
+    )
+
+    .withFailureHandler(
+      function(error) {
+
+        showError(
+          error.message ||
+          "Unable to connect to the portal."
+        );
+
+      }
+    )
+
+    .getPortalData();
 
 }
 
@@ -1865,6 +1888,8 @@ function renderResources() {
           resource.unitName,
 
           resource.topic,
+
+          resource.type,
 
           resource.medium,
 
@@ -2160,12 +2185,19 @@ function createResourceCard(
           )
         )}
 
-
         ${detailBox(
           t.unitName,
           translateField(
             resource,
             "unitName"
+          )
+        )}
+
+        ${detailBox(
+          t.type,
+          translateField(
+            resource,
+            "type"
           )
         )}
 
