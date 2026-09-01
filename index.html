@@ -1649,100 +1649,70 @@ function applyLanguage() {
    LOAD PORTAL
    ===================================================== */
 
-const API_URL ="https://script.google.com/macros/s/AKfycbxD_11rcADkRVMvio_16CqcW6IvtuOIraSG549hJiGJ1FfBZ4gZF1ILtSej-Pgikjilug/exec?action=data";
+const API_URL =
+  "https://script.google.com/macros/s/AKfycbxD_11rcADkRVMvio_16CqcW6IvtuOIraSG549hJiGJ1FfBZ4gZF1ILtSej-Pgikjilug/exec?action=data";
 
 async function loadPortal() {
 
   try {
 
-    const response =
-      await fetch(API_URL);
+    const response = await fetch(API_URL);
 
     if (!response.ok) {
-
-      throw new Error(
-        "Unable to connect to the portal."
-      );
-
+      throw new Error("Unable to connect to the portal.");
     }
 
-    const data =
-      await response.json();
+    const data = await response.json();
 
     portalData = data;
 
     if (!data) {
-
-      showError(
-        "Unable to load portal data."
-      );
-
+      showError("Unable to load portal data.");
       return;
-
     }
 
     if (!data.authorized) {
-
       showError(
         data.message ||
-        translations[
-          currentLanguage
-        ].accessDenied
+        translations[currentLanguage].accessDenied
       );
-
       return;
-
     }
 
-    resources =
-      data.resources || [];
+    resources = data.resources || [];
 
-    subjects =
-          data.subjects ||
-          [
-            "Physics",
-            "Chemistry",
-            "Mathematics",
-            "Computer Science",
-            "Computer Applications",
-            "Botany",
-            "Zoology"
-          ];
+    subjects = data.subjects || [
+      "Physics",
+      "Chemistry",
+      "Mathematics",
+      "Computer Science",
+      "Computer Applications",
+      "Botany",
+      "Zoology"
+    ];
 
-     if (
-          subjects.length > 0 &&
-          !subjects.includes(
-            selectedSubject
-          )
-        ) {
+    if (
+      subjects.length > 0 &&
+      !subjects.includes(selectedSubject)
+    ) {
+      selectedSubject = subjects[0];
+    }
 
-          selectedSubject =
-            subjects[0];
+    applyLanguage();
+    renderSubjectTabs();
+    renderResources();
+    positionStickyControls();
 
-        }
+  } catch (error) {
 
+    showError(
+      error.message ||
+      "Unable to connect to the portal."
+    );
 
-        applyLanguage();
+  }
 
-        renderSubjectTabs();
-
-        renderResources();
-
-        positionStickyControls();
-
-      }
-    )
-
-    .withFailureHandler(
-      function(error) {
-
-        showError(
-          error.message ||
-          "Unable to connect to the portal."
-        );
-
-      }
-    )
+}
 
     .getPortalData();
 
