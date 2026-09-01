@@ -1649,72 +1649,144 @@ function applyLanguage() {
    LOAD PORTAL
    ===================================================== */
 
+/* =====================================================
+   LOAD PORTAL
+   ===================================================== */
+
+/* =====================================================
+   LOAD PORTAL
+   ===================================================== */
+
 const API_URL =
   "https://script.google.com/macros/s/AKfycbxD_11rcADkRVMvio_16CqcW6IvtuOIraSG549hJiGJ1FfBZ4gZF1ILtSej-Pgikjilug/exec?action=data";
 
-async function loadPortal() {
 
-  try {
+function loadPortal() {
 
-    const response = await fetch(API_URL);
+  return new Promise(function(resolve, reject) {
 
-    if (!response.ok) {
-      throw new Error("Unable to connect to the portal.");
-    }
+    const callbackName =
+      "portalCallback_" + Date.now();
 
-    const data = await response.json();
+    window[callbackName] = function(data) {
 
-    portalData = data;
+      try {
 
-    if (!data) {
-      showError("Unable to load portal data.");
-      return;
-    }
+        delete window[callbackName];
 
-    if (!data.authorized) {
-      showError(
-        data.message ||
-        translations[currentLanguage].accessDenied
+        if (!data) {
+          throw new Error(
+            "Unable to load portal data."
+          );
+        }
+
+        portalData = data;
+
+        if (!data.authorized) {
+
+          showError(
+            data.message ||
+            translations[
+              currentLanguage
+            ].accessDenied
+          );
+
+          resolve(data);
+          return;
+        }
+
+        resources =
+          data.resources || [];
+
+        subjects =
+          data.subjects || [
+            "Physics",
+            "Chemistry",
+            "Mathematics",
+            "Computer Science",
+            "Computer Applications",
+            "Botany",
+            "Zoology"
+          ];
+
+        if (
+          subjects.length > 0 &&
+          !subjects.includes(
+            selectedSubject
+          )
+        ) {
+          selectedSubject =
+            subjects[0];
+        }
+
+        applyLanguage();
+        renderSubjectTabs();
+        renderResources();
+        positionStickyControls();
+
+        resolve(data);
+
+      } catch (error) {
+
+        console.error(
+          "Portal loading error:",
+          error
+        );
+
+        showError(
+          error.message ||
+          "Unable to connect to the portal."
+        );
+
+        reject(error);
+      }
+
+    };
+
+
+    const script =
+      document.createElement("script");
+
+    script.src =
+      API_URL +
+      "&callback=" +
+      callbackName;
+
+    script.async = true;
+
+
+    script.onerror = function() {
+
+      delete window[callbackName];
+
+      const error =
+        new Error(
+          "Unable to connect to the portal."
+        );
+
+      console.error(
+        "Portal loading error:",
+        error
       );
-      return;
-    }
 
-    resources = data.resources || [];
+      showError(
+        error.message
+      );
 
-    subjects = data.subjects || [
-      "Physics",
-      "Chemistry",
-      "Mathematics",
-      "Computer Science",
-      "Computer Applications",
-      "Botany",
-      "Zoology"
-    ];
+      reject(error);
 
-    if (
-      subjects.length > 0 &&
-      !subjects.includes(selectedSubject)
-    ) {
-      selectedSubject = subjects[0];
-    }
+    };
 
-    applyLanguage();
-    renderSubjectTabs();
-    renderResources();
-    positionStickyControls();
 
-  } catch (error) {
+    document.body.appendChild(script);
 
-    showError(
-      error.message ||
-      "Unable to connect to the portal."
-    );
-
-  }
+  });
 
 }
 
-    
+/* =====================================================
+   SUBJECT TABS
+   ===================================================== */
 
 /* =====================================================
    SUBJECT TABS

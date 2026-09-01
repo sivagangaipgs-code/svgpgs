@@ -34,16 +34,36 @@ function doGet(e) {
   // API for Netlify website
   if (action === "data") {
 
-    const data = getPortalData();
+  const data = getPortalData();
+  const callback =
+    e && e.parameter
+      ? e.parameter.callback
+      : "";
+
+  // JSONP response for Netlify
+  if (callback) {
+
+    // Allow only a simple JavaScript function name
+    if (!/^[a-zA-Z_$][0-9a-zA-Z_$]*$/.test(callback)) {
+      return ContentService
+        .createTextOutput("Invalid callback")
+        .setMimeType(ContentService.MimeType.TEXT);
+    }
 
     return ContentService
       .createTextOutput(
-        JSON.stringify(data)
+        callback + "(" + JSON.stringify(data) + ");"
       )
-      .setMimeType(
-        ContentService.MimeType.JSON
-      );
+      .setMimeType(ContentService.MimeType.JAVASCRIPT);
   }
+
+  // Normal JSON response
+  return ContentService
+    .createTextOutput(
+      JSON.stringify(data)
+    )
+    .setMimeType(ContentService.MimeType.JSON);
+}
 
   // Normal Apps Script website
   const page =
