@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>பல்லூடகம் - ஊடாடும் வினாடி வினா</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@400;500;600;700;800&family=Sora:wght@700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0a2a5e; --blue:#0b3d91; --blue-mid:#1f5fbf; --sky-pale:#eaf3fd;
+  --paper:#f5f8fc; --ink:#0f2140; --ink-soft:#3a5170;
+  --amber:#e8a33d; --good:#1f8a5f; --good-bg:#e7f6ee; --bad:#c93f3f; --bad-bg:#fbeaea;
+  --line:#d7e3f3; --shadow:0 10px 30px -12px rgba(10,42,94,.25); --radius:14px;
+}
+*{box-sizing:border-box;}
+body{margin:0;font-family:'Noto Sans Tamil',sans-serif;background:var(--paper);color:var(--ink);padding:26px 14px 60px;}
+.wrap{max-width:760px;margin:0 auto;}
+.topbar{display:flex;align-items:center;gap:14px;background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:14px 18px;margin-bottom:22px;flex-wrap:wrap;}
+.qnum-badge{width:52px;height:52px;border-radius:50%;background:#fff;border:3px solid var(--navy);display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-weight:800;font-size:1.3rem;color:var(--navy);flex-shrink:0;}
+.title-bar{flex:1;background:var(--navy);color:#fff;text-align:center;border-radius:10px;padding:12px 10px;font-size:1.35rem;font-weight:700;min-width:180px;}
+.brand{background:var(--navy);color:#fff;border-radius:10px;padding:8px 14px;text-align:center;font-family:'Sora',sans-serif;font-weight:800;font-size:.82rem;letter-spacing:.03em;}
+.brand span{display:block;color:var(--amber);}
+h2.section{font-size:1.05rem;color:var(--navy);margin:0 0 6px;}
+.instructions{color:var(--ink-soft);font-size:.92rem;margin-bottom:22px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;}
+.qcard{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 20px;margin-bottom:16px;}
+.qtext{font-weight:700;color:var(--navy);margin-bottom:12px;font-size:1.02rem;line-height:1.5;}
+.qtext .qi{color:var(--blue-mid);margin-right:6px;}
+.opts{display:flex;flex-direction:column;gap:9px;}
+.opt{display:flex;align-items:center;gap:10px;background:var(--sky-pale);border:2px solid transparent;border-radius:10px;padding:10px 14px;cursor:pointer;transition:border-color .15s,background .15s;font-size:.95rem;}
+.opt:hover{border-color:var(--blue-mid);}
+.opt input{accent-color:var(--blue-mid);width:16px;height:16px;flex-shrink:0;}
+.opt.correct{background:var(--good-bg);border-color:var(--good);font-weight:700;color:var(--good);}
+.opt.incorrect{background:var(--bad-bg);border-color:var(--bad);font-weight:700;color:var(--bad);}
+.opt.locked{cursor:default;}
+.qfb{margin-top:10px;font-size:.85rem;font-weight:600;display:none;}
+.qfb.show{display:block;}
+.qfb.ok{color:var(--good);}
+.qfb.bad{color:var(--bad);}
+.actions{display:flex;gap:12px;justify-content:center;margin-top:26px;flex-wrap:wrap;}
+button{font-family:inherit;cursor:pointer;border:none;border-radius:10px;padding:13px 28px;font-weight:700;font-size:.98rem;}
+#submitBtn{background:var(--navy);color:#fff;}
+#submitBtn:hover{background:var(--blue);}
+#retryBtn{background:var(--amber);color:#3a2400;display:none;}
+.result{display:none;background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px;text-align:center;margin-top:22px;}
+.result.show{display:block;}
+.result .score{font-family:'Sora',sans-serif;font-size:2.6rem;font-weight:800;color:var(--navy);margin:8px 0;}
+.result .pct{color:var(--ink-soft);margin-bottom:10px;}
+.result .msg{font-weight:700;font-size:1.05rem;margin-bottom:6px;}
+.progress-outer{height:8px;background:#e6eefb;border-radius:6px;overflow:hidden;margin-bottom:22px;}
+.progress-inner{height:100%;width:0%;background:linear-gradient(90deg,#2f8fe0,var(--blue-mid));transition:width .25s;}
+footer{text-align:center;color:var(--ink-soft);font-size:.85rem;margin-top:34px;line-height:1.6;}
+footer b{color:var(--navy);display:block;font-size:.95rem;}
+.warn{display:none;text-align:center;color:var(--bad);font-weight:700;margin-bottom:14px;}
+.warn.show{display:block;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <div class="qnum-badge">1</div>
+    <div class="title-bar">பல்லூடகம்</div>
+    
+  </div>
+
+  <h2 class="section">பகுதி – அ</h2>
+  <div class="instructions">
+    <span>I. சரியான விடையைத் தேர்ந்தெடுத்து எழுதுக.</span>
+    <span>1 மதிப்பெண்</span>
+  </div>
+
+  <div class="progress-outer"><div class="progress-inner" id="progInner"></div></div>
+
+  <form id="quizForm">
+    <div id="questionsWrap"></div>
+  </form>
+
+  <p class="warn" id="warnMsg">அனைத்து வினாக்களுக்கும் விடையளிக்கவும்.</p>
+
+  <div class="actions">
+    <button type="button" id="submitBtn">விடையை சமர்ப்பிக்கவும்</button>
+    <button type="button" id="retryBtn">மீண்டும் முயற்சிக்கவும்</button>
+  </div>
+
+  <div class="result" id="resultBox">
+    <div class="msg" id="resultMsg"></div>
+    <div class="score" id="resultScore"></div>
+    <div class="pct" id="resultPct"></div>
+  </div>
+
+  <footer>
+    <b>Created by B. Nirmal Singh</b>
+    GHSS Keeladi, Sivagangai
+  </footer>
+</div>
+
+<script>
+const questions = [
+  {
+    q: "பல்லூடகம் என்பது ______",
+    opts: [
+      "கணினி வன்பொருள்",
+      "கணினி மென்பொருள்",
+      "கணினி வலையமைப்பு",
+      "தகவல் வழங்குவதற்கு பல வகையான ஊடகங்களைப் பயன்படுத்துதல்"
+    ],
+    ans: 3
+  },
+  {
+    q: "______ என்பது உரை, படங்கள், ஒலி, ஒளிக்காட்சி மற்றும் அசைவூட்டம் போன்ற முக்கியமான ஐந்து கூறுகளை கொண்டதாகும். (Jul 2022, Mar 2025)",
+    opts: [
+      "பல்லூடகம்",
+      "கணினி மென்பொருள்",
+      "கணினி வலையமைப்பு",
+      "பல வார்த்தைகள்"
+    ],
+    ans: 0
+  },
+  {
+    q: "ராஸ்டர் படம் என்பது ______",
+    opts: [
+      "பிக்செல்களைக் கொண்டு உருவாக்கப்பட்ட படம்",
+      "வடிவியல் வடிவங்களைக் கொண்டு உருவாக்கப்பட்ட படம்",
+      "உரையைக் கொண்டு உருவாக்கப்பட்ட படம்",
+      "ஒலியைக் கொண்டு உருவாக்கப்பட்ட படம்"
+    ],
+    ans: 0
+  },
+  {
+    q: "வெக்டர் படம் என்பது ______",
+    opts: [
+      "பிக்செல்களைக் கொண்டு உருவாக்கப்பட்ட படம்",
+      "வடிவியல் வடிவங்களைக் கொண்டு உருவாக்கப்பட்ட படம்",
+      "உரையைக் கொண்டு உருவாக்கப்பட்ட படம்",
+      "ஒலியைக் கொண்டு உருவாக்கப்பட்ட படம்"
+    ],
+    ans: 1
+  },
+  {
+    q: "கீழ்க்கண்டவற்றில் ராஸ்டர் பட கோப்பு வடிவம் எது?",
+    opts: ["JPEG", "EPS", "CDR", "SVG"],
+    ans: 0
+  },
+  {
+    q: "கீழ்க்கண்டவற்றில் வெக்டர் பட கோப்பு வடிவம் எது?",
+    opts: ["PSD", "JPEG", "EPS", "BMP"],
+    ans: 2
+  },
+  {
+    q: "RTF (Rich Text Format) கோப்பு வடிவம் ______ நிறுவனத்தால் அறிமுகப்படுத்தப்பட்டது. (Jun 2023, Jul 2024)",
+    opts: ["TCS", "Microsoft", "Apple Inc", "IBM"],
+    ans: 1
+  },
+  {
+    q: "JPEG ன் விரிவாக்கம் ______ (May 2021, May 2022)",
+    opts: [
+      "Joint Photographic Experts Groups",
+      "Joint Photo Experts Group",
+      "Joint Processor Experts Group",
+      "Joint Photographic Expression Group"
+    ],
+    ans: 0
+  },
+  {
+    q: "AIFF கோப்பு வடிவம் ______ நிறுவனத்தால் உருவாக்கப்பட்டது",
+    opts: ["TCS", "Microsoft", "Apple Inc", "IBM"],
+    ans: 2
+  },
+  {
+    q: "கீழ்க்கண்டவற்றில் ஒலிக் கோப்பு வடிவம் எது?",
+    opts: ["MP3", "AVI", "MPEG", "PNG"],
+    ans: 0
+  }
+];
+
+const tamilLabels = ["அ","ஆ","இ","ஈ"];
+let submitted = false;
+
+function renderQuestions(){
+  const wrap = document.getElementById('questionsWrap');
+  wrap.innerHTML = questions.map((item,qi)=>`
+    <div class="qcard" data-qi="${qi}">
+      <div class="qtext"><span class="qi">${qi+1}.</span>${item.q}</div>
+      <div class="opts">
+        ${item.opts.map((opt,oi)=>`
+          <label class="opt" data-oi="${oi}">
+            <input type="radio" name="q${qi}" value="${oi}">
+            <span>${tamilLabels[oi]}) ${opt}</span>
+          </label>
+        `).join('')}
+      </div>
+      <div class="qfb" id="qfb${qi}"></div>
+    </div>
+  `).join('');
+  updateProgress();
+  wrap.querySelectorAll('input[type=radio]').forEach(inp=>{
+    inp.addEventListener('change', updateProgress);
+  });
+}
+
+function updateProgress(){
+  let answered = 0;
+  questions.forEach((_,qi)=>{
+    if(document.querySelector(`input[name="q${qi}"]:checked`)) answered++;
+  });
+  const pct = Math.round((answered/questions.length)*100);
+  document.getElementById('progInner').style.width = pct + '%';
+}
+
+function gradeQuiz(){
+  let allAnswered = true;
+  let score = 0;
+
+  questions.forEach((item,qi)=>{
+    const selected = document.querySelector(`input[name="q${qi}"]:checked`);
+    const card = document.querySelector(`.qcard[data-qi="${qi}"]`);
+    const fb = document.getElementById('qfb'+qi);
+    const optLabels = card.querySelectorAll('.opt');
+
+    if(!selected){
+      allAnswered = false;
+      return;
+    }
+    const chosenIdx = parseInt(selected.value);
+    const correct = chosenIdx === item.ans;
+    if(correct) score++;
+
+    optLabels.forEach((lbl,oi)=>{
+      lbl.classList.add('locked');
+      lbl.querySelector('input').disabled = true;
+      if(oi === item.ans) lbl.classList.add('correct');
+      else if(oi === chosenIdx && !correct) lbl.classList.add('incorrect');
+    });
+
+    fb.classList.add('show');
+    if(correct){
+      fb.classList.add('ok');
+      fb.textContent = '✓ சரியான விடை!';
+    } else {
+      fb.classList.add('bad');
+      fb.textContent = '✗ தவறு. சரியான விடை: ' + tamilLabels[item.ans] + ') ' + item.opts[item.ans];
+    }
+  });
+
+  const warnEl = document.getElementById('warnMsg');
+  if(!allAnswered){
+    warnEl.classList.add('show');
+    return;
+  }
+  warnEl.classList.remove('show');
+  submitted = true;
+
+  document.getElementById('submitBtn').style.display = 'none';
+  document.getElementById('retryBtn').style.display = 'inline-block';
+
+  const pct = Math.round((score/questions.length)*100);
+  let msg;
+  if(pct >= 90) msg = 'சிறப்பு! நீங்கள் தேர்ச்சி பெற்றுவிட்டீர்கள்!';
+  else if(pct >= 70) msg = 'மிகவும் நல்லது! தொடர்ந்து பயிற்சி செய்யுங்கள்.';
+  else if(pct >= 50) msg = 'நல்ல முயற்சி. மீண்டும் ஒருமுறை மதிப்பாய்வு செய்யுங்கள்.';
+  else msg = 'மீண்டும் படித்து பயிற்சி செய்யுங்கள்.';
+
+  document.getElementById('resultMsg').textContent = msg;
+  document.getElementById('resultScore').textContent = score + ' / ' + questions.length;
+  document.getElementById('resultPct').textContent = pct + '%';
+  document.getElementById('resultBox').classList.add('show');
+  document.getElementById('resultBox').scrollIntoView({behavior:'smooth', block:'center'});
+}
+
+function resetQuiz(){
+  submitted = false;
+  document.getElementById('submitBtn').style.display = 'inline-block';
+  document.getElementById('retryBtn').style.display = 'none';
+  document.getElementById('resultBox').classList.remove('show');
+  document.getElementById('warnMsg').classList.remove('show');
+  renderQuestions();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+document.getElementById('submitBtn').addEventListener('click', gradeQuiz);
+document.getElementById('retryBtn').addEventListener('click', resetQuiz);
+
+renderQuestions();
+</script>
+</body>
+</html>
