@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Computer Science Assessment</title>
+<style>
+  :root{
+    --primary:#0d47a1;
+    --primary-dark:#0a3572;
+    --accent:#00897b;
+    --success:#2e7d32;
+    --danger:#c62828;
+    --bg:#f2f5f9;
+    --card:#ffffff;
+    --text:#1b2430;
+    --muted:#5c6b7a;
+    --border:#dfe6ee;
+    --radius:14px;
+    --shadow: 0 8px 24px rgba(13,71,161,0.08);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+    background: linear-gradient(180deg,#eef3f9 0%, #e7edf6 100%);
+    color:var(--text);
+    min-height:100vh;
+  }
+  .app{
+    max-width:820px;
+    margin:0 auto;
+    padding:20px 16px 60px;
+  }
+  .topbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:14px 18px;
+    background:var(--primary);
+    color:#fff;
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    margin-bottom:20px;
+  }
+  .topbar h1{
+    font-size:18px;
+    margin:0;
+    font-weight:600;
+    letter-spacing:.3px;
+  }
+  .topbar .badge{
+    background:rgba(255,255,255,0.18);
+    padding:6px 12px;
+    border-radius:20px;
+    font-size:12px;
+  }
+  .card{
+    background:var(--card);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    padding:28px 26px;
+    margin-bottom:20px;
+    animation: fadeIn .35s ease;
+  }
+  @keyframes fadeIn{
+    from{opacity:0; transform:translateY(8px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+  h2{
+    margin-top:0;
+    color:var(--primary-dark);
+    font-size:22px;
+  }
+  label{
+    display:block;
+    font-weight:600;
+    margin-bottom:6px;
+    color:var(--text);
+    font-size:14px;
+  }
+  input[type="text"], select{
+    width:100%;
+    padding:12px 14px;
+    border:2px solid var(--border);
+    border-radius:10px;
+    font-size:15px;
+    margin-bottom:18px;
+    background:#fbfcfe;
+    transition:border-color .2s;
+  }
+  input[type="text"]:focus, select:focus{
+    outline:none;
+    border-color:var(--primary);
+  }
+  .btn{
+    display:inline-block;
+    background:var(--primary);
+    color:#fff;
+    border:none;
+    padding:13px 26px;
+    border-radius:10px;
+    font-size:15px;
+    font-weight:600;
+    cursor:pointer;
+    transition:background .2s, transform .15s;
+    box-shadow:0 4px 12px rgba(13,71,161,0.25);
+  }
+  .btn:hover{background:var(--primary-dark);}
+  .btn:active{transform:scale(0.98);}
+  .btn:disabled{
+    background:#a9b7c6;
+    cursor:not-allowed;
+    box-shadow:none;
+  }
+  .btn.secondary{
+    background:#fff;
+    color:var(--primary);
+    border:2px solid var(--primary);
+    box-shadow:none;
+  }
+  .btn.secondary:hover{background:#eef4fb;}
+  .btn-row{
+    display:flex;
+    justify-content:flex-end;
+    gap:12px;
+    margin-top:10px;
+  }
+  .progress-wrap{
+    margin-bottom:18px;
+  }
+  .progress-labels{
+    display:flex;
+    justify-content:space-between;
+    font-size:13px;
+    color:var(--muted);
+    margin-bottom:6px;
+    font-weight:600;
+  }
+  .progress-bar-bg{
+    width:100%;
+    height:10px;
+    background:#e3e9f1;
+    border-radius:10px;
+    overflow:hidden;
+  }
+  .progress-bar-fill{
+    height:100%;
+    background:linear-gradient(90deg,var(--primary),var(--accent));
+    border-radius:10px;
+    transition:width .35s ease;
+  }
+  .chapter-chip{
+    display:inline-block;
+    background:#e3edfb;
+    color:var(--primary-dark);
+    padding:5px 12px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:700;
+    margin-bottom:14px;
+    letter-spacing:.3px;
+  }
+  .question-text{
+    font-size:18px;
+    font-weight:600;
+    line-height:1.5;
+    margin:6px 0 22px;
+    color:var(--text);
+  }
+  .options{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    margin-bottom:8px;
+  }
+  .option{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:14px 16px;
+    border:2px solid var(--border);
+    border-radius:12px;
+    cursor:pointer;
+    font-size:15.5px;
+    background:#fbfcfe;
+    transition: all .15s ease;
+  }
+  .option:hover{
+    border-color:var(--primary);
+    background:#eef4fb;
+  }
+  .option.selected{
+    border-color:var(--primary);
+    background:#e3edfb;
+    box-shadow:0 0 0 2px rgba(13,71,161,0.15) inset;
+  }
+  .option .letter{
+    width:30px;
+    height:30px;
+    border-radius:50%;
+    background:var(--primary);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:700;
+    font-size:13px;
+    flex-shrink:0;
+  }
+  .option.selected .letter{
+    background:var(--accent);
+  }
+  .timer-note{
+    font-size:12.5px;
+    color:var(--muted);
+    margin-top:14px;
+  }
+  .setup-note{
+    background:#fff8e1;
+    border-left:4px solid #f9a825;
+    padding:12px 14px;
+    border-radius:8px;
+    font-size:13.5px;
+    color:#6b5300;
+    margin-bottom:18px;
+  }
+  .stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+    margin:18px 0;
+  }
+  .stat-box{
+    background:#f7f9fc;
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:14px 16px;
+  }
+  .stat-box .label{
+    font-size:12px;
+    color:var(--muted);
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:.4px;
+    margin-bottom:4px;
+  }
+  .stat-box .value{
+    font-size:18px;
+    font-weight:700;
+    color:var(--primary-dark);
+  }
+  table.result-table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:10px;
+    font-size:14px;
+  }
+  table.result-table th, table.result-table td{
+    text-align:left;
+    padding:10px 10px;
+    border-bottom:1px solid var(--border);
+  }
+  table.result-table th{
+    background:#f2f6fb;
+    color:var(--primary-dark);
+    font-size:12.5px;
+    text-transform:uppercase;
+    letter-spacing:.3px;
+  }
+  .status-pass{color:var(--success); font-weight:700;}
+  .status-fail{color:var(--danger); font-weight:700;}
+  .final-banner{
+    text-align:center;
+    padding:22px 10px 6px;
+  }
+  .final-banner .big-score{
+    font-size:44px;
+    font-weight:800;
+    color:var(--primary-dark);
+  }
+  .final-banner .sub{
+    color:var(--muted);
+    font-size:14px;
+    margin-top:4px;
+  }
+  .footer-note{
+    text-align:center;
+    color:var(--muted);
+    font-size:12px;
+    margin-top:28px;
+  }
+  .hidden{display:none !important;}
+  @media (max-width:520px){
+    .card{padding:20px 16px;}
+    .question-text{font-size:16.5px;}
+    .stat-grid{grid-template-columns:1fr;}
+    .final-banner .big-score{font-size:34px;}
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <div class="topbar">
+    <h1>Computer Science &mdash; Chapter Assessment</h1>
+    <span class="badge" id="topbarBadge">Setup</span>
+  </div>
+
+  <!-- SETUP SCREEN -->
+  <div class="card" id="setupScreen">
+    <h2>Student Details</h2>
+    <label for="studentName">Full Name</label>
+    <input type="text" id="studentName" placeholder="Enter your name">
+
+    <label for="fromChapter">From Chapter</label>
+    <select id="fromChapter"></select>
+
+    <label for="toChapter">To Chapter</label>
+    <select id="toChapter"></select>
+
+    <div class="setup-note">
+      The assessment begins at your chosen "From Chapter". You must answer every question in a chapter correctly to unlock the next chapter in the range. There is no time limit &mdash; take the time you need.
+    </div>
+
+    <div class="btn-row">
+      <button class="btn" id="startBtn">Start Assessment</button>
+    </div>
+  </div>
+
+  <!-- QUIZ SCREEN -->
+  <div class="card hidden" id="quizScreen">
+    <span class="chapter-chip" id="chapterChip">Chapter 1</span>
+    <div class="progress-wrap">
+      <div class="progress-labels">
+        <span id="progressLabel">Question 1 of 10</span>
+        <span id="progressPercent">10%</span>
+      </div>
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill" id="progressBarFill" style="width:10%;"></div>
+      </div>
+    </div>
+    <div class="question-text" id="questionText">Question text</div>
+    <div class="options" id="optionsContainer"></div>
+    <div class="btn-row">
+      <button class="btn" id="nextBtn" disabled>Next</button>
+    </div>
+    <div class="timer-note" id="timerNote"></div>
+  </div>
+
+  <!-- RESULT SCREEN -->
+  <div class="card hidden" id="resultScreen">
+    <div class="final-banner">
+      <div class="sub" id="resultStatusLine">Assessment Summary</div>
+      <div class="big-score" id="resultBigScore">0%</div>
+      <div class="sub" id="resultSubLine"></div>
+    </div>
+
+    <div class="stat-grid" id="statGrid"></div>
+
+    <h2 style="font-size:17px;margin-bottom:6px;">Chapter-wise Performance</h2>
+    <table class="result-table">
+      <thead>
+        <tr><th>Chapter</th><th>Score</th><th>Time Taken</th><th>Status</th></tr>
+      </thead>
+      <tbody id="chapterResultsBody"></tbody>
+    </table>
+
+    <div class="btn-row">
+      <button class="btn secondary" id="restartBtn">Start New Assessment</button>
+    </div>
+  </div>
+
+  <div class="footer-note">Developer: B.Nirmal Singh &nbsp;|&nbsp; Computer Instructor Grade 1 &nbsp;|&nbsp; GHSS Keeladi, Sivagangai</div>
+</div>
+
+<script>
+/* ============================================================
+   QUESTION BANK — 18 CHAPTERS
+   Structure: chapters[i] = { title: "...", questions: [ {q, options:[4], correct: idx}, ... ] }
+   Replace / extend this data structure to update content.
+   ============================================================ */
+const chapters = [
+{ title:"Chapter 1: பல்லூடகம் (Multimedia)", questions:[
+ {q:"பல்லூடகம் என்பது _______", options:["கணினி வன்பொருள்","கணினி மென்பொருள்","கணினி வலையமைப்பு","தகவல் வழங்குவதற்கு பல வகையான ஊடகங்களைப் பயன்படுத்துதல்"], correct:3},
+ {q:"_______ என்பது உரை, படங்கள், ஒலி, ஒளிக்காட்சி மற்றும் அசைவூட்டல் போன்ற முக்கியமான ஐந்து கூறுகளைக் கொண்டதாகும்.", options:["பல்லூடகம்","கணினி மென்பொருள்","கணினி வலையமைப்பு","பல வார்த்தைகள்"], correct:0},
+ {q:"ராஸ்டர் படம் என்பது _______", options:["பிக்செல்களைக் கொண்டு உருவாக்கப்பட்ட படம்","வடிவியல் வடிவங்களைக் கொண்டு உருவாக்கப்பட்ட படம்","உரையைக் கொண்டு உருவாக்கப்பட்ட படம்","ஒலியைக் கொண்டு உருவாக்கப்பட்ட படம்"], correct:0},
+ {q:"வெக்டர் படம் என்பது _______", options:["பிக்செல்களைக் கொண்டு உருவாக்கப்பட்ட படம்","வடிவியல் வடிவங்களைக் கொண்டு உருவாக்கப்பட்ட படம்","உரையைக் கொண்டு உருவாக்கப்பட்ட படம்","ஒலியைக் கொண்டு உருவாக்கப்பட்ட படம்"], correct:1},
+ {q:"கீழ்க்கண்டவற்றில் ராஸ்டர் பட கோப்பு வடிவம் எது?", options:["JPEG","EPS","CDR","SVG"], correct:0},
+ {q:"கீழ்க்கண்டவற்றில் வெக்டர் பட கோப்பு வடிவம் எது?", options:["PSD","JPEG","EPS","BMP"], correct:2},
+ {q:"RTF (Rich Text Format) கோப்பு வடிவம் _______ நிறுவனத்தால் அறிமுகப்படுத்தப்பட்டது.", options:["TCS","Microsoft","Apple Inc","IBM"], correct:1},
+ {q:"JPEG ன் விரிவாக்கம் _______", options:["Joint Photographic Experts Groups","Joint Photo Experts Group","Joint Processor Experts Group","Joint Photographic Expression Group"], correct:0},
+ {q:"AIFF கோப்பு வடிவம் _______ நிறுவனத்தால் உருவாக்கப்பட்டது", options:["TCS","Microsoft","Apple Inc","IBM"], correct:2},
+ {q:"கீழ்க்கண்டவற்றில் ஒலிக் கோப்பு வடிவம் எது?", options:["MP3","AVI","MPEG","PNG"], correct:0}
+]},
+{ title:"Chapter 2: அடோப் பேஜ்மேக்கர்", questions:[
+ {q:"DTP என்பதன் விரிவாக்கம் _______", options:["Desktop publishing","Doctor to Patient","Desktop Publication","Desktop printer"], correct:0},
+ {q:"_______ என்பது ஒரு DTP மென்பொருளாகும்", options:["Lotus 1-2-3","PageMaker","Maya","Flash"], correct:1},
+ {q:"எந்த பட்டியலில் New கட்டளை இடம்பெற்றுள்ளது?", options:["File menu","Edit menu","Layout menu","Type menu"], correct:0},
+ {q:"Page Maker சன்னல் திரையில் கருப்பு நிற எல்லைக்கோட்டிற்கு வெளியில் இருக்கும் பகுதி _______ என அழைக்கப்படும்.", options:["page","pasteboard","blackboard","dashboard"], correct:1},
+ {q:"Page Maker ஆவணத்தை மூடுவதற்கான விசைப்பலகை குறுக்குவழி", options:["Ctrl + A","Ctrl + B","Ctrl + C","Ctrl + W"], correct:3},
+ {q:"_______ கருவி ஆவணத்தின் ஒரு பகுதியைப் பெரிதாக்கிப் பார்க்க பயன்படுகிறது.", options:["Text tool","Line tool","zoom tool","Hand tool"], correct:2},
+ {q:"பெட்டிகள் வரைவதற்குப் பயன்படும் கருவி _______", options:["Line","Ellipse","Rectangle","Text"], correct:2},
+ {q:"Place கட்டளை _______ பட்டியலில் இடம்பெற்றிருக்கும்.", options:["File","Edit","Layout","Window"], correct:0},
+ {q:"முழு ஆவணத்தைத் தேர்ந்தெடுக்க விசைப்பலகையில் _______ குறுக்குவழி சாவி சேர்மானத்தை அழுத்த வேண்டும்.", options:["Ctrl + A","Ctrl + B","Ctrl + C","Ctrl + D"], correct:0},
+ {q:"எழுத்து வடிவூட்டல் கீழ்க்கண்டவற்றில் எந்த பண்புகளைப் பெற்றிருக்கும்?", options:["Bold","Italic","Underline","All of these"], correct:3},
+ {q:"உரையை பதிப்பிக்க பயன்படும் கருவி எது?", options:["Text tool","Type tool","Crop tool","Hand tool"], correct:0},
+ {q:"Page Maker ல் ஆவணத்தை அச்சிட பயன்படும் விசைப்பலகை குறுக்கு வழி _______", options:["Ctrl + A","Ctrl + P","Ctrl + C","Ctrl + V"], correct:1}
+]},
+{ title:"Chapter 3: தரவுதள மேலாண்மை அமைப்பு", questions:[
+ {q:"DBMS என்பதன் விரிவாக்கம் _______", options:["Database Management System","Database Modelling System","Database Modifying System","Database Mark System"], correct:0},
+ {q:"தரவுத்தள மேலாண்மை அமைப்பு (DBMS) என்பது _______", options:["தரவுத்தளங்களை உருவாக்குவதற்கும் மற்றும் நிர்வகிப்பதற்குமான ஒரு மென்பொருள்","வரைபடம் வரைவதற்கான ஒரு மென்பொருள்","கற்பித்தலுக்குப் பயன்படும் ஒரு மென்பொருள்","வண்ணம் தீட்டுவதற்குப் பயன்படும் ஒரு மென்பொருள்"], correct:0},
+ {q:"IMS (Information Management System) என்பது _______", options:["IBM இன் முதல் DBMS","IBM இன் இரண்டாவது DBMS","Apple இன் முதல் DBMS","Apple இன் இரண்டாவது DBMS"], correct:0},
+ {q:"RDBMS இல் அட்டவணைகள் _______ என்று அழைக்கப்படுகின்றன.", options:["பதிவுகள்","உறவுகள்","பண்புக்கூறுகள்","மாதிரிகள்"], correct:1},
+ {q:"அட்டவணையில் உள்ள வரிசைகள் _______ என அழைக்கப்படுகின்றன.", options:["புலம்","உறவுகள்","பதிவுகள்","பண்புக்கூறுகள்"], correct:2},
+ {q:"_______ என்பது அட்டவணையிலுள்ள ஒரு பதிவை தனித்தன்மையோடு குறிக்கக்கூடிய ஒரு புலம் அல்லது ஒன்றிற்கு மேற்பட்ட புலங்களாகும்.", options:["முதன்மைத் திறவுகோல்","இணைப்பு முதன்மை திறவுகோல்","வெளித் திறவுகோல்","Super திறவுகோல்"], correct:0},
+ {q:"ஒரு பதிவை தனித்தன்மையோடு குறிக்க ஒன்றிற்கு மேற்பட்ட புலங்கள் தேவைப்பட்டால் அவை _______ எனப்படும்.", options:["முதன்மை திறவுகோல்","இணைப்பு முதன்மை திறவுகோல்","வெளித் திறவுகோல்","Super திறவுகோல்"], correct:1},
+ {q:"தரவுகள் ஒன்றோடொன்று எவ்வாறு தொடர்புபடுத்தப்பட்டுள்ளது என்பதை வரைபடம் மூலம் விளக்குவது _______", options:["Tree வரைபடம்","வென் வரைபடம்","ER வரைபடம்","முக்கோண வரைபடம்"], correct:2},
+ {q:"SQL என்பதன் விரிவாக்கம் _______", options:["Standard Query Language","Standard Qualified Language","Separate Query Language","Structured Query Language"], correct:3},
+ {q:"உறவுநிலை தரவுத்தளத்தை நிர்வகிக்கக்கூடிய திறந்த மூல மென்பொருள் _______", options:["Power Point","CorelDraw","MySQL","MS Word"], correct:2}
+]},
+{ title:"Chapter 4: மீவுரை முன்செயலி (PHP) — ஓர் அறிமுகம்", questions:[
+ {q:"PHP ன் விரிவாக்கம் என்ன?", options:["PHP: Hyper Text Preprocessor","Personal Hyper Text Preprocessor","Personal Home Page","PreProcessor Home Page"], correct:0},
+ {q:"PHP கோப்பின் நீட்டிப்பு என்ன?", options:[".html",".xml",".php",".ph"], correct:2},
+ {q:"PHP ஸ்கிரிப்ட் ஆனது _______ ல் தொடங்க வேண்டும்.", options:["<?php","<php","<PHP?","<:?"], correct:0},
+ {q:"PHP ஆனது எத்தனை வகையான தரவு வகைகளை ஆதரிக்கிறது?", options:["18","28","8","38"], correct:2},
+ {q:"PHPஇல் மாறியின் பெயர் _______ குறியீட்டில் தொடங்க வேண்டும்.", options:["#","//","$","<"], correct:2},
+ {q:"PHPஇல் _______ எழுத்து வடிவணர்வு கொண்டவை.", options:["மாறியின் பெயர்கள்","சிறப்புச் சொற்கள்","மாறியின் பெயர்கள் மற்றும் சிறப்புச் சொற்கள்","மேற்கண்ட எதுவும் இல்லை"], correct:0},
+ {q:"மதிப்பிருந்து செயற்குறி என்பது _______", options:["=","==","===","!="], correct:0},
+ {q:"_______ செயற்குறி இரண்டு மதிப்புகளை ஒப்பிடுகிறது.", options:["கணக்கீட்டு","ஒப்பீட்டு","மிகுப்பு","தருக்க"], correct:1},
+ {q:"எந்த செயற்குறி \"ஒத்தது\" என்று அழைக்கப்படுகிறது.", options:["=","==","===","<>"], correct:2},
+ {q:"_______ தரவினம் தசம எண்களைக் கொண்டுள்ளது.", options:["INTEGER","FLOAT","BOOLEAN","NULL"], correct:1}
+]},
+{ title:"Chapter 5: PHPஇல் செயற்கூறுகள் மற்றும் அணிகள்", questions:[
+ {q:"_______ என்பது ஒரு குறிப்பிட்ட பணியைச் செய்வதற்கான குறிமுறைத் தொகுதியாகும்", options:["அளபுருக்கள்","செயற்கூறு","இனக்குழு","அடையாளம்"], correct:1},
+ {q:"முன் வரையறுக்கப்பட்ட செயற்கூறுகள் _______ எனவும் அழைக்கப்படுகின்றன", options:["பயனர் வரையறுக்கும் செயற்கூறுகள்","தற்சுற்றி செயற்கூறுகள்","உள்ளிணைந்த செயற்கூறுகள்","லாம்டா செயற்கூறுகள்"], correct:2},
+ {q:"php இல் ஒரு செயற்கூறை வரையறை செய்வதற்கான சரியான கட்டளை அமைப்பு எது?", options:["function functionname(){//code to be executed}","function() {}","def myFunction();","None of the above"], correct:0},
+ {q:"php இல் பயனர் வரையறுக்கும் செயற்கூறு _______ என்ற சிறப்புச் சொல்லுடன் தொடங்க வேண்டும்.", options:["function","def","defined","funct"], correct:0},
+ {q:"php இல் ஒரு செயற்கூறை அழைப்பதற்கான சரியான கூற்று எது?", options:["functionname();","call functionName;","execute functionName();","run functionName();"], correct:0},
+ {q:"php இல் அணி என்றால் என்ன?", options:["அணி என்பது ஒரு தரவினமாகும்","இது ஒற்றை மாறியில் ஒன்றுக்கு மேற்பட்ட மதிப்புகளைத் தேக்கி வைக்கிறது","அணியின் உறுப்புகள் வேறுபட்ட தரவினங்களைக் கொண்டதாக இருக்கலாம்","மேற்கண்ட அனைத்தும்"], correct:3},
+ {q:"php இல் எத்தனை வகையான அணிகள் உள்ளன?", options:["2","3","4","5"], correct:1},
+ {q:"php இல் சூட்டெண் கொண்ட அணியின் முதல் உறுப்பு _______ தொடங்கும்.", options:["0","1","2","3"], correct:0},
+ {q:"php இல் ஐந்து உறுப்புகளைக் கொண்ட சூட்டெண் கொண்ட அணியில் மூன்றாவது உறுப்பின் சுட்டெண் எது?", options:["2","3","4","5"], correct:0},
+ {q:"php இல் சூட்டெண் கொண்ட அணியை எவ்வாறு உருவாக்குவாய்?", options:["காற்புள்ளியால் பிரிக்கப்பட்ட மதிப்புகளை சதுர அடைப்புக் குறிகளுக்குள் கொடுப்பதன் மூலம்","array() என்னும் செயற்கூறை பயன்படுத்துவதன் மூலம்","காற்புள்ளியால் பிரிக்கப்பட்ட மதிப்புகளை நெளிவு அடைப்பு குறிக்குள் கொடுப்பதன் மூலம்","அ மற்றும் ஆ இரண்டும்"], correct:3},
+ {q:"php இல் சூட்டெண் கொண்ட அணியில் உள்ள உறுப்புகளை எவ்வாறு அணுகலாம்?", options:["அணியின் சூட்டெண் மதிப்பை சதுர அடைப்புக் குறிகளுக்குள் கொடுப்பதன் மூலம்","அணியின் திறவுகோலை சதுர அடைப்புக் குறிகளுக்குள் கொடுப்பதன் மூலம்","அணியின் சுட்டெண் மதிப்பை நெளிவு அடைப்பு குறிகளுக்குள் கொடுப்பதன் மூலம்","அணியின் திறவுகோலை நெளிவு அடைப்பு குறிகளுக்குள் கொடுப்பதன் மூலம்"], correct:0}
+]},
+{ title:"Chapter 6: PHPஇல் உள்ள நிபந்தனைக் கூற்றுகள்", questions:[
+ {q:"கீழ்க்கண்டவற்றில் எது PHP இல் உள்ள நிபந்தனை கூற்று அல்ல?", options:["if","if....else","if...elseif...else","while"], correct:3},
+ {q:"if...else கூற்று கீழ்க்கண்டவற்றில் எந்த வகையான கூற்று?", options:["நிபந்தனைக் கூற்று","மடக்கு","உள்ளீட்டுக் கூற்று","வெளியீட்டுக்குக் கூற்று"], correct:0},
+ {q:"php இல் உள்ள எளிமையான நிபந்தனை கூற்று?", options:["if-else கூற்று","if கூற்று","switch கூற்று","if-elseif-else கூற்று"], correct:1},
+ {q:"php இல் உள்ள if கூற்று எவ்வாறு வேலை செய்கிறது?", options:["கொடுக்கப்பட்ட நிபந்தனை TRUE ஆக இருந்தால் குறிமுறைத் தொகுதி இயக்கப்படும்","கொடுக்கப்பட்ட நிபந்தனை FALSE ஆக இருந்தால் குறிமுறைத் தொகுதி இயக்கப்படும்","பல நிபந்தனைகள் TRUE ஆக இருந்தால் குறிமுறைத் தொகுதி இயக்கப்படும்","பல நிபந்தனைகள் FALSE ஆக இருந்தால் குறிமுறைத் தொகுதி இயக்கப்படும்"], correct:0},
+ {q:"\"if\" கூற்றில் உள்ள நிபந்தனை false ஆகும் போது என்ன நடக்கிறது?", options:["நெளிவு அடைப்புக் குறிகளுக்குள் உள்ள குறிமுறை இயக்கப்படுகிறது","நெளிவு அடைப்புக் குறிகளுக்குள் உள்ள குறிமுறை தவிர்க்கப்படுகிறது","நிரல் முடிவுக்கு வருகிறது","மேற்கண்ட எதுவும் இல்லை"], correct:1},
+ {q:"php -இல் உள்ள if-else கூற்றின் கட்டளை அமைப்பு என்ன?", options:["if(condition){//True-block;}","if(condition){//True-block;}else{//False-block;}","if-else(condition){//True-block;}else{//False-block;}","if-elseif(condition){//True-block;}else{//False-block;}"], correct:1},
+ {q:"if...elseif...else கூற்றில் பல்வேறுபட்ட நிபந்தனைகளைக் கொடுக்க கீழ்க்கண்டவற்றில் எது பயன்படுகிறது?", options:["AND","OR","case","elseif"], correct:3},
+ {q:"switch கூற்றில் பல்வேறுபட்ட நிபந்தனைகளைக் கொடுக்க கீழ்க்கண்டவற்றில் எது பயன்படுகிறது?", options:["AND","OR","case","if"], correct:2},
+ {q:"switch கூற்றில் உள்ள கோவையின் மதிப்பானது, எந்தவொரு case இன் மதிப்புடனும் பொருந்தவில்லை என்றால் நிகழ்வது", options:["default case தொகுதி இயக்கப்படுகிறது","நிரல் முடிவுக்கு வருகிறது","அடுத்துள்ள case தொகுதி இயக்கப்படுகிறது","முதல் case தொகுதி இயக்கப்படுகிறது"], correct:0},
+ {q:"கீழ்க்கண்டவற்றுள் எது switch கூற்றில் இருந்து வெளியேற பயன்படுகிறது?", options:["return","continue","goto","break"], correct:3}
+]},
+{ title:"Chapter 7: PHPஇல் மடக்குகள்", questions:[
+ {q:"கீழ்க்கண்டவற்றில் எது PHP-இல் உள்ள மடக்கு அல்ல?", options:["FOR","IF...ELSE","WHILE","DO...WHILE"], correct:1},
+ {q:"PHP -இல் உள்ள FOR மடக்கு எந்த வகையைச் சார்ந்தது?", options:["நுழைவு சோதிப்பு மடக்கு","வெளியேறல் சோதிப்பு மடக்கு","எண்ணிக்கை மடக்கு","சுழற்சி மடக்கு"], correct:0},
+ {q:"PHP இல் FOR மடக்கிற்கான கட்டளை அமைப்பு என்ன?", options:["FOR(INITIALIZATION;CONDITION;INCREMENT){//CODE}","FOREACH(INITIALIZATION;CONDITION;DECREMENT){//CODE}","WHILE(CONDITION)","DO{...}WHILE(CONDITION)"], correct:0},
+ {q:"FOR மடக்கின் கட்டளை அமைப்பில் உள்ள மூன்று பகுதிகள் யாவை?", options:["INITIALIZATION, CONDITION, INCREMENT","INITIALIZATION, CODE BLOCK, CONDITION","CODE BLOCK, CONDITION, INCREMENT","CONDITION, INITIALIZATION, CODE BLOCK"], correct:0},
+ {q:"FOR மடக்கில் உள்ள 'INITIALIZATION' பகுதி எப்போது இயக்கப்படுகிறது?", options:["மடக்கின் ஒவ்வொரு சுழற்சியின் முன்பும்","மடக்கின் ஒவ்வொரு சுழற்சியின் பின்பும்","மடக்கின் தொடக்கத்தில் ஒரு முறை மட்டும்","மடக்கின் இறுதியில் ஒரு முறை மட்டும்"], correct:2},
+ {q:"FOR மடக்கில் உள்ள 'INCREMENT' பகுதியின் பயன் என்ன?", options:["மாறிகளுக்குத் தொடக்க மதிப்பிருந்த","மாறிகளின் மதிப்பை புதுப்பிக்க","நிபந்தனையை சரிபார்க்க","குறிமுறைத் தொகுதியை இயக்க"], correct:1},
+ {q:"PHP இல் உள்ள WHILE மடக்கு எந்த வகையை சார்ந்தது?", options:["நுழைவு சோதிப்பு மடக்கு","வெளியேறல் சோதிப்பு மடக்கு","எண்ணிக்கை மடக்கு","சுழற்சி மடக்கு"], correct:0},
+ {q:"PHP இல் உள்ள DO... WHILE மடக்கு எந்த வகையை சார்ந்தது?", options:["நுழைவு சோதிப்பு மடக்கு","வெளியேறல் சோதிப்பு மடக்கு","எண்ணிக்கை மடக்கு","சுழற்சி மடக்கு"], correct:1},
+ {q:"PHP இல் அணியில் உள்ள உறுப்புகளுடன் செயல்பட எந்த மடக்கு பயன்படுகிறது?", options:["FOR LOOP","WHILE LOOP","FOR EACH LOOP","DO WHILE LOOP"], correct:2},
+ {q:"கீழ்க்கண்ட குறிமுறையின் வெளியீடு என்ன: $array=array(1,2,3,4,5); foreach($array as $value){ echo $value; }", options:["1 2 3 4 5","5 4 3 2 1","1 1 1 1 1","எதுவும் இல்லை"], correct:0}
+]},
+{ title:"Chapter 8: படிவங்கள் மற்றும் கோப்புகள்", questions:[
+ {q:"HTML படிவங்கள் எதற்கு பயன்படுகிறது?", options:["பயனரிடமிருந்து உள்ளீடுகளைப் பெறுவதற்கு","சேவையாகம் சார்ந்த நிரலாக்க மொழியை உருவாக்குவதற்கு","ஒரு தரவுத்தளத்தை உருவாக்குவதற்கு","மின்னஞ்சல்களை அனுப்புவதற்கு"], correct:0},
+ {q:"கீழ்க்கண்டவற்றில் எது HTML படிவக் கட்டுப்பாட்டு உறுப்பு அல்ல?", options:["உரை உள்ளீடுகள்","பொத்தான்கள்","தேர்வுப் பெட்டிகள்","கிராப்பிங் டூல்"], correct:3},
+ {q:"HTML படிவம் உருவாக்கப் பயன்படும் ஒட்டு எது?", options:["FORM","INPUT","TEXT AREA","SELECT"], correct:0},
+ {q:"எந்த படிவக் கட்டுப்பாடு பயனரை பல மதிப்புகளைத் தேர்ந்தெடுக்க அனுமதிக்கிறது?", options:["உரை உள்ளீடுகள்","பொத்தான்கள்","தேர்வுப் பெட்டிகள்","ரேடியோ பொத்தான்கள்"], correct:2},
+ {q:"எந்த படிவக் கட்டுப்பாடு பயனரை ஒரு நேரத்தில் ஒரு மதிப்பை மட்டுமே தேர்ந்தெடுக்க அனுமதிக்கிறது?", options:["உரை உள்ளீடுகள்","பொத்தான்கள்","தேர்வுப் பெட்டிகள்","ரேடியோ பொத்தான்கள்"], correct:3},
+ {q:"PHP இல் செல்லுபடியாக்கலின் நோக்கம் என்ன?", options:["பயனர் கணிப்பொறியில் இருந்து சமர்ப்பிக்கப்படும் தரவுகளை சரிபார்க்க","பயனர்களுக்கு தரவுகளைக் காண்பிக்க","சேவையகத்தில் தரவுகளை சேமிக்க","கிளையண்டுக்கு தரவுகளை அனுப்ப"], correct:0},
+ {q:"PHP இல் எத்தனை வகையான செல்லுபடியாக்கல் உள்ளன?", options:["ஒன்று","இரண்டு","மூன்று","நான்கு"], correct:1},
+ {q:"PHP இல் ஒரு கோப்பைத் திறக்க எந்த செயற்கூறு பயன்படுத்தப்படுகிறது?", options:["fopen()","fread()","fclose()","fwrite()"], correct:0},
+ {q:"PHP இல் ஒரு கோப்பை படிப்பதற்கு எந்த செயற்கூறு பயன்படுத்தப்படுகிறது?", options:["fopen()","fread()","fclose()","fwrite()"], correct:1},
+ {q:"PHP இல் ஒரு கோப்பை மூடுவதற்கு எந்த செயற்கூறு பயன்படுத்தப்படுகிறது?", options:["fopen()","fread()","fclose()","fwrite()"], correct:2}
+]},
+{ title:"Chapter 9: PHP-உடன் MySQL-ஐ இணைத்தல்", questions:[
+ {q:"PHP இல் உள்ள SQL வினவல்களை இயக்க கீழ்க்கண்டவற்றில் எது சரியான செயற்கூறு?", options:['mysqli_query("Connection Object","SQL Query");','query("Connection Object","SQL Query");','mysql_query("Connection Object","SQL Query");','mysql_query("SQL Query");'], correct:0},
+ {q:"PHPஇல் இணைப்பை மூடுவதற்கு கீழ்க்கண்டவற்றுள் எது சரியான செயற்கூறு?", options:['mysqli_close("Connection object");','close("Connection object");','mysql_close("Connection object");','mysqli_close("Database object");'], correct:0},
+ {q:"PHP இல் இணைப்பை நிறுவுவதற்கு கீழ்க்கண்டவற்றுள் எது சரியான செயற்கூறு?", options:['mysqli_connect("Server Name","User Name","Password","DB Name");','connect("Server Name","User Name","Password","DB Name");','mysql_connect("Server Name","User Name","Password","DB Name");','mysqli_connect("Database Object");'], correct:0},
+ {q:"கீழ்க்கண்டவற்றுள் எது PHP இன் சரியான MySQLi செயற்கூறு அல்ல?", options:["mysqli_connect() Function","mysqli_close() Function","mysqli_select_data() Function","mysqli_affected_rows() Function"], correct:2},
+ {q:"PHP இல் MYSQLi இணைக்க (connect) எத்தனை அளபுருக்கள் தேவைப்படுகிறது?", options:["2","3","4","5"], correct:2},
+ {q:"PHP ல் MYSQLi வினவல் செயற்கூறுக்கு எத்தனை அளபுருக்கள் தேவைப்படுகிறது?", options:["2","3","4","5"], correct:0},
+ {q:"PHPல் MYSQLi மூடுதல்(close) செயற்கூறுக்கு எத்தனை அளபுருக்கள் தேவைப்படுகிறது?", options:["1","2","3","5"], correct:0},
+ {q:"PHP ன் எந்த பதிப்பு MYSQLi செயற்கூறை ஆதரிக்கிறது?", options:["Version 2.0","Version 3.0","Version 4.0","Version 5.0"], correct:3}
+]},
+{ title:"Chapter 10: கணினி வலையமைப்பு — ஓர் அறிமுகம்", questions:[
+ {q:"ஒன்றுக்கு மேற்பட்ட கணினிகளை ஒன்றாக இணைக்கும் தொகுப்பே _______", options:["வலையமைப்பு","சேவையகம்","மையம்","முனையங்கள்"], correct:0},
+ {q:"வெவ்வேறு கருத்துகளுடன் கூடிய மக்கள் நிகழ்நிலையில் இணையும்போது தோன்றும் பல விவாதங்கள் மற்றும் தனிப்பட்ட தாக்குதல்கள் என்பது _______", options:["ஹேக்கர்ஸ்","நச்சு நிரல்","கருத்துப் போர்","நிகழ்நிலைப் போர்"], correct:2},
+ {q:"Wi-Fi என்பது", options:["Wireless Fidelity","Wired Fidelity","Wired Fibre Optic","Wireless Fibre Optic"], correct:0},
+ {q:"வியாபாரிகளுக்கு கணினி வலையமைப்புகளில் சுவால் விடுவிப்பது எது?", options:["ஹேக்கிங்","வைரஸ்கள்","அ மற்றும் ஆ","மேலே குறிப்பிடப்பட்ட எதுவும் இல்லை"], correct:2},
+ {q:"பின்வருவனவற்றுள் எது ஒரு சமூக ஊடகம் அல்ல?", options:["gmail","முகநூல்","ட்விட்டர்","Linkedin"], correct:0},
+ {q:"இவற்றில் எது மொபைல் வலையமைப்புகளில், வலையமைப்பு கவரேஜ் பகுதிகளுக்குக் விநியோகிக்கப்பட்டது.", options:["நிலைபொருள்","cell","ரேஞ்ச்","சேவை"], correct:1},
+ {q:"கீழ்கண்டவற்றுள் கணினிக்கு தீங்கு விளைவிக்க கூடியது எது?", options:["வலைப்பதிவாளர்கள்","உலாவி","நச்சு நிரல்கள்","ட்விட்டர்"], correct:2}
+]},
+{ title:"Chapter 11: வலையமைப்பு எடுத்துக்காட்டுகள் மற்றும் நெறிமுறைகள்", questions:[
+ {q:"வணிகத் தகவல்களை பாதுகாப்பாக வாடிக்கையாளர்கள், விற்பனையாளர்கள் மற்றும் பங்குதாரர்களுக்கு இடையே பகிர்ந்து கொள்ள உதவும் இணைய தொழில் நுட்பம் எது?", options:["புற இணையம்","அக இணையம்","ஆர்பா நெட்","ஆர்க்நெட்"], correct:0},
+ {q:"பொருந்திய சரியான விடையைத் தேர்ந்தெடுக்கவும்: 1.HTTP – உலகளாவிய வலையின் முக்கிய நெறிமுறையாகும். 2.FTP – சேவையகத்திலிருந்து முழுமையான கோப்புகளை அனுப்பவும், பெறவும் பயனரை அனுமதிக்கிறது. 3.SMTP – மின்னஞ்சல் சேவையை வழங்குகிறது. 4.DNS – எண்களைக் காட்டிலும் பெயர்களைக் கொண்டு பிற கணினிகளை கண்டறிகிறது.", options:["1,2,3,4","2,3,4,1","3,4,1,2","4,3,2,1"], correct:0},
+ {q:"இணைய தொடர்பின் _______ குரல், தரவு, படங்கள் மற்றும் உரைச்செய்திகளால் உருவாக்கப்பட்டுள்ளது.", options:["சமூக ஊடகம்","மொபைல் வலையமைப்பு","வாட்ஸ்ஆப்","மென்பொருள்"], correct:1},
+ {q:"Wi-fi-ன் விரிவாக்கம்", options:["Wireless Fidelity","wired fidelity","wired optic fibre","wireless optic fibre"], correct:0},
+ {q:"ஒரு நிறுவனத்தின் உறுப்பினர்களுக்கு தடை செய்யப்பட்ட அணுகலைக் கொண்ட TCP/IP வலையமைப்பு", options:["LAN","MAN","WAN","Intranet"], correct:3},
+ {q:"RFID-ன் விரிவாக்கம்", options:["Radio Free identification","real Frequency identity","Radio Frequency indicators","Radio Frequency Identification"], correct:3},
+ {q:"வெற்றிகரமான தரவு அனுப்புதலை உறுதி செய்யும் OSI அடுக்கு", options:["பயன்பாட்டு அடுக்கு","வலையமைப்பு அடுக்கு","இடமாற்ற அடுக்கு","பருநிலை அடுக்கு"], correct:2},
+ {q:"பின்வருவனவற்றுள் பரிமாற்றத்தின் போது தரவை பாதுகாப்பது எது?", options:["HTTPS","HTTP","FTP","SMTP"], correct:0},
+ {q:"எது மின்னஞ்சல் சேவையை வழங்குகிறது?", options:["DNS","FTP","TCP","SMTP"], correct:3},
+ {q:"_______ எண்களைக் காட்டிலும் பெயர்களைக் கொண்டு பிற கணினிகளை கண்டறிகிறது.", options:["DNS","TCP","FTP","SMTP"], correct:0}
+]},
+{ title:"Chapter 12: களப்பெயர் முறைமை (DNS)", questions:[
+ {q:"களப்பெயர்களின் அனைத்து கோப்பகங்களையும் பராமரிக்க பயன்படுவது எது?", options:["களப்பெயர் முறைமை","களப்பெயர் வெளி","பெயர் வெளி","IP முகவரி"], correct:0},
+ {q:"IPv4 முகவரிகளை குறிக்க எந்த குறிமுறை பயன்படுத்தப்படுகிறது?", options:["இரும","புள்ளி-தசம","பதினறும","அ மற்றும் ஆ"], correct:1},
+ {q:"IPv6 முகவரிகளில் எத்தனை பிட்கள் பயன்படுத்தப்படுகின்றன?", options:["32","64","128","16"], correct:2},
+ {q:"URL இன் விரிவாக்கம்", options:["Uniform Resource Location","Universal Resource Location","Uniform Resource Locator","Universal Resource Locator"], correct:2},
+ {q:"URL இல் எத்தனை வகைகள் உள்ளன?", options:["2","3","4","5"], correct:0},
+ {q:"ஒரு முனையத்தின்(node) சிட்டையில் (label) பயன்படுத்தப்படும் அதிகபட்ச எழுத்துக்கள்?", options:["255","128","63","32"], correct:2},
+ {q:"களப்பெயரில், சிட்டைகளைப் பிரிப்பது", options:["அரைப்புள்ளி (;)","புள்ளி (.)","முக்காற்புள்ளி (:)","Null"], correct:1},
+ {q:"பின்வருபவற்றில் எது களப்பெயரை IP முகவரியாக மாற்றுவதைத் துவக்குகிறது?", options:["மண்டலம்","களம்","தீர்வு","பெயர் சேவையகங்கள்"], correct:2},
+ {q:"சேவையகம் அணுகக்கூடிய தொடர்ச்சியான பகுதி எது?", options:["மண்டலம்","களம்","தீர்வி","பெயர் சேவையகங்கள்"], correct:0},
+ {q:"மூல பெயர்ச் சேவையகம் எந்த அமைப்பினால் பராமரிக்கப்படுகிறது?", options:["IANA","ICANN","WHO","DNS"], correct:1}
+]},
+{ title:"Chapter 13: வலையமைப்பு வடிமில்", questions:[
+ {q:"ARPANET என்பது", options:["American Research Project Agency Network","Advanced Research Project Agency Network","Advanced Research Project Area Network","American Research Program And Network"], correct:1},
+ {q:"WWW - ஐ கண்டுபிடித்தவர்", options:["டிம் பெர்னர்ஸ் லீ","சார்லஸ் பாபேஜ்","பிளெய்ஸ் பாஸ்கல்","ஜான் நேப்பியர்"], correct:0},
+ {q:"கேபிள் டிவியில் எந்த வடம் பயன்படுத்தப்படுகிறது?", options:["UTP வடம்","ஒளியிழை வடம்","இணையச்சு வடம்","USB வடம்"], correct:2},
+ {q:"UTP - இன் விரிவாக்கம்", options:["Uninterrupted Twisted Pair","Uninterrupted Twisted Protocol","Unshielded Twisted Pair","Universal Twisted Protocol"], correct:2},
+ {q:"ஒளியிழை தரவு பரிமாற்றத்திற்கு வடங்களில் எந்த ஊடகம் பயன்படுத்தப்படுகிறது?", options:["நுண்ணலை","அகச்சிவப்பு","ஒளி","ஒலி"], correct:2},
+ {q:"கீழ்கண்டவற்றில் எது கணினிகளை இணையத்துடன் இணைக்க, சிம் ஸ்லாட் கொண்ட ஒரு சிறிய புற சாதனமாகும்?", options:["USB","டாங்கிள்கள்","மெமரி கார்டு","மொபைல்கள்"], correct:1},
+ {q:"ஈத்தர்நெட் வடங்களில் எந்த இணைப்பி (Connector) பயன்படுத்தப்படுகிறது?", options:["RJ11","RJ21","RJ61","RJ45"], correct:3},
+ {q:"பின்வரும் இணைப்பானில் எது சேம்பு இணைப்பி என அழைக்கப்படுகிறது?", options:["RJ11","RJ21","RJ61","RJ45"], correct:0},
+ {q:"RJ45 வடங்களில் எத்தனை ஊசிகள் (Pins) பயன்படுத்தப்படுகின்றன?", options:["8","6","50","25"], correct:0},
+ {q:"எந்த வயரிங் தரநிலை இரண்டு கணினிகளை நேரடியாக இணைக்கப் பயன்படுகிறது?", options:["Straight-through","Cross-over","Roll-over","RJ21"], correct:1}
+]},
+{ title:"Chapter 14: திறந்த மூல கருத்துருக்கள்", questions:[
+ {q:"மென்பொருளின் மூலக்குறிமுறையை பொது மக்கள் இலவசமாக மாற்ற முடிந்தால் அது _______", options:["இலவச மென்பொருள்","மென்பொருள்","திறந்த மூல மென்பொருள்","பொது மூல மென்பொருள்"], correct:2},
+ {q:"பின்வருவதில் எந்த நிரல் வலையமைப்பின் செயலை பிரதிபலிக்கிறது", options:["Network software","Network simulation","Network testing","Network calculator"], correct:1},
+ {q:"பின்வருவதில் எது சிமுலேட்டரின் ஒவ்வொரு நிகழ்வையும் ஆவணமாக்க மற்றும் சோதிக்க உதவுகிறது?", options:["வலை சோதிப்பான்","வலை மென்பொருள்","Trace கோப்பு","வலை ஆவணம்"], correct:2},
+ {q:"Network simulator மென்பொருள் எடுத்துக்காட்டு தருக.", options:["simulator","TCL","NS2","C++"], correct:2},
+ {q:"NS2 ஐ உருவாக்க உதவும் சரியான தொகுப்பு எது?", options:["UNIX & TCL","UNIX & C++","C++ & OTCL","C++ & NS2"], correct:2},
+ {q:"பின்வருவனவற்றுள் எது Network Simulation மென்பொருள் இல்லை?", options:["NS2","OPNET","SSFNet","PYTHON"], correct:3},
+ {q:"பின்வருவனவற்றுள் எது திறந்த மூல வலையமைப்பு மேலாண்மை மென்பொருள்?", options:["PYTHON","OPNET","Open NMS","OMNet++"], correct:2},
+ {q:"Open NMS முதல் பதிப்பு ஆண்டு வெளியிடப்பட்டது.", options:["1999","2000","2003","2004"], correct:0}
+]},
+{ title:"Chapter 15: மின்-வணிகம்", questions:[
+ {q:"ஒரு நிறுவனத்தை மின்-வணிக நிறுவனம் என்று எப்போது கூறலாம்?", options:["உலகம் முழுவதும் பல கிளைகள் கொண்டிருந்தால்","இணையம் மூலம் மின்னணு முறையில் வணிகம் நடைபெற்றால்","அயல்நாட்டிற்கு பொருட்களை விற்பனை செய்தால்","பல ஊழியர்களை பெற்றிருந்தால்"], correct:1},
+ {q:"கீழ்க்கண்டவற்றுள் எது புலனாகும் வடிவில் உள்ள பொருள் அல்ல?", options:["கைப்பேசி","கைப்பேசி பயன்பாடுகள்","மருந்து","பூங்கொத்து"], correct:1},
+ {q:"SME ன் விரிவாக்கம்", options:["Small and medium-sized enterprises","Simple and medium enterprises","Sound messaging enterprises","Short messaging enterprises"], correct:0},
+ {q:"டாட்காம் நிகழ்வு எதனுடன் தொடர்புடையது?", options:["நெசவுத் தொழில்","கைப்பேசி நிறுவனங்கள்","இணையம் சார்ந்த நிறுவனங்கள்","மேற்கூறிய அனைத்தும்"], correct:2},
+ {q:"பின்வருவனவற்றில் எது சரியாகப் பொருந்தவில்லை?", options:["மின்-வணிகத்தின் முதல் அலை: 1985-1990","மின்-வணிகத்தின் இரண்டாம் அலை: 2004-2009","மின்-வணிகத்தின் மூன்றாவது அலை: 2010-நாளது வரை","டாட்காம் வெடிப்பு: 2000-2002"], correct:0},
+ {q:"சூற்று: முதல் அலை டாட்காம் நிறுவனங்களின் இணையதளங்கள் ஆங்கிலத்தில் மட்டுமே இருந்தன. காரணம்: முதல் அலையின் டாட்காம் நிறுவனங்கள் பெரும்பாலும் அமெரிக்க நிறுவனங்கள்.", options:["கூற்றும் காரணமும் சரி; காரணம் கூற்றை சரியாக விளக்குகிறது","கூற்றும் காரணமும் சரி; ஆனால் கூற்றை காரணம் சரியாக விளக்கவில்லை","கூற்று சரி; காரணம் தவறு","கூற்றும் காரணமும் தவறானவை"], correct:0},
+ {q:"வெளி-புறத்திறனீட்டம் என்றால் _______", options:["சொந்த நிறுவனத்தின் ஒரு கிளைக்குப் பணி ஒதுக்கல்","புதிய ஊழியர்களுக்குப் பணி ஒதுக்கல்","மூன்றாம் தரப்பினருக்கு உள்ளூரில் பணி ஒதுக்கல்","சொந்த நாட்டிற்கு வெளியே மூன்றாம் தரப்பினருக்கு பணி ஒதுக்கல்"], correct:3},
+ {q:"G2G முறைகள் பின்வருமாறு வகைப்படுத்தப்படுகின்றன.", options:["உள் நோக்கல் மற்றும் வெளி நோக்கல்","அக இணையம் மற்றும் புற இணையம்","முதல் அலை மற்றும் இரண்டாம் அலை","இடது நோக்கல் மற்றும் வலது நோக்கல்"], correct:0},
+ {q:"_______ தங்கள் தளங்களில் மின்-புத்தகங்களை பதிப்பிக்கிறது.", options:["மொத்தமாக வாங்கும் இணையதளம்","சமுதாய இணையதளம்","என்முறை பதிப்பக இணையதளம்","உரிமம் வழங்கும் இணையதளம்"], correct:2},
+ {q:"பின்வருவனவற்றில் எது மின்-வணிகத்தின் பண்பு ஆகும்?", options:["கொள்முதல் செய்வதற்கு முன்பு பொருட்களை இயல் நிலையில் ஆய்வு செய்யலாம்","உடனடியாக விநியோகம் செய்யப்படும்","ஆதார குவிப்பு வழங்கல் பக்கம்","வணிகத்தின் வரையறையை உலகளாவியது"], correct:3}
+]},
+{ title:"Chapter 16: மின்னணு செலுத்தல் முறைகள்", questions:[
+ {q:"பண மதிப்பின் அடிப்படையில் மின்னணு கட்டணம் செலுத்தும் முறையை _______ மற்றும் _______ என வகைப்படுத்தலாம்.", options:["நுண் செலுத்தல் மற்றும் பேரின செலுத்தல்","நுண் மற்றும் நானோ செலுத்தல்","அதிகபட்ச மற்றும் குறைபட்ச செலுத்தல்","அதிகபட்ச மற்றும் பேரின செலுத்தல்"], correct:0},
+ {q:"_______ என்பது மின்னணு முறைகளை பயன்படுத்தி ஒரு வங்கி கணக்கிலிருந்து மற்றொரு வங்கி கணக்கிற்கு பணம் செலுத்தும் வழிமுறை ஆகும்.", options:["மின்னணு செலுத்தல்","நேரடி செலுத்தல்","மறைமுக செலுத்தல்","இவற்றில் எதுமில்லை"], correct:0},
+ {q:"சூற்று: பேரின மின்னணு செலுத்தல் முறை உயர் மதிப்பு செலுத்தலை ஆதரிக்கின்றன. காரணம்: விலையுயர்ந்த மறைகுறியீட்டியல் செயல்பாடுகள் பேரின மின்னணு செலுத்துதல் முறையில் சேர்க்கப்பட்டுள்ளது.", options:["கூற்றும் காரணமும் சரி; காரணம் கூற்றை சரியாக விளக்குகிறது","கூற்றும் காரணமும் சரி; ஆனால் கூற்றை காரணம் சரியாக விளக்கவில்லை","கூற்று சரி; காரணம் தவறு","கூற்று தவறு காரணமும் சரி"], correct:0},
+ {q:"பின்வருவனவற்றில் எது சரியாக பொருந்தியுள்ளது?", options:["கடன் அட்டை - முன்பே செலுத்தி","பற்று அட்டை - இப்போது செலுத்து","சேமித்துவைக்கப்படும் மதிப்பு அட்டை - பிறகு செலுத்து","திறன் அட்டை - எப்போது வேண்டு மானாலும் செலுத்து"], correct:1},
+ {q:"ECS ன் விரிவாக்கம்", options:["Electronic Clearing Services","Electronic Cloning Services","Electronic Clearing Station","Electronic Cloning Station"], correct:0},
+ {q:"பின்வருவனவற்றுள் குறைந்த கட்டணங்களுக்கான நிகழ்நிலை கட்டணமுறை எது?", options:["அட்டை மூலம் பணம் செலுத்துதல்","நுண் மின் செலுத்தல் கட்டணமுறை","பேரின மின் செலுத்தல் கட்டணமுறை","கடன் அட்டை கட்டணமுறை"], correct:1},
+ {q:"பின்வருவனவற்றுள் எது மெய்நிகர் செலுத்தல் முகவரி (VPA) பற்றிய சரியான கூற்று ஆகும்?", options:["வாடிக்கையாளர்கள் தங்கள் மின்னஞ்சல் முகவரியை VPA வாக பயன்படுத்த முடியும்","VPA ல் எண்கள் அடங்கவில்லை","VPA ஒரு தனித்த (Unique) முகவரி","பல வங்கிக் கணக்குகள் ஒற்றை VPA கொண்டிருக்க முடியாது"], correct:2},
+ {q:"கடன் அட்டையுடன் பொருந்தாத ஒன்றை தேர்தெடுக்கவும்", options:["வாடிக்கையாளர்","வியாபாரி","சந்தைப்படுத்தல் மேலாளர்","பெறுவர்"], correct:2},
+ {q:"கீழ்கண்டவற்றில் பற்று அட்டை பற்றி சரியான கூற்று எவை? i. பற்று அட்டை ஏடிஎம் கஷினில் பயன்படுத்த முடியாது ii. பற்று அட்டை நிகழ்நிலை பரிமாற்றங்களில் பயன்படுத்த முடியாது iii. பற்று அட்டையை பெற வங்கி கணக்கு தேவையில்லை iv. பற்று அட்டை மற்றும் கடன் அட்டை இரண்டும் தோற்றத்தில் ஒன்று போலவே இருக்கும்", options:["i, ii, iii","ii, iii, iv","iii மட்டும்","iv மட்டும்"], correct:3},
+ {q:"பொருத்துக: கடன் அட்டை எண்ணில் 1) முதல் இலக்கம் 2) 9 முதல் 15 வரை இலக்கங்கள் 3) முதல் 6 இலக்கங்கள் 4) கடைசி இலக்கம் — MII குறியீடு, BIN குறியீடு, கணக்கு எண், சோதனை இலக்கம் ஆகியவற்றுடன் பொருத்தமான வரிசை எது?", options:["4,3,2,1","2,1,3,4","2,3,4,1","2,4,3,1"], correct:2}
+]},
+{ title:"Chapter 17: மின்-வணிக பாதுகாப்பு அமைப்புகள்", questions:[
+ {q:"மின்-வணிகத்தில், திருடப்பட்ட கடன் அட்டை ஒன்றை பொருட்களை வாங்க பயன்படுத்தப்படும்போது, அது _______ என அழைக்கப்படுகிறது.", options:["நட்பு மோசடி","தெளிவான மோசடி","முக்கோண மோசடி","சைபர் SQUATTING"], correct:2},
+ {q:"பின்வருவனவற்றுள் எது மின்-வணிக பாதுகாப்பு உறுப்பு அல்ல?", options:["நம்பகத்தன்மை","ரகசியத்தன்மை","ஃபிஷிங்","தனியுரிமை"], correct:2},
+ {q:"சமச்சீற்ற குறியீட்டு குறியாக்கத்தில் குறியாக்கம் மற்றும் மறைகுறியாக்கம் இரண்டிற்கும் _______ குறியீடுகள் பயன்படுத்தப்படுகிறது.", options:["ஒரே","வெவ்வேறு","நேர்மறை","எதிர்மறை"], correct:1},
+ {q:"கீழ்கண்டவை பாதுகாப்பு அங்கீகார தொழில்நுட்பம் ஆகும்: i. எண்முறைக் கையொப்பம் ii. எண்முறைக் நாணயம் iii. எண்முறைக் நிழற்படம் iv. எண்முறைக் சான்றிதழ்கள்", options:["i & iv","iii & iv","i, ii & iii","அனைத்தும்"], correct:0},
+ {q:"PGP யின் விரிவாக்கம்", options:["Pretty Good Privacy","Pretty Good Person","Private Good Privacy","Private Good Person"], correct:0},
+ {q:"இணைய வழி கடன் அட்டை பரிவர்த்தனைகளில் கீழ்கண்ட எந்த நெறிமுறை பயன்படுத்தப்படுகிறது?", options:["பாதுகாப்பான மின்னணு பரிவர்த்தனை (SET)","எண்முறைக் சான்றிதழ்கள்","சமச்சீர் குறியீடு குறியாக்கம்","பொது குறியீடு குறியாக்கம்"], correct:0},
+ {q:"பாதுகாப்பான மின்னணு பரிவர்த்தனை (SET) எந்த ஆண்டில் உருவாக்கப்பட்டது?", options:["1999","1996","1969","1997"], correct:1},
+ {q:"பாதுகாப்பான சாக்கெட் அடுக்கு (SSL) நெறிமுறைகளைப் பயன்படுத்தும் இணையதளங்களை எதன் மூலம் அடையாளம் காணலாம்?", options:["html://","http://","htmls://","https://"], correct:3},
+ {q:"_______ என்பது மூல உரையை அர்த்தமற்ற மறை எழுத்து உரையாக மாற்றும் செயல்முறையாகும்.", options:["குறியாக்கம்","மறைகுறியாக்கம்","எண்முறைக் சான்றிதழ்கள்","எண்முறைக் கையொப்பம்"], correct:0},
+ {q:"பின்வருவனவற்றுள் RANSOMWARE தொடர்பான சரியான கூற்று எது?", options:["தீநிரலின் ஒரு உப தொகுப்பு அல்ல","RANSOMWARE உடனடியாக கோப்புகளை நீக்குகிறது","TYPOPARICY என்பது ஒரு வகையான RANSOMWARE","பாதிக்கப்பட்டவர்களிடமிருந்து கோப்புகளை மீட்க பணம் கோரப்படும்"], correct:3}
+]},
+{ title:"Chapter 18: மின்னணு தரவு பரிமாற்றம்", questions:[
+ {q:"EDI-ன் விரிவாக்கம்", options:["Electronic Details Information","Electronic Data Information","Electronic Data Interchange","Electronic Details Interchange"], correct:2},
+ {q:"பின்வருவனவற்றில் மின்னணு தரவு பரிமாற்றத்திற்கு (EDI) சர்வதேச அளவில் அங்கீகரிக்கப்பட்ட நிலையான வடிவமைப்பு எது?", options:["TSLFACT","SETFACT","FTPFACT","EDIFACT"], correct:3},
+ {q:"முதல் தொழில்துறைக்கான EDI தரநிலை எது?", options:["TDCC","VISA","Master","ANSI"], correct:0},
+ {q:"பின்வருவனவற்றுள் எது EDI தரவு பரிமாற்ற வகை ஆகும்?", options:["நேரடி EDI","மறைமுக EDI","கூட்டு EDI","தனித்துவ EDI"], correct:0},
+ {q:"EDI ன் தந்தை என்று அழைக்கப்படுபவர் யார்?", options:["சார்லஸ் பாபேஜ்","எட் கில்பர்ட்","பாஸ்கல்","மேற்கூறிய எவரும் இல்லை"], correct:1}
+]}
+];
+
+/* ============================================================
+   STATE
+   ============================================================ */
+let state = {
+  studentName: "",
+  startChapter: 1,
+  endChapter: 5,
+  numChapters: 5,
+  quizStartTime: null,
+  quizEndTime: null,
+  currentChapterIdx: 0,
+  currentQIdx: 0,
+  currentChapterQuestions: [],
+  currentChapterStartTime: null,
+  currentQuestionStartTime: null,
+  selectedOptionIdx: null,
+  chapterResults: [],   // {chapterNumber, title, correct, total, timeMs, passed}
+  totalAttempted: 0,
+  totalCorrect: 0,
+  stoppedAtChapter: null,
+  stoppedEarly: false,
+  submitted: false
+};
+
+/* ============================================================
+   INIT
+   ============================================================ */
+const fromChapterSelect = document.getElementById('fromChapter');
+const toChapterSelect = document.getElementById('toChapter');
+
+function populateChapterDropdown(selectEl, defaultVal){
+  selectEl.innerHTML = '';
+  for(let i=1;i<=chapters.length;i++){
+    const opt = document.createElement('option');
+    opt.value = i;
+    opt.textContent = "Chapter " + i + " — " + chapters[i-1].title.replace(/^Chapter \d+:\s*/, '');
+    if(i === defaultVal) opt.selected = true;
+    selectEl.appendChild(opt);
+  }
+}
+populateChapterDropdown(fromChapterSelect, 1);
+populateChapterDropdown(toChapterSelect, 5);
+
+// Keep "To" always >= "From": when From changes, bump To up if needed
+fromChapterSelect.addEventListener('change', () => {
+  const f = parseInt(fromChapterSelect.value, 10);
+  const t = parseInt(toChapterSelect.value, 10);
+  if(t < f){
+    toChapterSelect.value = f;
+  }
+});
+toChapterSelect.addEventListener('change', () => {
+  const f = parseInt(fromChapterSelect.value, 10);
+  const t = parseInt(toChapterSelect.value, 10);
+  if(t < f){
+    fromChapterSelect.value = t;
+  }
+});
+
+const setupScreen = document.getElementById('setupScreen');
+const quizScreen = document.getElementById('quizScreen');
+const resultScreen = document.getElementById('resultScreen');
+const topbarBadge = document.getElementById('topbarBadge');
+
+document.getElementById('startBtn').addEventListener('click', startAssessment);
+document.getElementById('nextBtn').addEventListener('click', handleNext);
+document.getElementById('restartBtn').addEventListener('click', () => location.reload());
+
+function shuffleArray(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+
+function startAssessment(){
+  const name = document.getElementById('studentName').value.trim();
+  if(!name){
+    alert("Please enter your name to begin.");
+    return;
+  }
+  const fromCh = parseInt(fromChapterSelect.value, 10);
+  const toCh = parseInt(toChapterSelect.value, 10);
+  if(toCh < fromCh){
+    alert("'To Chapter' must be the same as or after 'From Chapter'.");
+    return;
+  }
+
+  state.studentName = name;
+  state.startChapter = fromCh;
+  state.endChapter = toCh;
+  state.numChapters = (toCh - fromCh) + 1;
+  state.quizStartTime = new Date();
+
+  setupScreen.classList.add('hidden');
+  quizScreen.classList.remove('hidden');
+  topbarBadge.textContent = "In Progress";
+
+  beginChapter(fromCh - 1); // convert to 0-based index
+}
+
+function beginChapter(idx){
+  state.currentChapterIdx = idx;
+  const chapterData = chapters[idx];
+  // shuffle questions, and shuffle options too (keep correct tracking via mapping)
+  const shuffledQs = shuffleArray(chapterData.questions).map(qObj => {
+    // build option order shuffle while tracking correct index
+    const order = shuffleArray(qObj.options.map((opt, i) => ({opt, i})));
+    const newOptions = order.map(o => o.opt);
+    const newCorrect = order.findIndex(o => o.i === qObj.correct);
+    return { q: qObj.q, options: newOptions, correct: newCorrect };
+  });
+
+  state.currentChapterQuestions = shuffledQs;
+  state.currentQIdx = 0;
+  state.currentChapterStartTime = new Date();
+  state.currentChapterHasWrong = false;
+  state.currentChapterCorrectCount = 0;
+
+  renderQuestion();
+}
+
+function renderQuestion(){
+  const chapterData = chapters[state.currentChapterIdx];
+  const qList = state.currentChapterQuestions;
+  const qObj = qList[state.currentQIdx];
+
+  const positionInRange = (state.currentChapterIdx + 1) - state.startChapter + 1;
+  document.getElementById('chapterChip').textContent =
+    "Chapter " + (state.currentChapterIdx + 1) + " (" + positionInRange + " of " + state.numChapters + " selected) — " + chapterData.title.replace(/^Chapter \d+:\s*/, '');
+
+  const qNum = state.currentQIdx + 1;
+  const qTotal = qList.length;
+  document.getElementById('progressLabel').textContent = "Question " + qNum + " of " + qTotal;
+  const pct = Math.round((qNum / qTotal) * 100);
+  document.getElementById('progressPercent').textContent = pct + "%";
+  document.getElementById('progressBarFill').style.width = pct + "%";
+
+  document.getElementById('questionText').textContent = qObj.q;
+
+  const letters = ['A','B','C','D'];
+  const container = document.getElementById('optionsContainer');
+  container.innerHTML = '';
+  qObj.options.forEach((optText, idx) => {
+    const div = document.createElement('div');
+    div.className = 'option';
+    div.dataset.idx = idx;
+    div.innerHTML = '<span class="letter">' + letters[idx] + '</span><span>' + escapeHtml(optText) + '</span>';
+    div.addEventListener('click', () => selectOption(idx));
+    container.appendChild(div);
+  });
+
+  state.selectedOptionIdx = null;
+  document.getElementById('nextBtn').disabled = true;
+  document.getElementById('nextBtn').textContent =
+    (state.currentQIdx === qList.length - 1) ? "Submit Chapter" : "Next";
+
+  state.currentQuestionStartTime = new Date();
+  state.submitted = false;
+
+  document.getElementById('timerNote').textContent =
+    "Chapter " + (state.currentChapterIdx + 1) + " started at " + formatTime(state.currentChapterStartTime) + ". No time limit — answer at your own pace.";
+}
+
+function escapeHtml(str){
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+function selectOption(idx){
+  state.selectedOptionIdx = idx;
+  document.querySelectorAll('.option').forEach(el => {
+    el.classList.toggle('selected', parseInt(el.dataset.idx,10) === idx);
+  });
+  document.getElementById('nextBtn').disabled = false;
+}
+
+function handleNext(){
+  if(state.selectedOptionIdx === null || state.submitted) return;
+  state.submitted = true;
+  document.getElementById('nextBtn').disabled = true;
+
+  const qList = state.currentChapterQuestions;
+  const qObj = qList[state.currentQIdx];
+  const isCorrect = state.selectedOptionIdx === qObj.correct;
+
+  state.totalAttempted++;
+  if(isCorrect){
+    state.totalCorrect++;
+    state.currentChapterCorrectCount++;
+  } else {
+    state.currentChapterHasWrong = true;
+  }
+
+  if(state.currentQIdx < qList.length - 1){
+    state.currentQIdx++;
+    setTimeout(renderQuestion, 150);
+  } else {
+    setTimeout(finishChapter, 150);
+  }
+}
+
+function finishChapter(){
+  const chapterData = chapters[state.currentChapterIdx];
+  const endTime = new Date();
+  const timeMs = endTime - state.currentChapterStartTime;
+  const total = state.currentChapterQuestions.length;
+  const correct = state.currentChapterCorrectCount;
+  const passed = !state.currentChapterHasWrong;
+
+  state.chapterResults.push({
+    chapterNumber: state.currentChapterIdx + 1,
+    title: chapterData.title,
+    correct: correct,
+    total: total,
+    timeMs: timeMs,
+    passed: passed
+  });
+
+  if(!passed){
+    state.stoppedAtChapter = state.currentChapterIdx + 1;
+    state.stoppedEarly = true;
+    finishAssessment();
+    return;
+  }
+
+  const nextIdx = state.currentChapterIdx + 1; // 0-based
+  const nextChapterNumber = nextIdx + 1;        // 1-based
+  if(nextChapterNumber > state.endChapter){
+    state.stoppedEarly = false;
+    finishAssessment();
+  } else {
+    beginChapter(nextIdx);
+  }
+}
+
+function finishAssessment(){
+  state.quizEndTime = new Date();
+  quizScreen.classList.add('hidden');
+  resultScreen.classList.remove('hidden');
+  topbarBadge.textContent = "Completed";
+  renderResults();
+}
+
+function formatTime(d){
+  return d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit', second:'2-digit'});
+}
+function formatDuration(ms){
+  const totalSec = Math.round(ms/1000);
+  const m = Math.floor(totalSec/60);
+  const s = totalSec % 60;
+  return (m>0 ? m + "m " : "") + s + "s";
+}
+
+function renderResults(){
+  const totalTimeMs = state.quizEndTime - state.quizStartTime;
+  const totalQuestionsPossible = state.chapterResults.reduce((s,c)=>s+c.total,0);
+  const totalMarks = state.totalCorrect;
+  const percentage = state.totalAttempted > 0 ? Math.round((state.totalCorrect / state.totalAttempted) * 100) : 0;
+  const chaptersCompleted = state.chapterResults.filter(c=>c.passed).length;
+
+  document.getElementById('resultBigScore').textContent = percentage + "%";
+  document.getElementById('resultStatusLine').textContent = "Assessment Summary for " + state.studentName;
+
+  if(state.stoppedEarly){
+    document.getElementById('resultSubLine').innerHTML =
+      "Assessment stopped at <strong>Chapter " + state.stoppedAtChapter + "</strong> due to an incorrect answer. Chapters beyond this were not attempted.";
+  } else {
+    document.getElementById('resultSubLine').innerHTML =
+      "Congratulations! All <strong>" + state.numChapters + "</strong> selected chapters were completed successfully.";
+  }
+
+  const stats = [
+    {label:"Student Name", value: state.studentName},
+    {label:"Chapters Selected", value: "Chapter " + state.startChapter + " to " + state.endChapter + " (" + state.numChapters + " chapters)"},
+    {label:"Chapters Completed", value: chaptersCompleted + " of " + state.numChapters},
+    {label:"Total Questions Attempted", value: state.totalAttempted},
+    {label:"Total Marks Obtained", value: totalMarks + " / " + state.totalAttempted},
+    {label:"Overall Percentage", value: percentage + "%"},
+    {label:"Quiz Start Time", value: formatTime(state.quizStartTime)},
+    {label:"Quiz Completion Time", value: formatTime(state.quizEndTime)},
+    {label:"Total Quiz Time", value: formatDuration(totalTimeMs)},
+    {label:"Outcome", value: state.stoppedEarly ? ("Stopped at Chapter " + state.stoppedAtChapter) : "All selected chapters completed"}
+  ];
+
+  const statGrid = document.getElementById('statGrid');
+  statGrid.innerHTML = '';
+  stats.forEach(s => {
+    const box = document.createElement('div');
+    box.className = 'stat-box';
+    box.innerHTML = '<div class="label">' + s.label + '</div><div class="value">' + s.value + '</div>';
+    statGrid.appendChild(box);
+  });
+
+  const tbody = document.getElementById('chapterResultsBody');
+  tbody.innerHTML = '';
+  state.chapterResults.forEach(c => {
+    const tr = document.createElement('tr');
+    const statusHtml = c.passed
+      ? '<span class="status-pass">✔ Passed</span>'
+      : '<span class="status-fail">✘ Stopped here</span>';
+    tr.innerHTML =
+      '<td>Ch. ' + c.chapterNumber + '<br><span style="color:var(--muted);font-size:12px;">' + c.title.replace(/^Chapter \d+:\s*/, '') + '</span></td>' +
+      '<td>' + c.correct + ' / ' + c.total + '</td>' +
+      '<td>' + formatDuration(c.timeMs) + '</td>' +
+      '<td>' + statusHtml + '</td>';
+    tbody.appendChild(tr);
+  });
+
+  // Show remaining not-attempted chapters if stopped early
+  if(state.stoppedEarly){
+    for(let i = state.stoppedAtChapter; i < state.endChapter; i++){
+      const tr = document.createElement('tr');
+      tr.style.opacity = '0.55';
+      tr.innerHTML =
+        '<td>Ch. ' + (i+1) + '<br><span style="color:var(--muted);font-size:12px;">' + chapters[i].title.replace(/^Chapter \d+:\s*/, '') + '</span></td>' +
+        '<td>Not attempted</td><td>—</td><td>—</td>';
+      tbody.appendChild(tr);
+    }
+  }
+}
+</script>
+</body>
+</html>
